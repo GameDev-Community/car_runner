@@ -16,8 +16,15 @@ public class CarMovement : MonoBehaviour
         MoveVehicle(true);
     }
 
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(transform.position + Vector3.down * 0.5f, 0.1f);
+    }
+
     void MoveVehicle(bool accelerate)
     {
+        isGrounded = Physics.Raycast(rigidbody.position, transform.up * -1f, 0.5f);
+
         float accelInput = (accelerate ? 1.0f : 0.0f);
 
         // manual acceleration curve coefficient scalar
@@ -50,13 +57,12 @@ public class CarMovement : MonoBehaviour
         rigidbody.velocity = newVelocity;
 
         // normalize angular velocity
-        Vector3 rotation = transform.rotation.eulerAngles;
-        int direction = rotation.x > 0 ? -1 : 1;
-        Debug.Log(rotation);
-        if (Mathf.Abs(rotation.x) > 10f)
+        if (!isGrounded)
         {
+            float angle = Vector3.Angle(Vector3.up, transform.up);
+
             Vector3 currentAngularVelocity = rigidbody.angularVelocity;
-            currentAngularVelocity.x = 200f * direction;
+            currentAngularVelocity.x = 1.2f * angle * Time.fixedDeltaTime;
             rigidbody.angularVelocity = currentAngularVelocity;
         }
     }

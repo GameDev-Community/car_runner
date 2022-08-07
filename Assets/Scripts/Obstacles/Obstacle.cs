@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum DamageType { FlatTires, Impact, LockedWheels }
 public class Obstacle : MonoBehaviour
 {
     [SerializeField] private bool isIndestructible = false;
@@ -10,9 +9,9 @@ public class Obstacle : MonoBehaviour
 
     public DamageType DamageType { get => damageType; }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.collider.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
             Car.Instance.GetDamage(isIndestructible, damageType);
             Destroy(gameObject);

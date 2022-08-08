@@ -8,12 +8,21 @@ public class CarMovement : MonoBehaviour
     [SerializeField] private float maxSpeed;
     [SerializeField] private float acceleration;
     [SerializeField] private bool isGrounded = true;
-    [Range(0.2f, 1)] public float AccelerationCurve;
-    const float k_NullInput = 0.01f;
+    [Range(0.2f, 1)] [SerializeField] private float accelerationCurve = 0.2f;
+    [SerializeField] private float roadBorderX;
+    [SerializeField] private float moveSidewaysSpeed = 200f;
 
-    void FixedUpdate()
+    [Header("Debug options")]
+    [SerializeField] private bool canMoveForward = true;
+    [SerializeField] private bool canMoveSideways = true;
+
+    private void FixedUpdate()
     {
-        MoveVehicle(true);
+        if (canMoveForward)
+            MoveForward();
+        if (canMoveSideways)
+            MoveSideways();
+        Debug.Log(rigidbody.velocity);
     }
 
     private void OnDrawGizmosSelected()
@@ -21,23 +30,20 @@ public class CarMovement : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position + Vector3.down * 0.5f, 0.1f);
     }
 
-    void MoveVehicle(bool accelerate)
+    private void MoveForward()
     {
         isGrounded = Physics.Raycast(rigidbody.position, transform.up * -1f, 0.5f);
-
-        float accelInput = (accelerate ? 1.0f : 0.0f);
 
         // manual acceleration curve coefficient scalar
         float accelerationCurveCoeff = 5;
         float currentSpeed = rigidbody.velocity.magnitude;
         float accelRampT = currentSpeed / maxSpeed;
-        float multipliedAccelerationCurve = AccelerationCurve * accelerationCurveCoeff;
+        float multipliedAccelerationCurve = accelerationCurve * accelerationCurveCoeff;
         float accelRamp = Mathf.Lerp(multipliedAccelerationCurve, 1, accelRampT * accelRampT);
 
         float finalAcceleration = acceleration * accelRamp;
 
-        Vector3 fwd = transform.forward;
-        Vector3 movement = fwd * accelInput * finalAcceleration * (isGrounded ? 1.0f : 0.0f);
+        Vector3 movement = transform.forward * finalAcceleration * (isGrounded ? 1.0f : 0.0f);
 
         // forward movement
         bool wasOverMaxSpeed = currentSpeed >= maxSpeed;
@@ -55,7 +61,6 @@ public class CarMovement : MonoBehaviour
         }
 
         rigidbody.velocity = newVelocity;
-
         // normalize angular velocity
         if (!isGrounded)
         {
@@ -65,5 +70,42 @@ public class CarMovement : MonoBehaviour
             currentAngularVelocity.x = 1.2f * angle * Time.fixedDeltaTime;
             rigidbody.angularVelocity = currentAngularVelocity;
         }
+    }
+
+    private void MoveSideways()
+    {
+        int direction = 0;
+        Vector3 newVelocity = rigidbody.velocity;
+        if (isGrounded)
+        {
+            if (Input.GetKey(KeyCode.A))
+            {
+                direction = -1;
+            }
+            else if (Input.GetKey(KeyCode.D))
+            {
+                direction = 1;
+            }
+        }
+
+        if (transform.position.x < -roadBorderX)
+        {
+            if (!isGrounded || direction == -1)
+            {
+                direction = 0;
+            }
+        }
+        else if (transform.position.x > roadBorderX)
+        {
+            if (!isGrounded || direction == 1)
+            {
+                direction = 0;
+            }
+        }
+        else if (!isGrounded)
+            return;
+
+        newVelocity.x = Mathf.Lerp(newVelocity.x, 8f * direction, Time.fixedDeltaTime * moveSidewaysSpeed);
+        rigidbody.velocity = newVelocity;
     }
 }

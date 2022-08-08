@@ -5,7 +5,7 @@ using Utils;
 
 namespace Game.StatsBehaviours
 {
-    public class RocketsBehaviour : StatBehaviour
+    public class RocketsBehaviour : IntStatBefaviour
     {
         [SerializeField] private RocketMissile[] _rocketsPrefabs;
         [SerializeField] private Transform _rocketsSpawnPoint;
@@ -15,13 +15,12 @@ namespace Game.StatsBehaviours
         [SerializeField] TMPro.TextMeshProUGUI _rocketsTex;
 
 
-        private void Start()
+        protected override void Start()
         {
-            if (Racer.TryGetStatData(StatObject, out var icv)
-                && icv is ClampedInt cint)
-            {
-                cint.OnValueChanged += Cint_OnValueChanged;
-            }
+            base.Start();
+
+            Cint_OnValueChanged(StatData, 0, 0);
+            StatData.OnValueChanged += Cint_OnValueChanged;
         }
 
         private void Update()
@@ -33,6 +32,17 @@ namespace Game.StatsBehaviours
 
         public void LaunchRocket()
         {
+            var racer = Racer;
+
+            if (!racer.TryGetStatData(StatObject, out var sdata))
+            {
+                throw new System.Collections.Generic.KeyNotFoundException(nameof(StatObject));
+            }
+
+            var ci = (ClampedInt)sdata;
+
+            ci.Change(-1);
+
             var l = _rocketsPrefabs.Length;
 
             if (l == 0)

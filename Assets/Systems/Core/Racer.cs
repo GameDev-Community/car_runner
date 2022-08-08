@@ -40,7 +40,8 @@ namespace Game.Core
 
         private void CheckInteractables()
         {
-            var c = Physics.OverlapBoxNonAlloc(transform.position, _c.bounds.extents, _buffer, _c.transform.rotation, _interactablesLM);
+            var c = Physics.OverlapBoxNonAlloc(transform.position, _c.bounds.extents,
+                _buffer, _c.transform.rotation, _interactablesLM);
 
             if (c == 0)
                 return;

@@ -5,6 +5,7 @@ using Utils;
 
 namespace Game.Interactables
 {
+
     [CreateAssetMenu(menuName = "Game/Interactables/Bonuses/Change Stat Data")]
     public class StatBonus : InteractableBase
     {
@@ -20,5 +21,6 @@ namespace Game.Interactables
             }
         }
     }
+
 
 }

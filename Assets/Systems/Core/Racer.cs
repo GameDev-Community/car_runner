@@ -9,7 +9,6 @@ namespace Game.Core
     public class Racer : MonoBehaviour
     {
         // prototype
-        [SerializeField] private LayerMask _interactablesLM;
         [SerializeField] private Collider _c;
 
         private Dictionary<StatObject, IClampedValue> _stats;
@@ -41,7 +40,7 @@ namespace Game.Core
         private void CheckInteractables()
         {
             var c = Physics.OverlapBoxNonAlloc(transform.position, _c.bounds.extents,
-                _buffer, _c.transform.rotation, _interactablesLM);
+                _buffer, _c.transform.rotation, Accessors.InteractablesLM);
 
             if (c == 0)
                 return;

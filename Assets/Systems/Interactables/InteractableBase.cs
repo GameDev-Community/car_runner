@@ -31,4 +31,6 @@ namespace Game.Interactables
         protected abstract void HandleInteraction(Racer interactor);
     }
 
+
+
 }

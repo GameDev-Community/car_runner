@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Game.Core
+namespace Game.Stats
 {
     [System.Serializable]
     public class StatModifier

@@ -1,18 +1,21 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(Collider))]
-public class RandomTeleporter : MonoBehaviour
+namespace Utils
 {
-    [SerializeField] private Transform[] _destinations;
-
-
-    private void OnTriggerEnter(Collider other)
+    [RequireComponent(typeof(Collider))]
+    public class RandomTeleporter : MonoBehaviour
     {
-        var t = other.gameObject.GetComponentInParent<Teleportable>();
-        if (t != null)
+        [SerializeField] private Transform[] _destinations;
+
+
+        private void OnTriggerEnter(Collider other)
         {
-            var d = _destinations[UnityEngine.Random.Range(0, _destinations.Length)];
-            t.TeleportTo(d);
+            var t = other.gameObject.GetComponentInParent<Teleportable>();
+            if (t != null)
+            {
+                var d = _destinations[Random.Range(0, _destinations.Length)];
+                t.TeleportTo(d);
+            }
         }
     }
 }

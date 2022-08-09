@@ -1,8 +1,9 @@
-﻿using Game.Stats;
+﻿using Game.Core;
+using Game.Stats;
 using UnityEngine;
 using Utils;
 
-namespace Game.Core
+namespace Game.StatsBehaviours
 {
     public class SpeedBehaviour : MonoBehaviour
     {

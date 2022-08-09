@@ -1,15 +1,18 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Collider))]
-public class Teleporter : MonoBehaviour
+namespace Utils
 {
-    [SerializeField] private Transform _destination;
-
-
-    private void OnTriggerEnter(Collider other)
+    [RequireComponent(typeof(Collider))]
+    public class Teleporter : MonoBehaviour
     {
-        var t = other.gameObject.GetComponentInParent<Teleportable>();
-        if (t != null)
-            t.TeleportTo(_destination);
+        [SerializeField] private Transform _destination;
+
+
+        private void OnTriggerEnter(Collider other)
+        {
+            var t = other.gameObject.GetComponentInParent<Teleportable>();
+            if (t != null)
+                t.TeleportTo(_destination);
+        }
     }
 }

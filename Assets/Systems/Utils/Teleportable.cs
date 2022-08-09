@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
 
-public class Teleportable : MonoBehaviour
+namespace Utils
 {
-    [SerializeField] private Transform _transformToTeleport;
-
-
-    public void TeleportTo(Transform dest)
+    public class Teleportable : MonoBehaviour
     {
-        _transformToTeleport.SetPositionAndRotation(dest.position, dest.rotation);
+        [SerializeField] private Transform _transformToTeleport;
+
+
+        public void TeleportTo(Transform dest)
+        {
+            _transformToTeleport.SetPositionAndRotation(dest.position, dest.rotation);
+        }
     }
 }

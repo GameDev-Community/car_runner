@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Game.Core
+namespace Utils
 {
     public class Speedometer : MonoBehaviour
     {

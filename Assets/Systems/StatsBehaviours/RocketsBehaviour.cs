@@ -7,6 +7,7 @@ namespace Game.StatsBehaviours
 {
     public class RocketsBehaviour : IntStatBefaviour
     {
+        [SerializeField] private Core.CarController2 _controller;
         [SerializeField] private RocketMissile[] _rocketsPrefabs;
         [SerializeField] private Transform _rocketsSpawnPoint;
         //?
@@ -41,6 +42,11 @@ namespace Game.StatsBehaviours
 
             var ci = (ClampedInt)sdata;
 
+            if (!ci.CanChange(-1))
+            {
+                return;
+            }
+
             ci.Change(-1);
 
             var l = _rocketsPrefabs.Length;
@@ -57,6 +63,8 @@ namespace Game.StatsBehaviours
 
             var tr = Racer.transform;
             r.Init(tr.position + tr.forward * 10);
+            r.Speed += _controller.CurSpeed;
+
         }
 
         private void Cint_OnValueChanged(ClampedInt se, int dd, int sd)

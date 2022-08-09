@@ -59,6 +59,21 @@
         }
 
 
+
+        public bool CanChange(int delta)
+        {
+            var sd = TryChange(delta, out var rmin, out var rmax);
+
+            if (delta > 0)
+            {
+                return sd >= delta;
+            }
+            else
+            {
+                return sd <= delta;
+            }
+        }
+
         /// <param name="desiredDelta">can be negative</param>
         /// <returns>available delta</returns>
         public int TryChange(int delta, out bool reachedMin, out bool reachedMax)

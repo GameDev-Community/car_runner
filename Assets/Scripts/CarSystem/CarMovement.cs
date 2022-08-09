@@ -41,7 +41,8 @@ public class CarMovement : MonoBehaviour
     {
         isGrounded = Physics.Raycast(rigidbody.position, transform.up * -1f, 0.5f);
 
-        float accel = _racer_prtp.ProcessSpeed(acceleration);
+        //float accel = _racer_prtp.ProcessStatValue(acceleration);
+        float accel = acceleration;
         Vector3 movement = transform.forward * accel * (isGrounded ? 1.0f : 0.0f);
 
         // forward movement

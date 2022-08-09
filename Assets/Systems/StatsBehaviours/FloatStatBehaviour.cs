@@ -40,6 +40,8 @@ namespace Game.StatsBehaviours
             cf.OnMinValueReached += HandleCfOnMinValueReached;
             cf.OnMaxValueReached += HandleCfOnMaxValueReached;
             _statData = cf;
+
+            HandleCfValueChanged(cf, 0, 0);
         }
 
 

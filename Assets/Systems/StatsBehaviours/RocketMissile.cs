@@ -16,6 +16,9 @@ namespace Game.StatsBehaviours
         private float _impactDistSqr;
 
 
+        public float Speed { get => _speed; set => _speed = value; }
+
+
         private void Awake()
         {
             _impactDistSqr = _impactDist * _impactDist;

@@ -7,7 +7,7 @@ namespace Game.Interactables
     {
         [SerializeField] private Racer _racer;
         [SerializeField] private bool _add;
-        [SerializeField] private SpeedModifier[] _modifiers;
+        [SerializeField] private StatModifierCreator[] _modifiers;
         [SerializeField] private float _time;
 
         private bool _started;
@@ -23,7 +23,7 @@ namespace Game.Interactables
         }
 
 
-        public void Init(Racer racer, bool add, float time, params SpeedModifier[] modifiers)
+        public void Init(Racer racer, bool add, float time, params StatModifierCreator[] modifiers)
         {
             _started = true;
             _racer = racer;
@@ -40,9 +40,9 @@ namespace Game.Interactables
                 foreach (var m in _modifiers)
                 {
                     if (_add)
-                        _racer.AddSpeedModifier(m);
+                        _racer.AddStatModifier(m.StatObject, m.Modifier);
                     else
-                        _racer.RemoveSpeedModifier(m);
+                        _racer.RemoveStatModifier(m.StatObject, m.Modifier);
                 }
 
                 Destroy(gameObject);

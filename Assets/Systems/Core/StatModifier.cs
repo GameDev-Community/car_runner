@@ -3,16 +3,13 @@
 namespace Game.Core
 {
     [System.Serializable]
-    public class SpeedModifier
+    public class StatModifier
     {
-        //todo: turn Speed into a Stat and reimplement SpeedModifier
-        //as StatModifier
-
         [SerializeField] private float _value;
         [SerializeField] private bool _flat;
 
 
-        public SpeedModifier(float v, bool flat)
+        public StatModifier(float v, bool flat)
         {
             _value = v;
             _flat = flat;

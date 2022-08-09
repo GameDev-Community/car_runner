@@ -15,13 +15,15 @@ MonoBehaviour:
   _goodnessValue: -0.384
   _prefab: {fileID: 6180690251325994837, guid: ed2f757a68ab57a45b60b768916c2f98, type: 3}
   _creators:
-  - Modifier:
-      _value: -2
-      _flat: 1
+  - StatObject: {fileID: 11400000, guid: be28bc3ec74f8744db1272a4c6f63578, type: 2}
+    Modifier:
+      _value: -0.5
+      _flat: 0
     Temp: 1
     Duration: 4
-  - Modifier:
-      _value: -0.2
+  - StatObject: {fileID: 11400000, guid: be28bc3ec74f8744db1272a4c6f63578, type: 2}
+    Modifier:
+      _value: -1
       _flat: 0
     Temp: 1
     Duration: 6

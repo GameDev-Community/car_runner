@@ -8,11 +8,12 @@ namespace Game.StatsBehaviours
 {
     public class NitroBehaviour : FloatStatBehaviour
     {
+        [SerializeField] private Stats.StatObject _accelerationStat;
         [SerializeField] private UnityEvent _onNitroStarted;
         [SerializeField] private UnityEvent _onNitroEnded;
 
 
-        [SerializeField] private SpeedModifier _speedModifier;
+        [SerializeField] private StatModifier _speedModifier;
         //prototype
         [SerializeField] private float _nitroCostPerSecond = 10f;
 
@@ -50,7 +51,7 @@ namespace Game.StatsBehaviours
             }
 
             _nitroActive = true;
-            Racer.AddSpeedModifier(_speedModifier);
+            Racer.AddStatModifier(_accelerationStat, _speedModifier);
             _onNitroStarted?.Invoke();
         }
 
@@ -67,7 +68,7 @@ namespace Game.StatsBehaviours
             }
 
             _nitroActive = false;
-            Racer.RemoveSpeedModifier(_speedModifier);
+            Racer.RemoveStatModifier(_accelerationStat, _speedModifier);
             _onNitroEnded?.Invoke();
         }
 

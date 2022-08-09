@@ -1,4 +1,5 @@
 ﻿using Game.Core;
+using Game.Stats;
 using UnityEngine;
 
 namespace Game.Interactables
@@ -9,9 +10,16 @@ namespace Game.Interactables
         [System.Serializable]
         private struct Creator
         {
-            public SpeedModifier Modifier;
+            public StatObject StatObject;
+            public StatModifier Modifier;
             public bool Temp;
             public float Duration;
+
+
+            public static explicit operator StatModifierCreator(Creator x)
+            {
+                return new StatModifierCreator(x.StatObject, x.Modifier);
+            }
         }
 
 
@@ -22,12 +30,12 @@ namespace Game.Interactables
         {
             foreach (var c in _creators)
             {
-                interactor.AddSpeedModifier(c.Modifier);
+                interactor.AddStatModifier(c.StatObject, c.Modifier);
 
                 if (c.Temp)
                 {
                     var x = Instantiate(Accessors.DelayedModifierChangerPrefab, interactor.transform);
-                    x.Init(interactor, true, c.Duration, c.Modifier);
+                    x.Init(interactor, false, c.Duration, (StatModifierCreator)c);
                 }
             }
         }

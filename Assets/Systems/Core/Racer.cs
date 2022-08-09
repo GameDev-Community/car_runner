@@ -8,13 +8,25 @@ namespace Game.Core
 {
     public class Racer : MonoBehaviour
     {
+        private class Optimizer
+        {
+            public List<StatModifier> Modifiers;
+            public Vector2 Sum;
+
+
+            public Optimizer(List<StatModifier> modifiers, Vector2 sum)
+            {
+                this.Modifiers = modifiers;
+                this.Sum = sum;
+            }
+        }
+
+
         // prototype
         [SerializeField] private Collider _c;
 
         private Dictionary<StatObject, IClampedValue> _stats;
-        private List<SpeedModifier> _speedModifiers;
-
-        private Vector2 _speedModifiersSums;
+        private Dictionary<StatObject, Optimizer> _modifiers;
         private Collider[] _buffer;
 
 
@@ -57,16 +69,25 @@ namespace Game.Core
            => _stats.TryGetValue(sobj, out v);
 
 
-        public void AddSpeedModifier(SpeedModifier m)
+        public void AddStatModifier(StatObject statObj, StatModifier m)
         {
-            _speedModifiers.Add(m);
-            RecalculateSpeedModifiers();
+            if (!_modifiers.TryGetValue(statObj, out var v))
+            {
+                v = new(new List<StatModifier>(), new Vector2(0, 1));
+                _modifiers.Add(statObj, v);
+            }
+
+            v.Modifiers.Add(m);
+            RecalculateModifiers(statObj);
         }
 
-        public void RemoveSpeedModifier(SpeedModifier m)
+        public void RemoveStatModifier(StatObject statObj, StatModifier m)
         {
-            if (_speedModifiers.Remove(m))
-                RecalculateSpeedModifiers();
+            if (_modifiers.TryGetValue(statObj, out var v))
+            {
+                if (v.Modifiers.Remove(m))
+                    RecalculateModifiers(statObj);
+            }
         }
 
 
@@ -78,16 +99,19 @@ namespace Game.Core
 
             //
 
-            _speedModifiers = new();
-            RecalculateSpeedModifiers();
+            _modifiers = new();
+            //RecalculateModifiers();
         }
 
-        private void RecalculateSpeedModifiers()
+        private void RecalculateModifiers(StatObject statObj)
         {
             float flat = 0;
             float mult = 1;
 
-            foreach (var m in _speedModifiers)
+            var v = _modifiers[statObj];
+            var modifiers = v.Modifiers;
+
+            foreach (var m in modifiers)
             {
                 if (m.Flat)
                     flat += m.Value;
@@ -95,7 +119,7 @@ namespace Game.Core
                     mult += m.Value;
             }
 
-            _speedModifiersSums = new Vector2(flat, mult);
+            v.Sum = new Vector2(flat, mult);
         }
 
 
@@ -103,16 +127,14 @@ namespace Game.Core
         /// speed of velocity or any other shift
         /// </summary>
         /// <returns></returns>
-        public float ProcessSpeed(float dirty)
+        public float ProcessStatValue(StatObject staObject, float dirty)
         {
-            var sms = _speedModifiersSums;
-            return (dirty + sms.x) * sms.y;
+            if (!_modifiers.TryGetValue(staObject, out var v))
+                return dirty;
+
+            var sum = v.Sum;
+            return (dirty + sum.x) * sum.y;
         }
 
-        public Vector3 ProcessVelocity(Vector3 dirty)
-        {
-            var sms = _speedModifiersSums;
-            return (dirty + Vector3.one * sms.x) * sms.y;
-        }
     }
 }

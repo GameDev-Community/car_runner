@@ -13,7 +13,6 @@ public class Obstacle : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Car.Instance.GetDamage(isIndestructible, damageType);
             Destroy(gameObject);
         }
     }

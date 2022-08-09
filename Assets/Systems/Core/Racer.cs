@@ -51,8 +51,8 @@ namespace Game.Core
 
         private void CheckInteractables()
         {
-            var c = Physics.OverlapBoxNonAlloc(transform.position, _c.bounds.extents,
-                _buffer, _c.transform.rotation, Accessors.InteractablesLM);
+            var c = Physics.OverlapBoxNonAlloc(_c.bounds.center, _c.bounds.extents,
+                _buffer, Quaternion.identity, Accessors.InteractablesLM);
 
             if (c == 0)
                 return;
@@ -63,6 +63,11 @@ namespace Game.Core
                 if (col.TryGetComponent<Interactables.InteractableItem>(out var ii))
                     ii.Interact(this);
             }
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawCube(_c.bounds.center, _c.bounds.size);
         }
 
         public bool TryGetStatData(StatObject sobj, out IClampedValue v)

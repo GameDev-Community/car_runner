@@ -15,6 +15,9 @@ namespace Game.Interactables
         private InteractableBase _source;
 
 
+        public Collider Collider => _collider;
+
+
         public void Init(InteractableBase source)
         {
             _source = source;

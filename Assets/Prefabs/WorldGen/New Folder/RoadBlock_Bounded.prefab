@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 96985044272309887}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.366, y: 0, z: 4.994}
+  m_LocalPosition: {x: 2.38, y: 0, z: 4.79}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -55,7 +55,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 96985044354528886}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.48, y: 0, z: -4.95}
+  m_LocalPosition: {x: -2.42, y: 0, z: -4.81}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -159,12 +159,16 @@ MonoBehaviour:
   _cornerA: {fileID: 96985044354528881}
   _cornerB: {fileID: 96985044272309886}
   _centerOverride: {fileID: 96985044851026774}
-  _square: 48.18862
-  _lenX: 4.8459997
-  _lenZ: 9.944
+  _square: 46.08
+  _lenX: 4.8
+  _lenZ: 9.6
   _enableGizmos: 1
   _onlySelected: 0
   _gizmosColor: {r: 1, g: 0, b: 0, a: 1}
+  _minCorner: {x: -2.42, y: 0.2, z: -4.81}
+  _maxCorner: {x: 2.38, y: 0.2, z: 4.79}
+  _pivotFromBoundsOffsetX: {x: -2.42, y: 2.38}
+  _pivotFromBoundsOffsetY: {x: -4.81, y: 4.79}
 --- !u!1001 &1434297101985823
 PrefabInstance:
   m_ObjectHideFlags: 0

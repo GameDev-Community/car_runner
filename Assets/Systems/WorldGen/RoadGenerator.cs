@@ -107,9 +107,10 @@ namespace Systems.WorldGen
             var blockTr = block.transform;
 
             float y = _roadBlock.SquareBounds.LocalPivot.y;
-            GenerateItems<ItemWithChance<SquareBoundedItemDefault>,
-            SquareBoundedItemDefault>(content, blockTr, y,
-            _miscsAmount, _miscs, _miscsMap, _miscsRandom, true);
+
+            //GenerateItems<ItemWithChance<SquareBoundedItemDefault>,
+            //SquareBoundedItemDefault>(content, blockTr, y,
+            //_miscsAmount, _miscs, _miscsMap, _miscsRandom, true);
 
             GenerateItems<ItemWithChance<SquareBoundedInteractableItem>,
             SquareBoundedInteractableItem>(content, blockTr, y,
@@ -124,6 +125,7 @@ namespace Systems.WorldGen
                 RemoveLastChunk();
         }
 
+        static int _id = 0;
         [Obsolete("ПРоверка коллизий не работает")]
         private void GenerateItems<T, T1>(List<GameObject> content, Transform blockTr, float y,
             Vector2 itemsAmountRange, T[] itemsArr, int[] itemsRandomMap, System.Random r, bool randomRot)
@@ -132,19 +134,24 @@ namespace Systems.WorldGen
         {
             using var pooledItem = ListPool<Vector4>.Get(out var itemsBounds);
             int itemsAmount = r.Next((int)itemsAmountRange.x, (int)itemsAmountRange.y);
+
+            //itemsAmount = 1; // debug
+
             int randomMapLen = itemsRandomMap.Length;
-            for (int i = 0; i < itemsAmount; i++)
+            int i = -1;
+            O4ko:
+            for (; ++i < itemsAmount;)
             {
                 int itemIndex = itemsRandomMap[r.Next(0, randomMapLen)];
                 var item = itemsArr[itemIndex].Item;
                 var bounds = item.SquareBounds;
 
                 var rangeX = _roadXRange;
-                rangeX.x += bounds.PivotFromBoundsOffsetX.x;
+                rangeX.x -= bounds.PivotFromBoundsOffsetX.x;
                 rangeX.y -= bounds.PivotFromBoundsOffsetX.y;
 
                 var rangeZ = _roadZRange;
-                rangeZ.x += bounds.PivotFromBoundsOffsetY.x;
+                rangeZ.x -= bounds.PivotFromBoundsOffsetY.x;
                 rangeZ.y -= bounds.PivotFromBoundsOffsetY.y;
 
                 Vector2 pos;
@@ -154,19 +161,26 @@ namespace Systems.WorldGen
                 bounds.GetCornersAtPosition_Vector2(pos, out var bmin, out var bmax);
                 var newItemBounds = VectorHelpers.MergeVectors(bmin, bmax);
 
+                Debug.Log($"v4: {newItemBounds}");
                 foreach (var otherBounds in itemsBounds)
                 {
-                    if (VectorHelpers.DetectCollision(otherBounds.x, otherBounds.z, newItemBounds.x, newItemBounds.z)
-                     && VectorHelpers.DetectCollision(otherBounds.y, otherBounds.w, newItemBounds.y, newItemBounds.w))
+                    if (VectorHelpers.DetectCollision(newItemBounds.x, newItemBounds.z, otherBounds.x, otherBounds.z)
+                     && VectorHelpers.DetectCollision(newItemBounds.y, newItemBounds.w, otherBounds.y, otherBounds.w))
                     {
                         //collision!
                         UnityEngine.Debug.Log("collision");
-                        continue;
+                        goto O4ko;
                     }
                 }
 
+
                 var inst = item.GetItemInstance(blockTr);
+                inst.gameObject.name = _id++.ToString();
                 inst.transform.localPosition = new Vector3(pos.x, y, pos.y) + bounds.CenterOffset;
+                UnityEngine.Debug.Log($"local: {inst.transform.localPosition}\n" +
+                    $"global: {inst.transform.position}\n" +
+                    $"target: {new Vector3(pos.x, y, pos.y)}, offset: {bounds.CenterOffset}\n" +
+                    $"name: {inst.name}");
 
                 if (randomRot)
                     inst.transform.localRotation = RandomHelpers.RandomIdentityLikeRotation();

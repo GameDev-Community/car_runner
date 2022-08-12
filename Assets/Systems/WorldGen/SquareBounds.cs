@@ -192,18 +192,26 @@ Updated:
             _minCorner = min;
             _maxCorner = max;
 
+            _lenX = max.x - min.x;
+            _lenZ = max.z - min.z;
             Vector2 pivoffsetX;
             Vector2 pivoffsetY;
-            pivoffsetX.x = LocalPivot.x;
-            pivoffsetX.y = LenX - pivoffsetX.x;
 
-            pivoffsetY.x = LocalPivot.y;
-            pivoffsetY.y = LenX - pivoffsetY.x;
+            //pivoffsetX.x = LocalPivot.x;
+            //pivoffsetX.y = LenX - pivoffsetX.x;
+
+            pivoffsetX.x = min.x - LocalPivot.x;
+            pivoffsetX.y = max.x - LocalPivot.x;
+
+            //pivoffsetY.x = LocalPivot.y;
+            //pivoffsetY.y = LenZ - pivoffsetY.x;
+
+            pivoffsetY.x = min.z - LocalPivot.z;
+            pivoffsetY.y = max.z - LocalPivot.z;
 
             _pivotFromBoundsOffsetX = pivoffsetX;
             _pivotFromBoundsOffsetY = pivoffsetY;
-            _lenX = max.x - min.x;
-            _lenZ = max.z - min.z;
+            
             _square = _lenX * _lenZ;
 
 #if UNITY_EDITOR

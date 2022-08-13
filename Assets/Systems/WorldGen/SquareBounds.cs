@@ -30,10 +30,10 @@ namespace Systems.WorldGen
 #endif
         #endregion
 
-       [SerializeField, ReadOnly] private Vector3 _minCorner;
-       [SerializeField, ReadOnly] private Vector3 _maxCorner;
-       [SerializeField, ReadOnly] private Vector2 _pivotFromBoundsOffsetX;
-       [SerializeField, ReadOnly] private Vector2 _pivotFromBoundsOffsetY;
+        [SerializeField, ReadOnly] private Vector3 _minCorner;
+        [SerializeField, ReadOnly] private Vector3 _maxCorner;
+        [SerializeField, ReadOnly] private Vector2 _pivotFromBoundsOffsetX;
+        [SerializeField, ReadOnly] private Vector2 _pivotFromBoundsOffsetY;
 
 
         public float Square => _square;
@@ -211,12 +211,13 @@ Updated:
 
             _pivotFromBoundsOffsetX = pivoffsetX;
             _pivotFromBoundsOffsetY = pivoffsetY;
-            
+
             _square = _lenX * _lenZ;
 
 #if UNITY_EDITOR
             _tmpCornerAPos = ap;
             _tmpCornerBPos = bp;
+            UnityEditor.EditorUtility.SetDirty(this);
 #endif
         }
 

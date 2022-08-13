@@ -72,14 +72,24 @@
         }
 
 
-        public void AddModifier(StatModifier m, int amount, bool recalculate)
+        public bool ContainsModifier(StatModifier m)
         {
-            _modifiersCollection.AddModifier(m, amount, recalculate);
+            return _modifiersCollection.ContainsModifier(m);
         }
 
-        public void RemoveModifier(StatModifier m, int amount, bool recalculate)
+        public bool TryGetModifierAmount(StatModifier m, out int amount)
         {
-            _modifiersCollection.RemoveModifier(m, amount, recalculate);
+            return _modifiersCollection.TryGetAmount(m, out amount);
+        }
+
+        public void AddModifier(StatModifier m, int amount)
+        {
+            _modifiersCollection.AddModifier(m, amount);
+        }
+
+        public void RemoveModifier(StatModifier m, int amount)
+        {
+            _modifiersCollection.RemoveModifier(m, amount);
         }
 
         public void FinishAddingModifiers()
@@ -101,6 +111,11 @@
         public CountingDictionary<StatModifier> GetModifiersDictionary()
         {
             return _modifiersCollection.GetModifiersDictionary();
+        }
+
+        public bool TryRemoveModifier(StatModifier m, int amount)
+        {
+            return _modifiersCollection.TryRemoveModifier(m, amount);
         }
     }
 }

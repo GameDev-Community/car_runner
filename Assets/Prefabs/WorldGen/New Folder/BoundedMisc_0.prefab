@@ -55,7 +55,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3517219025684068488}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.404, y: 0, z: 0.398}
+  m_LocalPosition: {x: 1.405, y: 0, z: 0.375}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -128,16 +128,16 @@ MonoBehaviour:
   _cornerA: {fileID: 3517219025597917318}
   _cornerB: {fileID: 3517219025684068489}
   _centerOverride: {fileID: 3517219026195084705}
-  _square: 1.485289
-  _lenX: 1.873
-  _lenZ: 0.793
+  _square: 1.4429799
+  _lenX: 1.874
+  _lenZ: 0.77
   _enableGizmos: 1
   _onlySelected: 0
   _gizmosColor: {r: 1, g: 0, b: 0, a: 1}
   _minCorner: {x: -0.469, y: 0, z: -0.395}
-  _maxCorner: {x: 1.404, y: 0, z: 0.398}
-  _pivotFromBoundsOffsetX: {x: 1.011, y: 0.862}
-  _pivotFromBoundsOffsetY: {x: 0, y: 1.873}
+  _maxCorner: {x: 1.405, y: 0, z: 0.375}
+  _pivotFromBoundsOffsetX: {x: -1.516, y: 0.35799992}
+  _pivotFromBoundsOffsetY: {x: -0.405, y: 0.365}
 --- !u!1 &3517219026195084704
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,7 +162,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3517219026195084704}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.011, y: 0, z: -0.034}
+  m_LocalPosition: {x: 1.047, y: 0, z: 0.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -167,8 +167,8 @@ MonoBehaviour:
   _gizmosColor: {r: 1, g: 0, b: 0, a: 1}
   _minCorner: {x: -0.471, y: 0, z: -0.641}
   _maxCorner: {x: 0.377, y: 0, z: 0.484}
-  _pivotFromBoundsOffsetX: {x: -0.307, y: 1.155}
-  _pivotFromBoundsOffsetY: {x: 0, y: 0.848}
+  _pivotFromBoundsOffsetX: {x: -0.16399997, y: 0.684}
+  _pivotFromBoundsOffsetY: {x: -0.14799997, y: 0.977}
 --- !u!1001 &5457210830367047730
 PrefabInstance:
   m_ObjectHideFlags: 0

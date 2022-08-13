@@ -19,6 +19,9 @@ namespace DevourDev.Unity.Utils.SimpleStats.Modifiers
         public int Count => _items.Count;
 
 
+        public bool Contains(T key)
+            => _items.ContainsKey(key);
+
         public bool TryAdd(T key, int amount = 1)
         {
 #if DEVOUR_DEBUG || UNITY_EDITOR
@@ -40,7 +43,19 @@ namespace DevourDev.Unity.Utils.SimpleStats.Modifiers
         }
 
 
-        public bool TryGetAmount(T key, out RefInt amount)
+        public bool TryGetAmount(T key, out int amount)
+        {
+            if(_items.TryGetValue(key, out var refAmount))
+            {
+                amount = refAmount.Value;
+                return true;
+            }
+
+            amount = 0;
+            return false;
+        }
+
+        public bool TryGetAmountRef(T key, out RefInt amount)
         {
             return _items.TryGetValue(key, out amount);
         }

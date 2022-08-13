@@ -24,20 +24,49 @@
             return _optimizer.ModifyValue(source);
         }
 
-        public void AddModifier(StatModifier m, int amount, bool recalculate)
-        {
-            _addQueue.TryAdd(m, amount);
 
-            if (recalculate)
-                ProcessAddQueue();
+        public bool ContainsModifier(StatModifier m)
+        {
+            return _modifiers.Contains(m);
         }
 
-        public void RemoveModifier(StatModifier m, int amount, bool recalculate)
+        public bool TryGetAmount(StatModifier m, out int amount)
+        {
+            return _modifiers.TryGetAmount(m, out amount);
+        }
+
+
+        public void AddModifier(StatModifier m, int amount)
+        {
+            _addQueue.TryAdd(m, amount);
+        }
+
+
+        public bool TryRemoveModifier(StatModifier m, int amount)
+        {
+#if DEVOUR_DEBUG || UNITY_EDITOR
+            if (amount < 0)
+                throw new System.Exception($"attempt to remove negative amount: {amount}");
+#endif
+            if (!_modifiers.TryGetAmount(m, out var amt))
+                return false;
+
+            if (amt < amount)
+                return false;
+
+
+            if (!_modifiers.TryRemove(m, amount))
+            {
+                throw new System.ArgumentOutOfRangeException(nameof(amount) + ": " + amount);
+            }
+
+            m.Unmodify(_optimizer, amount);
+            return true;
+        }
+
+        public void RemoveModifier(StatModifier m, int amount)
         {
             _removeQueue.TryAdd(m, amount);
-
-            if (recalculate)
-                ProcessRemoveQueue();
         }
 
 

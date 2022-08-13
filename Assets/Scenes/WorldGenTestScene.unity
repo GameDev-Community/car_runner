@@ -210,7 +210,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _generateBlockMode: 2
+  _generateBlockMode: 0
 --- !u!4 &182139545
 Transform:
   m_ObjectHideFlags: 0

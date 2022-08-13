@@ -72,6 +72,7 @@ namespace Systems.WorldGen
                 Array.Sort(_interactables, (x, y) => x.Item.InteractableObject.GoodnessValue
                 .CompareTo(y.Item.InteractableObject.GoodnessValue));
             }
+
         }
 #endif
 
@@ -95,7 +96,7 @@ namespace Systems.WorldGen
 
 
         #region Async tests
-        float _generateDelta = 0.01f;
+        float _generateDelta = 1f;
         float _timeToGenerateLeft;
 
         private readonly object _genLocker = new();
@@ -304,6 +305,10 @@ LoopStart:
 
                 var inst = item.GetItemInstance(blockTr);
                 //inst.gameObject.name = _id++.ToString();
+                if (!randomRot)
+                {
+
+                }
                 inst.transform.localPosition = new Vector3(pos.x, y, pos.y) + bounds.CenterOffset;
                 //UnityEngine.Debug.Log($"local: {inst.transform.localPosition}\n" +
                 //    $"global: {inst.transform.position}\n" +
@@ -417,7 +422,6 @@ LoopStart:
             }
         }
 
-
         private async Task GenerateItemsAsync<T, T1>(List<GameObject> content, Transform blockTr, float y,
             Vector2 itemsAmountRange, T[] itemsArr, int[] itemsRandomMap, System.Random genR,
             System.Random posR, AnimationCurve genCurve = null, bool randomRot = false)
@@ -496,7 +500,7 @@ LoopStart:
                 //inst.gameObject.name = _id++.ToString();
 
                 //inst.transform.localPosition = new Vector3(pos.x, y, pos.y) + bounds.CenterOffset;
-                inst.transform.localPosition = new Vector3(pos.x, y, pos.y);
+                inst.transform.localPosition = new Vector3(pos.x, y, pos.y) + bounds.CenterOffset;
 
                 //UnityEngine.Debug.Log($"local: {inst.transform.localPosition}\n" +
                 //    $"global: {inst.transform.position}\n" +

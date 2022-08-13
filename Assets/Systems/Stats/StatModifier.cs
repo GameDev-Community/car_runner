@@ -19,4 +19,10 @@ namespace Game.Stats
         public float Value => _value;
         public bool Flat => _flat;
     }
+
+
+    public class ClampedStatData
+    {
+
+    }
 }

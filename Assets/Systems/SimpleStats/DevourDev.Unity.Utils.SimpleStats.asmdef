@@ -1,0 +1,14 @@
+{
+    "name": "DevourDev.Unity.Utils.SimpleStats",
+    "rootNamespace": "DevourDev.Unity.Utils.SimpleStats",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

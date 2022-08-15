@@ -20,15 +20,15 @@ namespace DevourDev.Unity.Utils.SimpleStats
         //экземпляр StatsCollection в качестве отправителя и StatData, содержащая
         //в себе StatObject, поэтому StatObject отдельно не передаётся.
 
-        public event System.Action<StatsCollection, IStatData> OnStatObjectAdded;
-        public event System.Action<StatsCollection, IStatData> OnStatObjectRemoved;
+        public event System.Action<StatsCollection, IModifiableStatData> OnStatObjectAdded;
+        public event System.Action<StatsCollection, IModifiableStatData> OnStatObjectRemoved;
 
         /// <summary>
         /// sender, stat data, dirty delta, safe delta
         /// </summary>
-        public event System.Action<StatsCollection, IStatData, float, float> OnStatValueChanged;
+        public event System.Action<StatsCollection, IModifiableStatData, float, float> OnStatValueChanged;
 
-        private readonly Dictionary<StatObject, IStatData> _stats;
+        private readonly Dictionary<StatObject, IModifiableStatData> _stats;
         private readonly Dictionary<StatObject, CountingDictionary<StatModifier>> _unappliedModifiers;
 
         private readonly HashSet<StatObject> _addQueue;
@@ -45,7 +45,7 @@ namespace DevourDev.Unity.Utils.SimpleStats
         }
 
 
-        public bool TryAddStatObject(StatObject statObject, IStatData statData)
+        public bool TryAddStatObject(StatObject statObject, IModifiableStatData statData)
         {
             if (!_stats.TryAdd(statObject, statData))
                 return false;
@@ -61,6 +61,17 @@ namespace DevourDev.Unity.Utils.SimpleStats
 
             RemoveStatObject(statObject, statData);
             return true;
+        }
+
+
+        public bool ContainsStat(StatObject statObject)
+        {
+            return _stats.ContainsKey(statObject);
+        }
+
+        public bool TryGetStatData(StatObject statObject, out IModifiableStatData statData)
+        {
+            return _stats.TryGetValue(statObject, out statData);
         }
 
         /// <summary>
@@ -210,7 +221,7 @@ namespace DevourDev.Unity.Utils.SimpleStats
         }
 
 
-        private void AddStatObject(StatObject statObject, IStatData statData)
+        private void AddStatObject(StatObject statObject, IModifiableStatData statData)
         {
             if (_unappliedModifiers.TryGetValue(statObject, out var umcd))
             {
@@ -235,7 +246,7 @@ namespace DevourDev.Unity.Utils.SimpleStats
             OnStatObjectAdded?.Invoke(this, statData);
         }
 
-        private void RemoveStatObject(StatObject statObject, IStatData statData)
+        private void RemoveStatObject(StatObject statObject, IModifiableStatData statData)
         {
             //Отписываемся ДО деинициализации, так как слушателям OnStatValueChanged
             //нет смысла реагировать на возможные изменения Стата, который исчезнет
@@ -284,18 +295,18 @@ namespace DevourDev.Unity.Utils.SimpleStats
 
 
         #region subscribtions
-        private void SubscribeToStatData(IStatData statData)
+        private void SubscribeToStatData(IModifiableStatData statData)
         {
             statData.OnValueChanged += HandleStatValueChanged;
         }
 
-        private void UnsubscribeFromStatData(IStatData statData)
+        private void UnsubscribeFromStatData(IModifiableStatData statData)
         {
             statData.OnValueChanged -= HandleStatValueChanged;
         }
 
 
-        private void HandleStatValueChanged(IStatData sender, float dirtyDelta, float safeDelta)
+        private void HandleStatValueChanged(IModifiableStatData sender, float dirtyDelta, float safeDelta)
         {
             OnStatValueChanged?.Invoke(this, sender, dirtyDelta, safeDelta);
         }

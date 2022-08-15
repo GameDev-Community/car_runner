@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Game.Car
 {
 
-    public class CarController : MonoBehaviour
+    public class CarController : MonoBehaviour, ICarController
     {
         private class WheelInfo
         {
@@ -33,6 +33,7 @@ namespace Game.Car
         public struct CarMetrics
         {
             public float DrivingWheelsAvgRpm;
+            public bool AnyWheelGrounded;
         }
 
 
@@ -55,6 +56,7 @@ namespace Game.Car
 
 
         [SerializeField] private Rigidbody _mainRigidbody;
+        [SerializeField] private float _centerOfMassDownOffset = 0.4f;
 
         [Space]
         [Header("Wheels' Colliders")]
@@ -63,6 +65,7 @@ namespace Game.Car
         [Space]
         [SerializeField] private float _motorForce;
         [SerializeField] private float _brakingForce;
+        [SerializeField] private float _maxDrivingWheelsAvgRpm = 600;
 
         [SerializeField] private float _maxSteeringAngle;
 
@@ -77,16 +80,36 @@ namespace Game.Car
         private float _braking;
 
         private WheelInfo[] _allWheelsInfo;
-        private Dictionary<WheelCollider, int> _indexesByCollider;
+        //private Dictionary<WheelCollider, int> _indexesByCollider;
         private WheelInfo[] _drivingWheels;
         private WheelInfo[] _steeringWheels;
 
         private CarMetrics _lastMetrics;
 
 
-        public float HorizontalV => _horizontalV;
-        public float VerticalV => _verticalV;
+        public float HorizontalMoving => _horizontalV;
+        public float VerticalMoving => _verticalV;
         public CarMetrics Metrics => _lastMetrics;
+        public bool Grounded => _lastMetrics.AnyWheelGrounded;
+
+
+        [System.Obsolete("not implemented")]
+        public float MaxSpeed { get; set; }
+        public float Speed
+        {
+            get => _mainRigidbody.velocity.z;
+
+            set
+            {
+                var v = _mainRigidbody.velocity;
+                v.z = value;
+                _mainRigidbody.velocity = v;
+            }
+        }
+
+        [System.Obsolete("not implemented")]
+        public float Acceleration { get; set; }
+
 
 
         private void Awake()
@@ -118,20 +141,24 @@ namespace Game.Car
                 sw[i] = awi[awdic[su[i]]];
 
             _allWheelsInfo = awi;
-            _indexesByCollider = awdic;
+            //_indexesByCollider = awdic;
             _drivingWheels = dw;
             _steeringWheels = sw;
+
+            _mainRigidbody.centerOfMass = Vector3.down * _centerOfMassDownOffset;
         }
+
 
 
 
         private void Update()
         {
+#if ENABLE_LEGACY_INPUT_MANAGER
             SetHorizontalMoveValue(Input.GetAxis("Horizontal"));
             SetVerticalMoveValue(Input.GetAxis("Vertical"));
             SetBrakingValue(Input.GetKey(KeyCode.Space) ? 1 : 0);
             SetVericalMultiplierValue(Input.GetKey(KeyCode.LeftShift) ? 10 : 0);
-
+#endif
         }
 
 
@@ -193,11 +220,15 @@ namespace Game.Car
             var arr = _drivingWheels;
             var c = arr.Length;
 
-            var torque = _verticalV * (1 + _verticalMultiplier) * _motorForce;
+            float torque;
+
+            if (_lastMetrics.DrivingWheelsAvgRpm < _maxDrivingWheelsAvgRpm)
+                torque = _verticalV * (1 + _verticalMultiplier) * _motorForce;
+            else
+                torque = 0;
 
             for (int i = -1; ++i < c;)
                 SetWheelTorque(arr[i], torque);
-
 
             var brakeTorque = _braking * _brakingForce;
 
@@ -262,17 +293,31 @@ namespace Game.Car
             for (int i = -1; ++i < duArrC; i++)
             {
                 WheelCollider item = duArr[i];
-                avgRpm += item.rpm;
+                avgRpm += System.Math.Abs(item.rpm);
             }
 
             avgRpm /= duArrC;
 
+            bool anyWheelGrounded = false;
 
-            if (tmpMetrics.DrivingWheelsAvgRpm != avgRpm)
+            for (int i = -1; ++i < c;)
+            {
+                var info = infosArr[i];
+
+                if (info.LastGroundedState)
+                {
+                    anyWheelGrounded = true;
+                    break;
+                }
+            }
+
+
+            if (tmpMetrics.DrivingWheelsAvgRpm != avgRpm || tmpMetrics.AnyWheelGrounded != anyWheelGrounded)
             {
                 var newMetrics = new CarMetrics
                 {
                     DrivingWheelsAvgRpm = avgRpm,
+                    AnyWheelGrounded = anyWheelGrounded,
                 };
 
                 _lastMetrics = newMetrics;
@@ -283,9 +328,6 @@ namespace Game.Car
 
         private void SetWheelTorque(WheelInfo info, float v)
         {
-            if (info.LastMotorTorque == v)
-                return;
-
             info.WheelCollider.motorTorque = info.LastMotorTorque = v;
 
             //events
@@ -293,9 +335,6 @@ namespace Game.Car
 
         private void SetWheelBrakingTorque(WheelInfo info, float v)
         {
-            if (info.LastBrakeTorque == v)
-                return;
-
             info.WheelCollider.brakeTorque = info.LastBrakeTorque = v;
         }
 
@@ -303,6 +342,16 @@ namespace Game.Car
         {
             //check
             wheelInfo.WheelCollider.steerAngle = angle;
+        }
+
+        public void SetVerticalMoving(float v)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void SetHorizontalMoving(float v)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

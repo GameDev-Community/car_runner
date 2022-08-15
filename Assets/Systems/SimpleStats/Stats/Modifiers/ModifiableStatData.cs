@@ -1,10 +1,24 @@
 ﻿using DevourDev.Base.Collections.Generic;
+using System;
 
 namespace DevourDev.Unity.Utils.SimpleStats.Modifiers
 {
-    public class ModifiableStatData : IStatData
+    //public class StatData : IStatData
+    //{
+    //    public StatObject StatObject => throw new NotImplementedException();
+
+    //    public float Value => throw new NotImplementedException();
+
+    //    public event Action<IModifiableStatData, float, float> OnValueChanged;
+
+    //    public void ChangeValue(float delta)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
+    //}
+    public class ModifiableStatData : /*StatData,*/ IModifiableStatData
     {
-        public event System.Action<IStatData, float, float> OnValueChanged;
+        public event System.Action<IModifiableStatData, float, float> OnValueChanged;
 
         private readonly StatObject _statObject;
         private readonly StatModifiersCollection _modifiersCollection;

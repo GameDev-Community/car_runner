@@ -1,71 +1,75 @@
-﻿namespace Game.StatsBehaviours
+﻿using Game.Core;
+using UnityEngine;
+using UnityEngine.Events;
+
+namespace Game.StatsBehaviours
 {
-    [System.Obsolete("reimplementing for new stats system", true)]
-    public class RocketsBehaviour
+    public class RocketsBehaviour : StatBehaviour
     {
-        //[SerializeField] private Core.CarController2 _controller;
-        //[SerializeField] private RocketMissile[] _rocketsPrefabs;
-        //[SerializeField] private Transform _rocketsSpawnPoint;
-        ////?
-        //[SerializeField] private UnityEvent _onRocketLaunched; //?
+        [SerializeField] private Player _player;
+        [SerializeField] private RocketMissile[] _rocketsPrefabs;
+        [SerializeField] private Transform _rocketsSpawnPoint;
+        //?
+        [SerializeField] private UnityEvent _onRocketLaunched; //?
 
-        //[SerializeField] TMPro.TextMeshProUGUI _rocketsTex;
-
-
-        //protected override void Start()
-        //{
-        //    base.Start();
-
-        //    Cint_OnValueChanged(StatData, 0, 0);
-        //    StatData.OnValueChanged += Cint_OnValueChanged;
-        //}
-
-        //private void Update()
-        //{
-        //    if (Input.GetKeyDown(KeyCode.L))
-        //        LaunchRocket();
-        //}
+        [SerializeField] TMPro.TextMeshProUGUI _rocketsTex;
 
 
-        //public void LaunchRocket()
-        //{
-        //    var racer = Racer;
+        protected override void Start()
+        {
+            base.Start();
 
-        //    if (!racer.TryGetStatData(StatObject, out var sdata))
-        //    {
-        //        throw new System.Collections.Generic.KeyNotFoundException(nameof(StatObject));
-        //    }
+            HandleChangedRocketsValue(StatData, 0, 0);
+            StatData.OnValueChanged += HandleChangedRocketsValue;
+        }
 
-        //    var ci = (ClampedInt)sdata;
+        private void HandleChangedRocketsValue(DevourDev.Unity.Utils.SimpleStats.IModifiableStatData statData, float dirtyDelta, float safeDelta)
+        {
+            _rocketsTex.text = $"{StatObject.StatName}: {Mathf.RoundToInt(statData.Value)}";
+        }
 
-        //    if (!ci.CanChange(-1))
-        //    {
-        //        return;
-        //    }
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.L))
+                LaunchRocket();
+        }
 
-        //    ci.Change(-1);
 
-        //    var l = _rocketsPrefabs.Length;
+        public void LaunchRocket()
+        {
+            var stats = _player.StatsHolder.Stats;
 
-        //    if (l == 0)
-        //    {
-        //        Debug.Log("no rockets prefab");
-        //        return;
-        //    }
+            if (!stats.TryGetStatData(StatObject, out var sdata))
+            {
+                throw new System.Collections.Generic.KeyNotFoundException(nameof(StatObject));
+            }
 
-        //    var ri = UnityEngine.Random.Range(0, l);
-        //    var r = Instantiate(_rocketsPrefabs[ri], _rocketsSpawnPoint.position,
-        //        _rocketsSpawnPoint.rotation, null);
+            var rv = Mathf.RoundToInt(sdata.Value);
 
-        //    var tr = Racer.transform;
-        //    r.Init(tr.position + tr.forward * 10);
-        //    r.Speed += _controller.CurSpeed;
+            if (rv < 1)
+                return;
 
-        //}
+            float endV = rv - 1;
 
-        //private void Cint_OnValueChanged(ClampedInt se, int dd, int sd)
-        //{
-        //    _rocketsTex.text = $"{StatObject.StatName}: {se.Value}";
-        //}
+            sdata.ChangeValue(endV - sdata.Value);
+
+            var l = _rocketsPrefabs.Length;
+
+            if (l == 0)
+            {
+                Debug.Log("no rockets prefab");
+                return;
+            }
+
+            var ri = UnityEngine.Random.Range(0, l);
+            var r = Instantiate(_rocketsPrefabs[ri], _rocketsSpawnPoint.position,
+                _rocketsSpawnPoint.rotation, null);
+
+            var tr = _player.transform;
+            r.Init(tr.position + tr.forward * 10);
+            r.Speed += _player.CarController.Speed;
+
+        }
+
     }
 }

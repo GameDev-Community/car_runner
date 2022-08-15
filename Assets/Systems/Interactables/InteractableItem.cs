@@ -9,8 +9,9 @@ namespace Game.Interactables
         [SerializeField] private Collider _collider;
         [SerializeField] private UnityEvent _onInteract;
         [SerializeField] private UnityEvent<Vector3> _onInteract_Vector3;
+        [SerializeField] private UnityEvent<GameObject> _onInteract_GameObject;
         [Tooltip("negative for no selfdestruction")]
-        [SerializeField] private float _selfDestructionCooldown = -1;
+        [SerializeField] private float _selfDestructionCooldown = 0;
 
         private InteractableBase _source;
 
@@ -23,12 +24,15 @@ namespace Game.Interactables
             _source = source;
         }
 
-        public void Interact(Racer interactor)
+
+        public void Interact(Player player)
         {
             Destroy(_collider);
             _onInteract?.Invoke();
-            _onInteract_Vector3?.Invoke(interactor.transform.position);
-            _source.Interact(interactor);
+            _onInteract_Vector3?.Invoke(player.transform.position);
+            _onInteract_GameObject?.Invoke(player.gameObject);
+            _source.Interact(player);
+
             if (_selfDestructionCooldown >= 0)
                 Destroy(gameObject, _selfDestructionCooldown);
         }

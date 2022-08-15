@@ -1,21 +1,18 @@
-﻿using Game.Core;
-using Game.Stats;
-
-namespace Game.Interactables
+﻿namespace Game.Interactables
 {
-    [System.Serializable]
-    public struct StatModifierCreator
-    {
-        public StatObject StatObject;
-        public StatModifier Modifier;
+    //[System.Serializable]
+    //public struct StatModifierCreator
+    //{
+    //    public StatObject StatObject;
+    //    public StatModifier Modifier;
 
 
-        public StatModifierCreator(StatObject statObject, StatModifier modifier)
-        {
-            StatObject = statObject;
-            Modifier = modifier;
-        }
-    }
+    //    public StatModifierCreator(StatObject statObject, StatModifier modifier)
+    //    {
+    //        StatObject = statObject;
+    //        Modifier = modifier;
+    //    }
+    //}
 
 
 }

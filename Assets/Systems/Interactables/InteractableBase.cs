@@ -1,6 +1,5 @@
 using Game.Core;
 using System;
-using System.Collections;
 using UnityEngine;
 
 namespace Game.Interactables
@@ -19,7 +18,7 @@ namespace Game.Interactables
         public InteractableItem Prefab => _prefab;
 
 
-        public void Interact(Racer interactor)
+        public void Interact(Player interactor)
         {
             //в дальнейшем здесь появятся (мб)
             //обработки по-умолчанию
@@ -28,7 +27,7 @@ namespace Game.Interactables
         }
 
 
-        protected abstract void HandleInteraction(Racer interactor);
+        protected abstract void HandleInteraction(Player interactor);
     }
 
 

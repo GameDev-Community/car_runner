@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Systems.WorldGen
 {
+    [System.Obsolete("reimplementing for new stats system", true)]
     public class SquareBoundedInteractableItem : MonoBehaviour, ISquareBoundedItem
     {
         [SerializeField] private InteractableBase _interactable;
@@ -15,16 +16,20 @@ namespace Systems.WorldGen
 
         public InteractableItem GetItemInstance()
         {
-            var x = GameObject.Instantiate(_interactable.Prefab);
-            x.Init(_interactable);
-            return x;
+            //var x = GameObject.Instantiate(_interactable.Prefab);
+            //x.Init(_interactable);
+            //return x;
+
+            throw new System.NotSupportedException();
         }
 
         public InteractableItem GetItemInstance(Transform parent)
         {
-            var x = GameObject.Instantiate(_interactable.Prefab, parent);
-            x.Init(_interactable);
-            return x;
+            //var x = GameObject.Instantiate(_interactable.Prefab, parent);
+            //x.Init(_interactable);
+            //return x;
+
+            throw new System.NotSupportedException();
         }
 
         Component ISquareBoundedItem.GetItemInstance(Transform parent)

@@ -12,6 +12,8 @@ namespace Game.Interactables
             var x = Instantiate(_interactable.Prefab, transform.position, Quaternion.identity, null);
             x.Init(_interactable);
             Destroy(gameObject);
+
+            throw new System.NotSupportedException();
         }
     }
 

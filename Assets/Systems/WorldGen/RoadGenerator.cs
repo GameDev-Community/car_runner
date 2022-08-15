@@ -10,6 +10,7 @@ using Utils.Attributes;
 
 namespace Systems.WorldGen
 {
+    [System.Obsolete("reimplementing for new stats system", true)]
     public class RoadGenerator : MonoBehaviour
     {
         [System.Serializable]

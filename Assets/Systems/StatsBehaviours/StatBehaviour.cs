@@ -1,15 +1,21 @@
-﻿using Game.Core;
-using Game.Stats;
+﻿using DevourDev.Unity.Utils.SimpleStats;
 using UnityEngine;
+using Utils.Attributes;
 
 namespace Game.StatsBehaviours
 {
-    public abstract class StatBehaviour : MonoBehaviour
+    public class StatBehaviour : MonoBehaviour
     {
-        [SerializeField] private Racer _racer;
-        [SerializeField] private StatObject _statObject;
+        [SerializeField, RequireInterface(typeof(IStatsHolder))] private UnityEngine.Object _statsHolder;
 
-        protected Racer Racer => _racer;
-        protected StatObject StatObject => _statObject;
+
+
+        private void OnValidate()
+        {
+            if (_statsHolder != null)
+            {
+                Debug.Log(_statsHolder.GetType());
+            }
+        }
     }
 }

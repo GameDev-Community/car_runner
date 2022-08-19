@@ -1,357 +1,136 @@
-using System.Collections;
-using System.Collections.Generic;
+ï»¿using System;
 using UnityEngine;
+using Utils;
 
 namespace Game.Core.Car
 {
     public class CarController : MonoBehaviour, ICarController
     {
-        private class WheelInfo
-        {
-            public WheelCollider WheelCollider;
-            public int WheelIndex;
-            public float LastMotorTorque;
-            public float LastBrakeTorque;
-            public Vector3 LastWorldPos;
-            public Quaternion LastWorldRot;
-            public bool LastGroundedState;
+        [SerializeField] private float _sidewaysSpeed = 400f;
+        [SerializeField] private float _roadHalfWidth = 4f;
 
+        [SerializeField] private Speedometer _speedometer;
+        [SerializeField] private Rigidbody _rb;
+        [SerializeField] private WheelCollider[] wheelColliders;
+        [SerializeField] private Vector3 _forceDir = Vector3.forward;
 
-            public WheelInfo(WheelCollider wc, int index)
-            {
-                WheelCollider = wc;
-                WheelIndex = index;
-                LastMotorTorque = default;
-                LastBrakeTorque = default;
-                LastWorldPos = default;
-                LastWorldRot = default;
-                LastGroundedState = default;
-            }
-        }
+        private bool _grounded;
+        private float _verticalMovingV;
+        private float _horizontalMovingV;
 
+        public event Action<CarController, int, Vector3> OnWheelColliderWorldPosChanged;
+        public event Action<CarController, int, Quaternion> OnWheelColliderWorldRotChanged;
+        public event Action<CarController, float> OnTurnChanged;
 
-        public struct CarMetrics
-        {
-            public float DrivingWheelsAvgRpm;
-            public bool AnyWheelGrounded;
-        }
+        public float MaxSpeed { get; set; } = 15f;
+        public float Acceleration { get; set; } = 40f;
 
-
-        /// <summary>
-        /// sender, wheel index, world position
-        /// </summary>
-        public event System.Action<CarController, int, Vector3> OnWheelColliderWorldPosChanged;
-        /// <summary>
-        /// sender, wheel index, world rotation
-        /// </summary>
-        public event System.Action<CarController, int, Quaternion> OnWheelColliderWorldRotChanged;
-        /// <summary>
-        /// sender, wheel index, new grounded state
-        /// </summary>
-        public event System.Action<CarController, int, bool> OnWheelColliderGroundedStateChanged;
-        /// <summary>
-        /// sender, speed (for speedometer)
-        /// </summary>
-        public event System.Action<CarController, CarMetrics> OnMetricsUpdated;
-
-
-        [SerializeField] private Rigidbody _mainRigidbody;
-        [SerializeField] private float _centerOfMassDownOffset = 0.4f;
-
-        [Space]
-        [Header("Wheels' Colliders")]
-        [SerializeField] private WheelCollider[] _allWheelColliders;
-
-        [Space]
-        [SerializeField] private float _motorForce;
-        [SerializeField] private float _brakingForce;
-        [SerializeField] private float _maxDrivingWheelsAvgRpm = 600;
-
-        [SerializeField] private float _maxSteeringAngle;
-
-        [Tooltip("Ïðèâîä")]
-        [SerializeField] private WheelCollider[] _drivingUnits;
-        [Tooltip("Êîë¸ñà, êîòîðûå ïîâîðà÷èâàþòñÿ")]
-        [SerializeField] private WheelCollider[] _steeringUnits;
-
-        private float _horizontalV;
-        private float _verticalV;
-        private float _verticalMultiplier;
-        private float _braking;
-
-        private WheelInfo[] _allWheelsInfo;
-        //private Dictionary<WheelCollider, int> _indexesByCollider;
-        private WheelInfo[] _drivingWheels;
-        private WheelInfo[] _steeringWheels;
-
-        private CarMetrics _lastMetrics;
-
-
-        public float HorizontalMoving => _horizontalV;
-        public float VerticalMoving => _verticalV;
-        public CarMetrics Metrics => _lastMetrics;
-        public bool Grounded => _lastMetrics.AnyWheelGrounded;
-
-
-        [System.Obsolete("not implemented")]
-        public float MaxSpeed { get; set; }
         public float Speed
         {
-            get => _mainRigidbody.velocity.z;
+            get => _rb.velocity.z;
 
             set
             {
-                var v = _mainRigidbody.velocity;
+                var v = _rb.velocity;
                 v.z = value;
-                _mainRigidbody.velocity = v;
+                _rb.velocity = v;
             }
         }
 
-        [System.Obsolete("not implemented")]
-        public float Acceleration { get; set; }
+        public bool Grounded => _grounded;
+        public float VerticalMoving => _verticalMovingV;
+        public float HorizontalMoving => _horizontalMovingV;
 
-
-
-        private void Awake()
+        public void SetHorizontalMoving(float v)
         {
-            var aw = _allWheelColliders;
-            var awc = aw.Length;
-            var awi = new WheelInfo[awc];
-            var awdic = new Dictionary<WheelCollider, int>(awc);
+            float desiredDelta = v * _sidewaysSpeed * Time.fixedDeltaTime;
+            float safeDelta;
 
-            for (int i = -1; ++i < awc;)
+            //desiredDelta = -1
+
+            if (v > 0)
             {
-                var wc = aw[i];
-                awi[i] = new WheelInfo(wc, i);
-                awdic.Add(wc, i);
+                safeDelta = _roadHalfWidth - _rb.position.x;
+                if (desiredDelta < safeDelta)
+                    safeDelta = desiredDelta;
+            }
+            else
+            {
+                safeDelta = -_rb.position.x - _roadHalfWidth;
+                if (desiredDelta > safeDelta)
+                    safeDelta = desiredDelta;
             }
 
-            var du = _drivingUnits;
-            var duc = du.Length;
-            var dw = new WheelInfo[duc];
 
-            for (int i = -1; ++i < duc;)
-                dw[i] = awi[awdic[du[i]]];
-
-            var su = _steeringUnits;
-            var suc = su.Length;
-            var sw = new WheelInfo[suc];
-
-            for (int i = -1; ++i < suc;)
-                sw[i] = awi[awdic[su[i]]];
-
-            _allWheelsInfo = awi;
-            //_indexesByCollider = awdic;
-            _drivingWheels = dw;
-            _steeringWheels = sw;
-
-            _mainRigidbody.centerOfMass = Vector3.down * _centerOfMassDownOffset;
+            //Debug.Log(safeDelta);
+            var p = _rb.position;
+            p.x += safeDelta;
+            _rb.position = p;
         }
 
 
-
-
-        private void Update()
+        public void SetVerticalMoving(float v)
         {
-#if ENABLE_LEGACY_INPUT_MANAGER
-            SetHorizontalMoveValue(Input.GetAxis("Horizontal"));
-            SetVerticalMoveValue(Input.GetAxis("Vertical"));
-            SetBrakingValue(Input.GetKey(KeyCode.Space) ? 1 : 0);
-            SetVericalMultiplierValue(Input.GetKey(KeyCode.LeftShift) ? 10 : 0);
-#endif
+            throw new System.NotSupportedException("Ð² ÑÑ‚Ð¾Ð¼ Ð³Ð¸Ð¿ÐµÑ€ÐºÐ¾Ð·Ð»Ðµ Ð½ÐµÑ‚ Ñ‚Ð°ÐºÐ¾Ð¹ Ð²Ð¾Ð·Ð¼Ð¾Ð¶Ð½Ð¾ÑÑ‚Ð¸");
         }
 
 
         private void FixedUpdate()
         {
-            HandleMotor();
-            HandleSteering();
-            CheckForChanges();
+            float horizontalInput = Input.GetAxis("Horizontal");
+            SetHorizontalMoving(horizontalInput);
+            ForwardMoving();
+            UpdateVisual(horizontalInput);
         }
 
-
-        public WheelCollider GetWheelColliderByIndex(int index)
+        private void ForwardMoving()
         {
-            return _allWheelColliders[index];
-        }
+            _grounded = Physics.Raycast(_rb.position, transform.up * -1f, 2f);
 
+            var rb = _rb;
+            if (_grounded)
+            {
+                var acc = Acceleration;
 
-        /// <param name="horizontal">[-1, 1]</param>
-        public void SetHorizontalMoveValue(float horizontal)
-        {
-            //to prevent redunant events raising
-            if (_horizontalV == horizontal)
-                return;
+                if (acc < 0)
+                    acc = 0;
 
-            _horizontalV = horizontal;
-        }
+                rb.AddForce(acc * _forceDir, ForceMode.Acceleration);
+                var v = _rb.velocity;
 
-        /// <param name="vertical">[-1, 1]</param>
-        public void SetVerticalMoveValue(float vertical)
-        {
-            //to prevent redunant events raising
-            if (_verticalV == vertical)
-                return;
+                if (System.Math.Abs(v.z) > MaxSpeed)
+                {
+                    v.z = MaxSpeed * System.Math.Sign(v.z);
+                    rb.velocity = v;
+                }
 
-            _verticalV = vertical;
-        }
-
-        public void SetVericalMultiplierValue(float verticalMultiplier)
-        {
-            if (_verticalMultiplier == verticalMultiplier)
-                return;
-
-            _verticalMultiplier = verticalMultiplier;
-        }
-
-        /// <param name="braking">[0, 1]</param>
-        public void SetBrakingValue(float braking)
-        {
-            //to prevent redunant events raising
-            if (_braking == braking)
-                return;
-
-            _braking = braking;
-        }
-
-
-        private void HandleMotor()
-        {
-            var arr = _drivingWheels;
-            var c = arr.Length;
-
-            float torque;
-
-            if (_lastMetrics.DrivingWheelsAvgRpm < _maxDrivingWheelsAvgRpm)
-                torque = _verticalV * (1 + _verticalMultiplier) * _motorForce;
+                //_speedometer.SetSpeed(v.z);
+                //_speedometer.SetAcceleration(acc);
+            }
             else
-                torque = 0;
-
-            for (int i = -1; ++i < c;)
-                SetWheelTorque(arr[i], torque);
-
-            var brakeTorque = _braking * _brakingForce;
-
-            for (int i = -1; ++i < c;)
-                SetWheelBrakingTorque(arr[i], brakeTorque);
-
-
-        }
-
-        private void HandleSteering()
-        {
-            if (_horizontalV == 0)
-                return;
-
-            var angle = _maxSteeringAngle * _horizontalV;
-
-            var arr = _steeringWheels;
-            var c = arr.Length;
-
-            for (int i = -1; ++i < c;)
-                SetWheelSteeringAngle(arr[i], angle);
-        }
-
-        private void CheckForChanges()
-        {
-            var colsArr = _allWheelColliders;
-            var infosArr = _allWheelsInfo;
-            var c = infosArr.Length;
-
-            for (int i = -1; ++i < c;)
             {
-                var info = infosArr[i];
-                var col = colsArr[i];
-                col.GetWorldPose(out var pos, out var rot);
+                float angle = transform.rotation.eulerAngles.x;
 
-                if (info.LastWorldPos != pos)
-                {
-                    info.LastWorldPos = pos;
-                    OnWheelColliderWorldPosChanged?.Invoke(this, i, pos);
-                }
+                if (angle > 180)
+                    angle -= 360;
 
-                if (info.LastWorldRot != rot)
-                {
-                    info.LastWorldRot = rot;
-                    OnWheelColliderWorldRotChanged?.Invoke(this, i, rot);
-                }
+                angle = -angle;
 
-                var gstate = col.isGrounded;
-                if (info.LastGroundedState != gstate)
-                {
-                    info.LastGroundedState = gstate;
-                    OnWheelColliderGroundedStateChanged?.Invoke(this, i, gstate);
-                }
-            }
-
-            var tmpMetrics = _lastMetrics;
-
-            float avgRpm = 0;
-            var duArr = _drivingUnits;
-            var duArrC = duArr.Length;
-
-            for (int i = -1; ++i < duArrC; i++)
-            {
-                WheelCollider item = duArr[i];
-                avgRpm += System.Math.Abs(item.rpm);
-            }
-
-            avgRpm /= duArrC;
-
-            bool anyWheelGrounded = false;
-
-            for (int i = -1; ++i < c;)
-            {
-                var info = infosArr[i];
-
-                if (info.LastGroundedState)
-                {
-                    anyWheelGrounded = true;
-                    break;
-                }
-            }
-
-
-            if (tmpMetrics.DrivingWheelsAvgRpm != avgRpm || tmpMetrics.AnyWheelGrounded != anyWheelGrounded)
-            {
-                var newMetrics = new CarMetrics
-                {
-                    DrivingWheelsAvgRpm = avgRpm,
-                    AnyWheelGrounded = anyWheelGrounded,
-                };
-
-                _lastMetrics = newMetrics;
-                OnMetricsUpdated?.Invoke(this, newMetrics);
+                Vector3 currentAngularVelocity = rb.angularVelocity;
+                currentAngularVelocity.x = 1.2f * angle * Time.fixedDeltaTime;
+                rb.angularVelocity = currentAngularVelocity;
             }
         }
 
-
-        private void SetWheelTorque(WheelInfo info, float v)
+        private void UpdateVisual(float horizontalInput)
         {
-            info.WheelCollider.motorTorque = info.LastMotorTorque = v;
-
-            //events
-        }
-
-        private void SetWheelBrakingTorque(WheelInfo info, float v)
-        {
-            info.WheelCollider.brakeTorque = info.LastBrakeTorque = v;
-        }
-
-        private void SetWheelSteeringAngle(WheelInfo wheelInfo, float angle)
-        {
-            //check
-            wheelInfo.WheelCollider.steerAngle = angle;
-        }
-
-        public void SetVerticalMoving(float v)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void SetHorizontalMoving(float v)
-        {
-            throw new System.NotImplementedException();
+            for (int i = 0; i < wheelColliders.Length; i++)
+            {
+                wheelColliders[i].GetWorldPose(out Vector3 position, out Quaternion rotation);
+                //OnWheelColliderWorldPosChanged?.Invoke(this, i, position);
+                OnWheelColliderWorldRotChanged?.Invoke(this, i, rotation);
+            }
+            OnTurnChanged?.Invoke(this, horizontalInput);
         }
     }
 }

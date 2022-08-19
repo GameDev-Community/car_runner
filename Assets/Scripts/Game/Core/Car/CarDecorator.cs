@@ -10,27 +10,23 @@ namespace Game.Core.Car
         [SerializeField] private CarDashboardUi _dashboard;
 
         [Space]
+        [SerializeField] private Transform carMeshTransform;
         [SerializeField] private Transform[] _wheelTransforms;
+        [SerializeField] private Transform[] _steeringWheelTransforms;
 
+        [SerializeField] private float wheelSteerAngle = 35f;
+        [SerializeField] private float carAngle = 5f;
 
         private void Start()
         {
-            var c = _controller;
-            c.OnMetricsUpdated += HandleMetricsUpdated;
-            c.OnWheelColliderGroundedStateChanged += HandleWheelColliderGroundedStateChanged;
-            c.OnWheelColliderWorldPosChanged += HandleWheelColliderWorldPosChanged;
-            c.OnWheelColliderWorldRotChanged += HandleWheelColliderWorldRotChanged;
+            _controller.OnWheelColliderWorldRotChanged += HandleWheelColliderWorldRotChanged;
+            _controller.OnWheelColliderWorldPosChanged += HandleWheelColliderWorldPosChanged;
+            _controller.OnTurnChanged += HandleTurnChanged;
         }
 
-
-        private void HandleMetricsUpdated(CarController arg1, CarController.CarMetrics metrics)
+        private void HandleWheelColliderWorldRotChanged(CarController arg1, int index, Quaternion worldRot)
         {
-            _dashboard.SetAvgRpm(metrics.DrivingWheelsAvgRpm);
-        }
-
-        private void HandleWheelColliderGroundedStateChanged(CarController arg1, int index, bool state)
-        {
-            UnityEngine.Debug.Log($"wheel num {index} {(state ? "ебанулось" : "съебалось")}");
+            _wheelTransforms[index].rotation = worldRot;
         }
 
         private void HandleWheelColliderWorldPosChanged(CarController arg1, int index, Vector3 worldPos)
@@ -38,9 +34,16 @@ namespace Game.Core.Car
             _wheelTransforms[index].position = worldPos;
         }
 
-        private void HandleWheelColliderWorldRotChanged(CarController arg1, int index, Quaternion worldRot)
+        private void HandleTurnChanged(CarController arg1, float turnDirection)
         {
-            _wheelTransforms[index].rotation = worldRot;
+            for (int i = 0; i < _steeringWheelTransforms.Length; i++)
+            {
+                Quaternion currentQuaternion = _steeringWheelTransforms[i].localRotation;
+                Quaternion steeringQuaternion = Quaternion.Euler(Vector3.up * wheelSteerAngle * turnDirection);
+                _steeringWheelTransforms[i].localRotation = steeringQuaternion * currentQuaternion;
+            }
+
+            carMeshTransform.localRotation = Quaternion.Euler(Vector3.up * carAngle * turnDirection);
         }
     }
 }

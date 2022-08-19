@@ -1734,6 +1734,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _statsHolder: {fileID: 0}
+  _statObject: {fileID: 0}
+  _onStatChanged_NewValue:
+    m_PersistentCalls:
+      m_Calls: []
+  _onStatChanged_DirtyDelta:
+    m_PersistentCalls:
+      m_Calls: []
+  _onStatChanged_SafeDelta:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &798008001
 Transform:
   m_ObjectHideFlags: 0
@@ -3039,7 +3049,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: b246c4190f4e46ec9352fe15a7b09ce0, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2100000, guid: b246c4190f4e46ec9352fe15a7b09ce0, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:

@@ -18,8 +18,8 @@ namespace Game.Core.Car
         private float _horizontalMovingV;
 
 
-        public float MaxSpeed { get; set; }
-        public float Acceleration { get; set; }
+        public float MaxSpeed { get; set; } = 15f;
+        public float Acceleration { get; set; } = 100f;
 
         public float Speed
         {
@@ -59,7 +59,7 @@ namespace Game.Core.Car
             }
 
 
-            Debug.Log(safeDelta);
+            //Debug.Log(safeDelta);
             var p = _rb.position;
             p.x += safeDelta;
             _rb.position = p;
@@ -76,7 +76,7 @@ namespace Game.Core.Car
         {
             SetHorizontalMoving(Input.GetAxis("Horizontal"));
 
-            _grounded = Physics.Raycast(_rb.position, transform.up * -1f, 0.5f);
+            _grounded = Physics.Raycast(_rb.position, transform.up * -1f, 2f);
 
             var rb = _rb;
             if (_grounded)
@@ -86,7 +86,7 @@ namespace Game.Core.Car
                 if (acc < 0)
                     acc = 0;
 
-                rb.AddForce(acc * Time.fixedDeltaTime * _forceDir, ForceMode.Acceleration);
+                rb.AddForce(acc * _forceDir, ForceMode.Acceleration);
                 var v = _rb.velocity;
 
                 if (System.Math.Abs(v.z) > MaxSpeed)
@@ -95,8 +95,8 @@ namespace Game.Core.Car
                     rb.velocity = v;
                 }
 
-                _speedometer.SetSpeed(v.z);
-                _speedometer.SetAcceleration(acc);
+                //_speedometer.SetSpeed(v.z);
+                //_speedometer.SetAcceleration(acc);
             }
             else
             {

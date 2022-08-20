@@ -128,7 +128,7 @@ namespace Utils
             switch (_activeCollection)
             {
                 case ActiveCollection.Array:
-                    var index = Array.FindIndex(_itemsArr, (x) => x.Equals(item));
+                    var index = Array.FindIndex(_itemsArr, 0, _arrIndex + 1, (x) => x.Equals(item));
 
                     if (index < 0)
                     {

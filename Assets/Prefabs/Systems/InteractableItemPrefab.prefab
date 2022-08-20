@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2267724577692894278}
   - component: {fileID: 2267724577692894276}
   - component: {fileID: 2267724577692894277}
+  - component: {fileID: 4123642836273402001}
   m_Layer: 20
   m_Name: InteractableItemPrefab
   m_TagString: Untagged
@@ -76,15 +77,8 @@ MonoBehaviour:
   _onInteract_InteractorPosition:
     m_PersistentCalls:
       m_Calls: []
+  _interactableActions: []
   _autodestructionDelay: 0
-  _instantiateOnInteract: []
-  _particleSystemCreators:
-  - _particleSystem: {fileID: 1581322057433326175, guid: 7ebecca841af9564bbfe0e745421c494,
-      type: 3}
-    _material: {fileID: 2100000, guid: c693def6ecd30d94a8d8b5c70d7f7ff2, type: 2}
-    _useMaterialAndChangeTexture: 1
-    _particlesTex: {fileID: 2800000, guid: 03942758ca62cb64a82aa94c8d7cd2db, type: 3}
-    _transparent: 0
 --- !u!114 &2267724577692894277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103,6 +97,23 @@ MonoBehaviour:
   _rotSpeed: 50
   _rotAxis: {x: 0, y: 1, z: 0}
   _nonSynchronyzed: 0
+--- !u!114 &4123642836273402001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2267724577692894273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8591e34377f964144bcf82d5c304e55d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _changeDynamicFloats:
+  - _statObject: {fileID: 11400000, guid: 4c01e2e9c13853c4c92ad660f1c9d6a1, type: 2}
+    _value: 5
+    _setValue: 1
+  _changeDynamicIntegers: []
 --- !u!1 &6329503434885193577
 GameObject:
   m_ObjectHideFlags: 0

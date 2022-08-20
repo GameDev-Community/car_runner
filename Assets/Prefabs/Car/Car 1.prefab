@@ -790,6 +790,7 @@ GameObject:
   - component: {fileID: 7960713514110774792}
   - component: {fileID: 916679395609690752}
   - component: {fileID: 930833799}
+  - component: {fileID: 2660513046140204875}
   m_Layer: 0
   m_Name: Car 1
   m_TagString: Untagged
@@ -903,6 +904,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c537828258770f43862a9a7c913c808, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _allStatsText: {fileID: 0}
   _carController_raw: {fileID: 7960713514110774790}
   _statsHolder_raw: {fileID: 930833799}
 --- !u!114 &916679395609690752
@@ -943,6 +945,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _initialStats: []
+--- !u!114 &2660513046140204875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7960713514110774795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 942d0d8c3f1fa2a4b980bea1eed5aaca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _statsHolder_raw: {fileID: 930833799}
+  _carController_raw: {fileID: 7960713514110774790}
+  _speedStatDataCreator:
+    _statObject: {fileID: 11400000, guid: 4c01e2e9c13853c4c92ad660f1c9d6a1, type: 2}
+    _maxSource: 1
+    _initialModifiers: []
+    _initialRatio: 0
+    _saveRatio: 0
+    _clamp: 1
+    _clamping: {x: 0, y: 15}
+  _accelerationStatDataCreator:
+    _statObject: {fileID: 11400000, guid: e7dcb17c829401348a86ac5b07d5f45a, type: 2}
+    _modifyingSourceValue: 40
+    _initialModifiers: []
+    _clamp: 1
+    _clamping: {x: 0, y: 1000}
 --- !u!1 &7960713514369633192
 GameObject:
   m_ObjectHideFlags: 0

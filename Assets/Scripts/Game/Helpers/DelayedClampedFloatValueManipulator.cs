@@ -5,11 +5,9 @@ using Utils.Attributes;
 
 namespace Game.Interactables
 {
-
-
-    public class DelayedModifierApplier : MonoBehaviour
+    public class DelayedClampedFloatValueManipulator : MonoBehaviour
     {
-        [SerializeField, NonReorderable] private StatModifierCreator[] _modifiersCreator;
+        [SerializeField, NonReorderable] private DynamicStatValueChanger<float>[] _changers;
         [SerializeField, RequireInterface(typeof(IStatsHolder))] private UnityEngine.Object _statsHolder_raw;
         [SerializeField] private bool _apply;
         [SerializeField] private float _delay;
@@ -30,13 +28,13 @@ namespace Game.Interactables
             InitInternal();
         }
 
-        public void Init(StatModifierCreator[] modifiersCreators, bool apply, float delay, StatsCollection statsColl, System.Action callback = null)
+        public void Init(DynamicStatValueChanger<float>[] changers, bool apply, float delay, StatsCollection statsColl, System.Action callback = null)
         {
             if (_inited)
                 return;
 
 
-            _modifiersCreator = modifiersCreators;
+            _changers = changers;
             _apply = apply;
             _delay = delay;
             _statsCollection = statsColl;
@@ -73,14 +71,18 @@ namespace Game.Interactables
 
         private void Apply()
         {
-            ModifiersHelpers.ApplyModifiers(_modifiersCreator, _statsCollection);
+            foreach (var item in _changers)
+            {
+                item.Apply(_statsCollection, !_apply);
+            }
         }
 
         private void Disapply()
         {
-            ModifiersHelpers.DisapplyModifiers(_modifiersCreator, _statsCollection);
+            foreach (var item in _changers)
+            {
+                item.Apply(_statsCollection, !_apply);
+            }
         }
-
-
     }
 }

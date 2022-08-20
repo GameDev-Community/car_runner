@@ -23,16 +23,24 @@ namespace Externals.Utils.StatsSystem
         public T Delta => _value;
 
 
-        public void Apply(StatsCollection statsCollection)
+
+        /// <param name="inverse">удаляет добавленное и добавляет удаленное
+        /// (и игнорирует Set)</param>
+        public void Apply(StatsCollection statsCollection, bool inverse = false)
         {
             if (statsCollection.TryGetStatData(_statObject, out var data))
             {
                 if (data is IClampedAmountManipulatable<T> clampedManipulatable)
                 {
                     if (_setValue)
-                        _ = clampedManipulatable.SetSafe(_value);
+                    {
+                        if (!inverse)
+                            _ = clampedManipulatable.SetSafe(_value);
+                    }
                     else
-                        _ = clampedManipulatable.ChangeSafe(_value);
+                    {
+                        _ = clampedManipulatable.ChangeSafe(_value, inverse);
+                    }
                 }
             }
         }

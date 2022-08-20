@@ -7,6 +7,9 @@ namespace Game.Core
 {
     public class Player : MonoBehaviour
     {
+        //debug
+        [SerializeField] private TMPro.TextMeshProUGUI _allStatsText;
+
         [SerializeField, RequireInterface(typeof(ICarController)), InspectorName("Car Controller")] Object _carController_raw;
         [SerializeField, RequireInterface(typeof(IStatsHolder)), InspectorName("Stats Holder")] Object _statsHolder_raw;
 
@@ -22,6 +25,12 @@ namespace Game.Core
         {
             _carController = (ICarController)_carController_raw;
             _statsHolder = (IStatsHolder)_statsHolder_raw;
+
+            //debug
+            //var stats = _statsHolder.
         }
+
+
+       
     }
 }

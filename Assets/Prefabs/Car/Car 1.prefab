@@ -719,12 +719,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7960713514110774788}
+  - component: {fileID: 7960713514110774792}
+  - component: {fileID: 5046307751476069731}
+  - component: {fileID: 7960713514110774793}
   - component: {fileID: 7960713514110774789}
   - component: {fileID: 9062481539086490852}
   - component: {fileID: 7960713514110774790}
-  - component: {fileID: 7960713514110774793}
-  - component: {fileID: 7960713514110774792}
   - component: {fileID: 916679395609690752}
+  - component: {fileID: 4467738667231121252}
   m_Layer: 0
   m_Name: Car 1
   m_TagString: Untagged
@@ -750,6 +752,57 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7960713514110774792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7960713514110774795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c537828258770f43862a9a7c913c808, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _carController_raw: {fileID: 7960713514110774790}
+  _statsHolder_raw: {fileID: 5046307751476069731}
+--- !u!114 &5046307751476069731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7960713514110774795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48680f9f0cca861459a2783cb5f4b35c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _initialStats: []
+--- !u!114 &7960713514110774793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7960713514110774795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d8c9e370a8c7fb43b6af08415a85cc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _player: {fileID: 7960713514110774792}
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 1048576
+  _collider: {fileID: 9062481539086490852}
+  _onInteract:
+    m_PersistentCalls:
+      m_Calls: []
+  _onInteract_InteractableItem:
+    m_PersistentCalls:
+      m_Calls: []
+  _enableCheckSphereGizmo: 1
 --- !u!54 &7960713514110774789
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -798,42 +851,6 @@ MonoBehaviour:
   _rb: {fileID: 7960713514110774789}
   wheelColliders: []
   _forceDir: {x: 0, y: 0, z: 1}
---- !u!114 &7960713514110774793
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7960713514110774795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d8c9e370a8c7fb43b6af08415a85cc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _player: {fileID: 7960713514110774792}
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 1048576
-  _collider: {fileID: 9062481539086490852}
-  _onInteract:
-    m_PersistentCalls:
-      m_Calls: []
-  _onInteract_InteractableItem:
-    m_PersistentCalls:
-      m_Calls: []
-  _enableCheckSphereGizmo: 1
---- !u!114 &7960713514110774792
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7960713514110774795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c537828258770f43862a9a7c913c808, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &916679395609690752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -859,6 +876,34 @@ MonoBehaviour:
   - {fileID: 7960713512399394976}
   wheelSteerAngle: 35
   carAngle: 5
+--- !u!114 &4467738667231121252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7960713514110774795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 942d0d8c3f1fa2a4b980bea1eed5aaca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _statsHolder_raw: {fileID: 5046307751476069731}
+  _carController_raw: {fileID: 7960713514110774790}
+  _speedStatDataCreator:
+    _statObject: {fileID: 0}
+    _maxSource: 0
+    _initialModifiers: []
+    _initialRatio: 0
+    _saveRatio: 0
+    _clamp: 0
+    _clamping: {x: 0, y: 0}
+  _accelerationStatDataCreator:
+    _statObject: {fileID: 0}
+    _modifyingSourceValue: 0
+    _initialModifiers: []
+    _clamp: 0
+    _clamping: {x: 0, y: 0}
 --- !u!1 &7960713514369633192
 GameObject:
   m_ObjectHideFlags: 0

@@ -28,9 +28,12 @@ namespace Externals.Utils.StatsSystem
         /// (и игнорирует Set)</param>
         public void Apply(StatsCollection statsCollection, bool inverse = false)
         {
+            Debug.Log(statsCollection.ToString() + " " + _statObject.name);
             if (statsCollection.TryGetStatData(_statObject, out var data))
             {
-                if (data is IClampedAmountManipulatable<T> clampedManipulatable)
+                Debug.Log(data.GetType());
+
+                var clampedManipulatable = (IClampedAmountManipulatable<T>)data;
                 {
                     if (_setValue)
                     {

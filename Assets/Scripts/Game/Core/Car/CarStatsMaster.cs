@@ -26,9 +26,12 @@ namespace Game.Core.Car
             var speedStatData = _speedStatDataCreator.Create();
             speedStatData.OnBoundsChanged += MaxSpeed_OnBoundsChanged;
             speedStatData.OnClampedValueChanged += Speed_OnChange;
+            StatsHolder.StatsCollection.AddStat(_speedStatDataCreator.StatObject, speedStatData);
+
 
             var accelerationStatData = _accelerationStatDataCreator.Create();
             accelerationStatData.OnFloatValueChanged += Acceleration_OnChanged;
+            StatsHolder.StatsCollection.AddStat(_accelerationStatDataCreator.StatObject, accelerationStatData);
 
             MaxSpeed_OnBoundsChanged(speedStatData, Vector3.zero);
             Speed_OnChange(speedStatData, 0, 0);

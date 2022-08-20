@@ -12,7 +12,7 @@ namespace Game.Interactables
 
         public override void Act(Player player)
         {
-            if (_changeDynamicFloats != null || _changeDynamicFloats.Length > 0)
+            if (_changeDynamicFloats != null && _changeDynamicFloats.Length > 0)
             {
                 foreach (var cdf in _changeDynamicFloats)
                 {
@@ -20,7 +20,7 @@ namespace Game.Interactables
                 }
             }
 
-            if (_changeDynamicIntegers != null || _changeDynamicIntegers.Length > 0)
+            if (_changeDynamicIntegers != null && _changeDynamicIntegers.Length > 0)
             {
                 foreach (var cdi in _changeDynamicIntegers)
                 {

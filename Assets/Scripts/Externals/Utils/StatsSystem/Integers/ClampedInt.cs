@@ -6,7 +6,7 @@ using Utils;
 namespace Externals.Utils.StatsSystem
 {
     //todo: обработать границы int32
-    public class ClampedInt : IIntValueCallback, IAmountManipulatable<int>
+    public class ClampedInt : IIntValueCallback, IAmountManipulatable<int>, IClampedAmountManipulatable<int>
     {
         /// <summary>
         /// sender, delta
@@ -275,6 +275,67 @@ namespace Externals.Utils.StatsSystem
         }
 
 
+        public bool CanChangeExact(int delta)
+        {
+            if (delta > 0)
+                return CanAddExact(delta);
 
+            if (delta < 0)
+                return CanRemoveExact(-delta);
+
+            if (delta == 0)
+                return true;
+
+            return false;
+        }
+
+        public int AddSafe(int delta)
+        {
+            if (delta <= 0)
+                return 0;
+
+            int canAdd = _max - _value;
+
+            if (delta < canAdd)
+                canAdd = delta;
+
+            Add(canAdd);
+            return canAdd;
+        }
+
+        public int RemoveSafe(int delta)
+        {
+            if (delta <= 0)
+                return 0;
+
+            int canRemove = _min - _value;
+
+            if (delta > canRemove)
+                canRemove = delta;
+
+            Remove(canRemove);
+            return canRemove;
+        }
+
+        public int ChangeSafe(int delta, bool inversed = false)
+        {
+            if (delta == 0)
+                return 0;
+
+            if (inversed)
+                delta = -delta;
+
+            if (float.IsNegative(delta))
+                return RemoveSafe(-delta);
+
+            return AddSafe(delta);
+        }
+
+        public int SetSafe(int value)
+        {
+            var v = System.Math.Clamp(value, _min, _max);
+            Set(v);
+            return v;
+        }
     }
 }

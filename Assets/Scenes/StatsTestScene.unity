@@ -511,6 +511,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1772693070, guid: ef5f5180a4c815546b2ab5a200daefd5, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2267724577692894273, guid: ef5f5180a4c815546b2ab5a200daefd5,
         type: 3}
       propertyPath: m_Name
@@ -643,6 +647,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1772693070, guid: ef5f5180a4c815546b2ab5a200daefd5, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2267724577692894273, guid: ef5f5180a4c815546b2ab5a200daefd5,
         type: 3}
       propertyPath: m_Name
@@ -779,6 +787,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1772693070, guid: ef5f5180a4c815546b2ab5a200daefd5, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2267724577692894273, guid: ef5f5180a4c815546b2ab5a200daefd5,
         type: 3}
       propertyPath: m_Name
@@ -938,6 +950,90 @@ MonoBehaviour:
     _useMaterialAndChangeTexture: 1
     _particlesTex: {fileID: 2800000, guid: 2ce5c55e85304b819a1826ecbc839aa5, type: 3}
     _transparent: 0
+--- !u!114 &809751574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 809751563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38051d23b94a5404d972431a1b66fa03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _extendedModifiersApplier:
+    _grops:
+    - _modifiersCreators: []
+      _doNotApply: 0
+      _delayedApplying: 0
+      _applyingDelay: 0
+      _doNotDisapply: 0
+      _delayedDisapplying: 0
+      _disapplyingDelay: 0
+    - _modifiersCreators: []
+      _doNotApply: 0
+      _delayedApplying: 0
+      _applyingDelay: 0
+      _doNotDisapply: 0
+      _delayedDisapplying: 0
+      _disapplyingDelay: 0
+    - _modifiersCreators: []
+      _doNotApply: 0
+      _delayedApplying: 0
+      _applyingDelay: 0
+      _doNotDisapply: 0
+      _delayedDisapplying: 0
+      _disapplyingDelay: 0
+    - _modifiersCreators: []
+      _doNotApply: 0
+      _delayedApplying: 0
+      _applyingDelay: 0
+      _doNotDisapply: 0
+      _delayedDisapplying: 0
+      _disapplyingDelay: 0
+    - _modifiersCreators: []
+      _doNotApply: 0
+      _delayedApplying: 0
+      _applyingDelay: 0
+      _doNotDisapply: 0
+      _delayedDisapplying: 0
+      _disapplyingDelay: 0
+    - _modifiersCreators: []
+      _doNotApply: 0
+      _delayedApplying: 0
+      _applyingDelay: 0
+      _doNotDisapply: 0
+      _delayedDisapplying: 0
+      _disapplyingDelay: 0
+    - _modifiersCreators: []
+      _doNotApply: 0
+      _delayedApplying: 0
+      _applyingDelay: 0
+      _doNotDisapply: 0
+      _delayedDisapplying: 0
+      _disapplyingDelay: 0
+    - _modifiersCreators: []
+      _doNotApply: 0
+      _delayedApplying: 0
+      _applyingDelay: 0
+      _doNotDisapply: 0
+      _delayedDisapplying: 0
+      _disapplyingDelay: 0
+    - _modifiersCreators: []
+      _doNotApply: 0
+      _delayedApplying: 0
+      _applyingDelay: 0
+      _doNotDisapply: 0
+      _delayedDisapplying: 0
+      _disapplyingDelay: 0
+    - _modifiersCreators: []
+      _doNotApply: 0
+      _delayedApplying: 0
+      _applyingDelay: 0
+      _doNotDisapply: 0
+      _delayedDisapplying: 0
+      _disapplyingDelay: 0
 --- !u!1001 &948522072
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1584,6 +1680,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1772693070, guid: ef5f5180a4c815546b2ab5a200daefd5, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2267724577692894273, guid: ef5f5180a4c815546b2ab5a200daefd5,
         type: 3}
       propertyPath: m_Name
@@ -1950,6 +2050,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1772693070, guid: ef5f5180a4c815546b2ab5a200daefd5, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2267724577692894273, guid: ef5f5180a4c815546b2ab5a200daefd5,
         type: 3}
       propertyPath: m_Name

@@ -303,10 +303,13 @@ namespace Externals.Utils.StatsSystem
             return canRemove;
         }
 
-        public float ChangeSafe(float delta)
+        public float ChangeSafe(float delta, bool inverse = false)
         {
             if (float.IsSubnormal(delta) || delta == 0)
                 return 0;
+
+            if (inverse)
+                delta = -delta;
 
             if (float.IsNegative(delta))
                 return RemoveSafe(-delta);

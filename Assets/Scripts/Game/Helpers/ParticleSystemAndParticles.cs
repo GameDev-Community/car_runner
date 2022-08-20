@@ -16,14 +16,6 @@ namespace Game.Interactables
 
         public ParticleSystem InstantiateVfx(Vector3? worldPos, bool autoplay)
         {
-#if UNITY_EDITOR
-            if (_particleSystem.main.playOnAwake)
-            {
-                Debug.LogWarning($"PlayOnAwake prop of Particle System {_particleSystem.name} is set to True," +
-                    "nahooya?");
-            }
-#endif
-
             bool needDesposing;
             Material mat;
 
@@ -45,10 +37,11 @@ namespace Game.Interactables
             }
             else
             {
-                needDesposing = true;
-
                 throw new System.NotImplementedException($"Accessor with material reference/shader needed");
 
+                mat = null;
+                mat.mainTexture = _particlesTex;
+                needDesposing = true;
             }
 
             ParticleSystem vfx;

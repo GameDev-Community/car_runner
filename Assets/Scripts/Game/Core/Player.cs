@@ -1,21 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
+using Externals.Utils.StatsSystem;
+using Game.Core.Car;
 using UnityEngine;
+using Utils.Attributes;
 
-namespace Game
+namespace Game.Core
 {
     public class Player : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
-        {
-        
-        }
+        [SerializeField, RequireInterface(typeof(ICarController)), InspectorName("Car Controller")] Object _carController_raw;
+        [SerializeField, RequireInterface(typeof(IStatsHolder)), InspectorName("Stats Holder")] Object _statsHolder_raw;
 
-        // Update is called once per frame
-        void Update()
+        private ICarController _carController;
+        private IStatsHolder _statsHolder;
+
+
+        public ICarController CarController => _carController;
+        public IStatsHolder StatsHolder => _statsHolder;
+
+
+        private void Awake()
         {
-        
+            _carController = (ICarController)_carController_raw;
+            _statsHolder = (IStatsHolder)_statsHolder_raw;
         }
     }
 }

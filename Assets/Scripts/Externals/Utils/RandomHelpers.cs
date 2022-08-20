@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Utils
 {
+
     public static class RandomHelpers
     {
         private const int _quaternionsAmount = 1024;
@@ -74,6 +75,16 @@ namespace Utils
         public static float RandomFloat(System.Random r, float min, float max, AnimationCurve curve)
         {
             var mantissa = curve.Evaluate((float)r.NextDouble());
+            return (float)(mantissa * (max - min) + min);
+        }
+
+        public static float RandomFloat(float min, float max, AnimationCurve curve)
+        {
+            float mantissa = UnityEngine.Random.value;
+
+            if (curve != null)
+                mantissa = curve.Evaluate(mantissa);
+
             return (float)(mantissa * (max - min) + min);
         }
 

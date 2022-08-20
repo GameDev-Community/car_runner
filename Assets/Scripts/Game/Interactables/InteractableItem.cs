@@ -1,4 +1,6 @@
 ﻿using Externals.Utils;
+using Game.Core;
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -15,11 +17,10 @@ namespace Game.Interactables
         [SerializeField] private UnityEvent<Player> _onInteract_Player;
         [SerializeField] private UnityEvent<Vector3> _onInteract_InteractorPosition;
         [Space]
+        [SerializeField] private InteractableActionBase[] _interactableActions;
         [Header("Quicks")]
         [Tooltip("-1 for no autodestruction visuals")]
         [SerializeField] private float _autodestructionDelay = 0;
-        [SerializeField] private GameObject[] _instantiateOnInteract;
-        [SerializeField] private ParticleSystemAndParticles[] _particleSystemCreators;
 
         private readonly object _interactEventLocker = new();
         private readonly object _interact_PlayerEventLocker = new();
@@ -102,20 +103,9 @@ namespace Game.Interactables
             _onInteract_Player?.Invoke(interactor);
             _onInteract_InteractorPosition?.Invoke(interactor.transform.position);
 
-            if (_instantiateOnInteract != null && _instantiateOnInteract.Length > 0)
+            foreach (var ia in _interactableActions)
             {
-                foreach (var item in _instantiateOnInteract)
-                {
-                    Instantiate(item);
-                }
-            }
-
-            if (_particleSystemCreators != null)
-            {
-                foreach (var item in _particleSystemCreators)
-                {
-                    item.InstantiateVfx(transform.position, true);
-                }
+                ia.Act(interactor);
             }
 
             HandleInteractionInherited(interactor);

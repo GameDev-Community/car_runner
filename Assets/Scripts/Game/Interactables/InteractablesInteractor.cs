@@ -2,11 +2,11 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Game.Helpers
+namespace Game.Interactables
 {
     public class InteractablesInteractor : MonoBehaviour
     {
-        [SerializeField] private Player _player;
+        [SerializeField] private Game.Core.Player _player;
         [SerializeField] private LayerMask _layerMask;
         [SerializeField] private Collider _collider;
 

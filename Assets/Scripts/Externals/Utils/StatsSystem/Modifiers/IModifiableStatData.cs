@@ -4,6 +4,8 @@
     {
         public StatModifiersCollection StatModifiers { get; }
 
+        //члены ниже переехали в StatModifiersCollection
+
         //public bool ContainsModifier(StatModifier m);
         //public bool TryGetModifierAmount(StatModifier m, out int amount);
         ///// <summary>

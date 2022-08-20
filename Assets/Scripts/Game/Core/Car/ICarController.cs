@@ -1,4 +1,6 @@
-﻿namespace Game.Core.Car
+﻿using System;
+
+namespace Game.Core.Car
 {
     public interface ICarController
     {

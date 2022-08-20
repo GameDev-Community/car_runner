@@ -5,7 +5,7 @@ using Utils;
 
 namespace Externals.Utils.StatsSystem
 {
-    public class ClampedFloat : IFloatValueCallback, IAmountManipulatable<float>
+    public class ClampedFloat : IFloatValueCallback, IAmountManipulatable<float>, IClampedAmountManipulatable<float>
     {
         /// <summary>
         /// sender, delta
@@ -132,7 +132,7 @@ namespace Externals.Utils.StatsSystem
                 return false;
             }
 
-            result =  System.Math.Clamp(_value + delta, _min, _max);
+            result = System.Math.Clamp(_value + delta, _min, _max);
             return true;
         }
 
@@ -259,6 +259,66 @@ namespace Externals.Utils.StatsSystem
             float desired = _value - delta;
 
             return desired <= _max && desired >= _min;
+        }
+
+        public bool CanChangeExact(float delta)
+        {
+            if (delta > 0)
+                return CanAddExact(delta);
+
+            if (delta < 0)
+                return CanRemoveExact(-delta);
+
+            if (delta == 0)
+                return true;
+
+            return false;
+        }
+
+        public float AddSafe(float delta)
+        {
+            if (float.IsSubnormal(delta) || float.IsNegative(delta))
+                return 0;
+
+            float canAdd = _max - _value;
+
+            if (delta < canAdd)
+                canAdd = delta;
+
+            Add(canAdd);
+            return canAdd;
+        }
+
+        public float RemoveSafe(float delta)
+        {
+            if (float.IsSubnormal(delta) || float.IsNegative(delta))
+                return 0;
+
+            float canRemove = _min - _value;
+
+            if (delta > canRemove)
+                canRemove = delta;
+
+            Remove(canRemove);
+            return canRemove;
+        }
+
+        public float ChangeSafe(float delta)
+        {
+            if (float.IsSubnormal(delta) || delta == 0)
+                return 0;
+
+            if (float.IsNegative(delta))
+                return RemoveSafe(-delta);
+
+            return AddSafe(delta);
+        }
+
+        public float SetSafe(float value)
+        {
+            var v = System.Math.Clamp(value, _min, _max);
+            Set(v);
+            return v;
         }
         #endregion
 

@@ -9,6 +9,7 @@ namespace Externals.Utils.StatsSystem
         [SerializeField] private StatObject _statObject;
         [SerializeField] private Modifiers.ModifyingMode _mode;
         [SerializeField] private float _value;
+        [SerializeField] private int _amount = 1;
 
 
         public StatModifierCreator(StatObject statObject, ModifyingMode mode, float value)
@@ -22,6 +23,7 @@ namespace Externals.Utils.StatsSystem
         public StatObject StatObject => _statObject;
         public ModifyingMode Mode => _mode;
         public float Value => _value;
+        public int Amount => _amount;
 
 
         public StatModifier Create()

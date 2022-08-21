@@ -26,11 +26,21 @@ namespace EDITOR.Drawers
                 // Begin drawing property field.
                 EditorGUI.BeginProperty(position, label, property);
                 // Draw property field.
+                var reference = EditorGUI.ObjectField(position, label, property.objectReferenceValue,
+                    requiredAttribute.RequiredType, true);
+
+                if (reference == null)
+                {
+                    UnityEngine.Object obj = EditorGUI.ObjectField(position, label, property.objectReferenceValue, typeof(UnityEngine.Object), true);
+
+                    if (obj is GameObject g)
+                        reference = g.GetComponent(requiredAttribute.RequiredType);
+                }
+
                 //property.objectReferenceValue = EditorGUI.ObjectField(position, label, property.objectReferenceValue, requiredAttribute.RequiredType, true);
                 //fix from chatter TMT
-                UnityEngine.Object obj = EditorGUI.ObjectField(position, label, property.objectReferenceValue, typeof(UnityEngine.Object), true);
 
-                if (obj is GameObject g) property.objectReferenceValue = g.GetComponent(requiredAttribute.RequiredType);
+                property.objectReferenceValue = reference;
 
                 // Finish drawing property field.
                 EditorGUI.EndProperty();

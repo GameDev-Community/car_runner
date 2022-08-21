@@ -1,16 +1,17 @@
 ﻿using Externals.Utils.StatsSystem;
 using Externals.Utils.StatsSystem.Modifiers;
+using Game.Core.Car;
 using UnityEngine;
 using Utils.Attributes;
 
-namespace Game.Core.Car
+namespace Game.Stats
 {
     /// <summary>
     /// класс создаёт, добавляет и пользуется статами, связанными с машиной - настоящий дунген мастер
     /// </summary>
     public class CarStatsMaster : StatsBehaviour
     {
-        [SerializeField, RequireInterface(typeof(ICarController)), InspectorName("Car Controller")] UnityEngine.Object _carController_raw;
+        [SerializeField, RequireInterface(typeof(ICarController)), InspectorName("Car Controller")] UnityEngine.MonoBehaviour _carController_raw;
 
         [SerializeField] private FloatDynamicStatDataCreator _speedStatDataCreator;
         [SerializeField] private FloatModifiableStatDataCreator _accelerationStatDataCreator;

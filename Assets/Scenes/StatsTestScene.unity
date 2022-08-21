@@ -2954,5 +2954,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: InteractableItemBounded
       objectReference: {fileID: 0}
+    - target: {fileID: 7972169321578560130, guid: 6a9580dc8b182b445ab3016fb1cf5840,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a9580dc8b182b445ab3016fb1cf5840, type: 3}

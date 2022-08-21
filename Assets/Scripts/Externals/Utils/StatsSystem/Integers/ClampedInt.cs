@@ -146,8 +146,11 @@ namespace Externals.Utils.StatsSystem
             return true;
         }
 
-        public void Change(int delta)
+        public void Change(int delta, bool inverse = false)
         {
+            if (inverse)
+                delta = -delta;
+
             var v = MathModule.ClampLongToInt((long)_value + delta);
             Set(v);
         }
@@ -193,8 +196,11 @@ namespace Externals.Utils.StatsSystem
             SetValue(v, longDelta, safeDelta, rmin, rmax);
         }
 
-        public bool TryChange(int delta)
+        public bool TryChange(int delta, bool inverse = false)
         {
+            if (inverse)
+                delta = -delta;
+
             Change(delta);
             return true;
         }

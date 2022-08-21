@@ -4,7 +4,7 @@ using Externals.Utils.StatsSystem.Modifiers;
 namespace Externals.Utils.StatsSystem
 {
     [System.Serializable]
-    public class StatModifierCreator
+    public class StatModifierCreator : IStatChanger
     {
         [SerializeField] private StatObject _statObject;
         [SerializeField] private Modifiers.ModifyingMode _mode;
@@ -29,6 +29,12 @@ namespace Externals.Utils.StatsSystem
         public StatModifier Create()
         {
             return new(_mode, _value);
+        }
+
+
+        public void Apply(StatsCollection statsCollection, bool inverse = false)
+        {
+
         }
     }
 }

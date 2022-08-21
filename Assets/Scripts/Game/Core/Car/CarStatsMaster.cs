@@ -41,6 +41,7 @@ namespace Game.Core.Car
 
         private void MaxSpeed_OnBoundsChanged(ClampedFloat sender, Vector3 prev)
         {
+            UnityEngine.Debug.Log($"MaxSpeed Set: {sender.Max}");
             _carController.MaxSpeed = sender.Max;
         }
 

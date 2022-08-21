@@ -10,7 +10,7 @@ namespace Game.Interactables
 
         public override void Act(Player player)
         {
-            _extendedModifiersApplier.Execute(player.StatsHolder.StatsCollection);
+            _extendedModifiersApplier.Apply(player.StatsHolder.StatsCollection);
         }
     }
 }

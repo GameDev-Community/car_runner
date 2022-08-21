@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Game.Interactables
 {
+
     [System.Serializable]
     public class ExtendedModifiersApplier
     {
@@ -24,7 +25,7 @@ namespace Game.Interactables
             [SerializeField] private float _disapplyingDelay;
 
 
-            public void Execute(StatsCollection statsCollection)
+            public void Apply(StatsCollection statsCollection)
             {
                 if (!_doNotApply)
                 {
@@ -61,11 +62,11 @@ namespace Game.Interactables
         [SerializeField, NonReorderable] private ModifiersGroup[] _grops;
 
 
-        public void Execute(StatsCollection statsCollection)
+        public void Apply(StatsCollection statsCollection)
         {
             foreach (var g in _grops)
             {
-                g.Execute(statsCollection);
+                g.Apply(statsCollection);
             }
         }
     }

@@ -1,4 +1,6 @@
-﻿namespace Externals.Utils.StatsSystem
+﻿using Externals.Utils.Valuables;
+
+namespace Externals.Utils.StatsSystem
 {
     public interface IFloatValueCallback : IValuable<float>
     {

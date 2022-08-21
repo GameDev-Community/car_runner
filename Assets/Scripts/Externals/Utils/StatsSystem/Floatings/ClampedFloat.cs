@@ -153,11 +153,15 @@ namespace Externals.Utils.StatsSystem
             return !float.IsNaN(value);
         }
 
-        public void Change(float delta)
+        public void Change(float delta, bool inverse = false)
         {
 #if DEVOUR_DEBUG || UNITY_EDITOR
             DevourRuntimeHelpers.ThrowIfNaN(delta);
 #endif
+
+            if (inverse)
+                delta = -delta;
+
             Set(_value + delta);
         }
 
@@ -203,10 +207,13 @@ namespace Externals.Utils.StatsSystem
             SetValue(v, delta, safeDelta, rmin, rmax);
         }
 
-        public bool TryChange(float delta)
+        public bool TryChange(float delta, bool inverse = false)
         {
             if (float.IsNaN(delta))
                 return false;
+
+            if (inverse)
+                delta = -delta;
 
             Set(_value + delta);
             return true;

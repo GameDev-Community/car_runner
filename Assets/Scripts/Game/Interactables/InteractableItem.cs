@@ -103,6 +103,10 @@ namespace Game.Interactables
             _onInteract_Player?.Invoke(interactor);
             _onInteract_InteractorPosition?.Invoke(interactor.transform.position);
 
+            if (name == "Pivo")
+            {
+
+            }
             foreach (var ia in _interactableActions)
             {
                 ia.Act(interactor);

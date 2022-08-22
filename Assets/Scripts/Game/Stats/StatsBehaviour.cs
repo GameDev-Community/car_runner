@@ -2,11 +2,11 @@
 using UnityEngine;
 using Utils.Attributes;
 
-namespace Game.Core.Car
+namespace Game.Stats
 {
     public abstract class StatsBehaviour : MonoBehaviour
     {
-        [SerializeField, RequireInterface(typeof(IStatsHolder)), InspectorName("Stats Holder")] UnityEngine.Object _statsHolder_raw;
+        [SerializeField, RequireInterface(typeof(IStatsHolder)), InspectorName("Stats Holder")] UnityEngine.MonoBehaviour _statsHolder_raw;
 
         private IStatsHolder _statsHolder;
 

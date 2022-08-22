@@ -31,6 +31,7 @@ namespace Game.Core.Car
 
             set
             {
+                UnityEngine.Debug.Log($"Speed Set: {value}");
                 var v = _rb.velocity;
                 v.z = value;
                 _rb.velocity = v;

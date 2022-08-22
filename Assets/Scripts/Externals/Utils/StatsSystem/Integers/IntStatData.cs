@@ -26,8 +26,11 @@ namespace Externals.Utils.StatsSystem
 
         #region IOperatiable
 
-        public void Change(int delta)
+        public void Change(int delta, bool inverse = false)
         {
+            if (inverse)
+                delta = -delta;
+
             if (delta > 0)
             {
                 Add(delta);
@@ -53,8 +56,11 @@ namespace Externals.Utils.StatsSystem
             return true;
         }
 
-        public bool TryChange(int delta)
+        public bool TryChange(int delta, bool inverse = false)
         {
+            if (inverse)
+                delta = -delta;
+
             if (CanChange(delta, out var result))
             {
                 _value = result;

@@ -1,4 +1,4 @@
-﻿namespace Externals.Utils.StatsSystem
+﻿namespace Externals.Utils.Valuables
 {
     public interface IValuable<TValue>
     {

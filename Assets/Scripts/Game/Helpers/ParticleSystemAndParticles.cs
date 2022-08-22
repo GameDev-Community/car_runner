@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 
-namespace Game.Interactables
+namespace Game.Helpers
 {
+
     [System.Serializable]
     public class ParticleSystemAndParticles
     {

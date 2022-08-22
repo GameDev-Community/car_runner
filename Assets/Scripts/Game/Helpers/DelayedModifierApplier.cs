@@ -5,8 +5,6 @@ using Utils.Attributes;
 
 namespace Game.Interactables
 {
-
-
     public class DelayedModifierApplier : MonoBehaviour
     {
         [SerializeField, NonReorderable] private StatModifierCreator[] _modifiersCreator;
@@ -54,7 +52,7 @@ namespace Game.Interactables
 
         private void Update()
         {
-            if (_inited)
+            if (!_inited)
                 return;
 
             if ((_left -= Time.deltaTime) <= 0)

@@ -26,11 +26,14 @@ namespace Externals.Utils.StatsSystem
 
         #region IOperatiable
 
-        public void Change(float delta)
+        public void Change(float delta, bool inverse = false)
         {
 #if DEVOUR_DEBUG || UNITY_EDITOR
             DevourRuntimeHelpers.ThrowIfInfinityOrNaN(delta);
 #endif
+            if (inverse)
+                delta = -delta;
+
             _value += delta;
             OnFloatValueChanged?.Invoke(this, delta);
         }
@@ -47,8 +50,11 @@ namespace Externals.Utils.StatsSystem
             return false;
         }
 
-        public bool TryChange(float delta)
+        public bool TryChange(float delta, bool inverse = false)
         {
+            if (inverse)
+                delta = -delta;
+
             if (CanChange(delta, out var result))
             {
                 _value = result;

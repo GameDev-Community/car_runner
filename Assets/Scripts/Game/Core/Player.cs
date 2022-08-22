@@ -1,6 +1,7 @@
 using Externals.Utils.StatsSystem;
 using Game.Core.Car;
 using UnityEngine;
+using UnityEngine.Events;
 using Utils.Attributes;
 
 namespace Game.Core
@@ -9,6 +10,8 @@ namespace Game.Core
     {
         [SerializeField, RequireInterface(typeof(ICarController)), InspectorName("Car Controller")] Object _carController_raw;
         [SerializeField, RequireInterface(typeof(IStatsHolder)), InspectorName("Stats Holder")] Object _statsHolder_raw;
+
+        [SerializeField] private UnityEvent _onDeath;
 
         private ICarController _carController;
         private IStatsHolder _statsHolder;
@@ -22,6 +25,13 @@ namespace Game.Core
         {
             _carController = (ICarController)_carController_raw;
             _statsHolder = (IStatsHolder)_statsHolder_raw;
+        }
+
+
+        public void Kill()
+        {
+            UnityEngine.Debug.Log("We are dead, what a surprise");
+            _onDeath?.Invoke();
         }
     }
 }

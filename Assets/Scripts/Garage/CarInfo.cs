@@ -12,6 +12,7 @@ namespace Garage
         public float Speed;
         public float Health;
         public float Acceleration;
+        public int Price;
         public GameObject CarPrefab;
         public CarUpgradeElement[] CarUpgradeElements;
         public StatModifierCreator[] StartModifiers; // заменить на более примитивную структуру, если нужно

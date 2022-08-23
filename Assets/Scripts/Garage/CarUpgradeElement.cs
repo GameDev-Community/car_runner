@@ -6,7 +6,7 @@ namespace Garage
     internal struct CarUpgradeElement
     {
         public string Name;
-        public Texture UITexture;
+        public Sprite UISprite;
         public UpgradeElementInfo[] UpgradeElementInfos;
     }
 }

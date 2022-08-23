@@ -263,6 +263,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 96359661}
+  - component: {fileID: 96359662}
   m_Layer: 31
   m_Name: Accessors
   m_TagString: Untagged
@@ -285,6 +286,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &96359662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 96359660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59bf02d9feaf9df4dbe46e2f3c68bc6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _player: {fileID: 0}
 --- !u!1 &276644153
 GameObject:
   m_ObjectHideFlags: 0
@@ -605,12 +619,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1405694262}
+  - component: {fileID: 1405694270}
   - component: {fileID: 1405694261}
   - component: {fileID: 1405694264}
   - component: {fileID: 1405694263}
   - component: {fileID: 1405694265}
   - component: {fileID: 1405694266}
   - component: {fileID: 1405694267}
+  - component: {fileID: 1405694269}
+  - component: {fileID: 1405694268}
   m_Layer: 2
   m_Name: Car_Prototype
   m_TagString: Untagged
@@ -729,19 +746,19 @@ MonoBehaviour:
   _statsHolder_raw: {fileID: 1405694267}
   _carController_raw: {fileID: 1405694263}
   _speedStatDataCreator:
-    _statObject: {fileID: 0}
-    _maxSource: 0
+    _statObject: {fileID: 11400000, guid: 4c01e2e9c13853c4c92ad660f1c9d6a1, type: 2}
+    _maxSource: 5
     _initialModifiers: []
-    _initialRatio: 0
+    _initialRatio: 0.1
     _saveRatio: 0
-    _clamp: 0
-    _clamping: {x: 0, y: 0}
+    _clamp: 1
+    _clamping: {x: 0, y: 15}
   _accelerationStatDataCreator:
     _statObject: {fileID: 11400000, guid: e7dcb17c829401348a86ac5b07d5f45a, type: 2}
     _modifyingSourceValue: 5
     _initialModifiers: []
-    _clamp: 0
-    _clamping: {x: 0, y: 0}
+    _clamp: 1
+    _clamping: {x: 0, y: 20}
 --- !u!114 &1405694267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -755,6 +772,178 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _initialStats: []
+--- !u!114 &1405694268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405694260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a6c3c3b66af2e640b76cbaf128dae79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _statsHolder_raw: {fileID: 1405694267}
+  _healthStatObject: {fileID: 11400000, guid: 76831c0c6511968458932b7bae1b841b, type: 2}
+  _stages:
+  - _healthThreshold: 0.1
+    _onEnterFromLowerState:
+      m_PersistentCalls:
+        m_Calls: []
+    _onEnterFromHigherState:
+      m_PersistentCalls:
+        m_Calls: []
+    _vfx:
+      _particleSystem: {fileID: 0}
+      _material: {fileID: 0}
+      _useMaterialAndChangeTexture: 0
+      _particlesTex: {fileID: 0}
+      _transparent: 0
+  - _healthThreshold: 0.21
+    _onEnterFromLowerState:
+      m_PersistentCalls:
+        m_Calls: []
+    _onEnterFromHigherState:
+      m_PersistentCalls:
+        m_Calls: []
+    _vfx:
+      _particleSystem: {fileID: 0}
+      _material: {fileID: 0}
+      _useMaterialAndChangeTexture: 0
+      _particlesTex: {fileID: 0}
+      _transparent: 0
+  - _healthThreshold: 0.36
+    _onEnterFromLowerState:
+      m_PersistentCalls:
+        m_Calls: []
+    _onEnterFromHigherState:
+      m_PersistentCalls:
+        m_Calls: []
+    _vfx:
+      _particleSystem: {fileID: 0}
+      _material: {fileID: 0}
+      _useMaterialAndChangeTexture: 0
+      _particlesTex: {fileID: 0}
+      _transparent: 0
+  - _healthThreshold: 0.64
+    _onEnterFromLowerState:
+      m_PersistentCalls:
+        m_Calls: []
+    _onEnterFromHigherState:
+      m_PersistentCalls:
+        m_Calls: []
+    _vfx:
+      _particleSystem: {fileID: 0}
+      _material: {fileID: 0}
+      _useMaterialAndChangeTexture: 0
+      _particlesTex: {fileID: 0}
+      _transparent: 0
+  - _healthThreshold: 0.74
+    _onEnterFromLowerState:
+      m_PersistentCalls:
+        m_Calls: []
+    _onEnterFromHigherState:
+      m_PersistentCalls:
+        m_Calls: []
+    _vfx:
+      _particleSystem: {fileID: 0}
+      _material: {fileID: 0}
+      _useMaterialAndChangeTexture: 0
+      _particlesTex: {fileID: 0}
+      _transparent: 0
+  - _healthThreshold: 0.8
+    _onEnterFromLowerState:
+      m_PersistentCalls:
+        m_Calls: []
+    _onEnterFromHigherState:
+      m_PersistentCalls:
+        m_Calls: []
+    _vfx:
+      _particleSystem: {fileID: 0}
+      _material: {fileID: 0}
+      _useMaterialAndChangeTexture: 0
+      _particlesTex: {fileID: 0}
+      _transparent: 0
+  - _healthThreshold: 0.92
+    _onEnterFromLowerState:
+      m_PersistentCalls:
+        m_Calls: []
+    _onEnterFromHigherState:
+      m_PersistentCalls:
+        m_Calls: []
+    _vfx:
+      _particleSystem: {fileID: 0}
+      _material: {fileID: 0}
+      _useMaterialAndChangeTexture: 0
+      _particlesTex: {fileID: 0}
+      _transparent: 0
+  - _healthThreshold: 0.95
+    _onEnterFromLowerState:
+      m_PersistentCalls:
+        m_Calls: []
+    _onEnterFromHigherState:
+      m_PersistentCalls:
+        m_Calls: []
+    _vfx:
+      _particleSystem: {fileID: 0}
+      _material: {fileID: 0}
+      _useMaterialAndChangeTexture: 0
+      _particlesTex: {fileID: 0}
+      _transparent: 0
+  _normalizedHealthValues: 1
+  _sortStages: 0
+  _stagesTmpLength: 8
+--- !u!114 &1405694269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405694260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ace761866b2f1d42a4b249b92d33898, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _statsHolder_raw: {fileID: 1405694267}
+  _healthStatCreator:
+    _statObject: {fileID: 11400000, guid: 76831c0c6511968458932b7bae1b841b, type: 2}
+    _maxSource: 40
+    _initialModifiers: []
+    _initialRatio: 1
+    _saveRatio: 1
+    _clamp: 1
+    _clamping: {x: 0, y: 500}
+--- !u!114 &1405694270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405694260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c537828258770f43862a9a7c913c808, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _carController_raw: {fileID: 1405694263}
+  _statsHolder_raw: {fileID: 1405694267}
+  _onDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1405694260}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1456891759
 GameObject:
   m_ObjectHideFlags: 0

@@ -19,6 +19,8 @@ namespace Game.Stats
         {
             _statsHolder = (IStatsHolder)_statsHolder_raw;
         }
+
+        //хуй
     }
 
 }

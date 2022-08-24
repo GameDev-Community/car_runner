@@ -33,7 +33,7 @@ namespace Game.Core
 
         private void SaveManager_OnSave(System.IO.BinaryWriter bw)
         {
-            
+            //_statsHolder
         }
 
         private void SaveManager_OnLoad(System.IO.BinaryReader br)

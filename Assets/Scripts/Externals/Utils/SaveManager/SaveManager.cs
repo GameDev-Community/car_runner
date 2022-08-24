@@ -19,6 +19,11 @@ namespace Externals.Utils.SaveManager
             return File.Exists(path);
         }
 
+        public static async Task<bool> SaveToPersistentPathAsync(string fileName)
+        {
+            string fullPath = Path.Combine(UnityEngine.Application.persistentDataPath, fileName);
+            return await SaveToAsync(fullPath);
+        }
 
         /// <param name="path">full path with filename
         /// in the end</param>
@@ -70,6 +75,14 @@ namespace Externals.Utils.SaveManager
 
             return !failed;
         }
+
+
+        public static async Task<bool> LoadFromPersistentPathAsync(string fileName)
+        {
+            string fullPath = Path.Combine(UnityEngine.Application.persistentDataPath, fileName);
+            return await LoadFromAsync(fullPath);
+        }
+
 
         public static async Task<bool> LoadFromAsync(string path)
         {

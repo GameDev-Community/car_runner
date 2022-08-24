@@ -15,6 +15,6 @@ namespace Garage
         public int Price;
         public GameObject CarPrefab;
         public CarUpgradeElement[] CarUpgradeElements;
-        public StatModifierCreator[] StartModifiers; // заменить на более примитивную структуру, если нужно
+        public StatModifierCreator[] StartModifiers; // заменить на более примитивную структуру, если нужно //ne nuzhno
     }
 }

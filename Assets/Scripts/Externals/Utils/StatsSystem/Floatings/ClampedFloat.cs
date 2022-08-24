@@ -207,6 +207,41 @@ namespace Externals.Utils.StatsSystem
             SetValue(v, delta, safeDelta, rmin, rmax);
         }
 
+        /// <summary>
+        /// Изменил название вместо создания перегрузки 
+        /// для явности. Думал назвать SetSilent, но это
+        /// вводило бы в заблуждение
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name=""></param>
+        public void Set2(float value, bool raiseOnChange, bool raiseOnMin, bool raiseOnMax)
+        {
+#if DEVOUR_DEBUG || UNITY_EDITOR
+            DevourRuntimeHelpers.ThrowIfNaN(value);
+#endif
+            var v = MathModule.Clamp(value, _min, _max, out var rmin, out var rmax);
+
+            if (raiseOnChange || raiseOnMin || raiseOnMax)
+            {
+                float ddelta = value - _value;
+                float sdelta = v - _value;
+                _value = v;
+
+                if (raiseOnChange)
+                    OnClampedValueChanged?.Invoke(this, ddelta, sdelta);
+
+                if (raiseOnMin && rmin)
+                    OnClampedValueReachedMin?.Invoke(this, ddelta, sdelta);
+
+                if (raiseOnMax && rmax)
+                    OnClampedValueReachedMax?.Invoke(this, ddelta, sdelta);
+            }
+            else
+            {
+                _value = v;
+            }
+        }
+
         public bool TryChange(float delta, bool inverse = false)
         {
             if (float.IsNaN(delta))

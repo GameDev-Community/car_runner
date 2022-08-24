@@ -1,3 +1,4 @@
+using Externals.Utils.SaveManager;
 using Externals.Utils.StatsSystem;
 using Game.Core.Car;
 using Game.Helpers;
@@ -26,8 +27,21 @@ namespace Game.Core
         {
             _carController = (ICarController)_carController_raw;
             _statsHolder = (IStatsHolder)_statsHolder_raw;
+            SaveManager.OnSave += SaveManager_OnSave;
+            SaveManager.OnLoad += SaveManager_OnLoad;
         }
 
+        private void SaveManager_OnSave(System.IO.BinaryWriter bw)
+        {
+            
+        }
+
+        private void SaveManager_OnLoad(System.IO.BinaryReader br)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        
 
         public void Kill()
         {

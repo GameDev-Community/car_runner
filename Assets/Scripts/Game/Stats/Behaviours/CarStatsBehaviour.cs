@@ -9,7 +9,7 @@ namespace Game.Stats
     /// <summary>
     /// класс создаёт, добавляет и пользуется статами, связанными с машиной - настоящий дунген мастер
     /// </summary>
-    public class CarStatsMaster : StatsBehaviour
+    public class CarStatsBehaviour : StatsBehaviour
     {
         [SerializeField, RequireInterface(typeof(ICarController)), InspectorName("Car Controller")] UnityEngine.MonoBehaviour _carController_raw;
 
@@ -17,6 +17,7 @@ namespace Game.Stats
         [SerializeField] private FloatModifiableStatDataCreator _accelerationStatDataCreator;
 
         private ICarController _carController;
+        private ClampedFloat _speedCF;
 
 
         protected override void Awake()
@@ -25,6 +26,7 @@ namespace Game.Stats
             _carController = (ICarController)_carController_raw;
 
             var speedStatData = _speedStatDataCreator.Create();
+            _speedCF = speedStatData;
             speedStatData.OnBoundsChanged += MaxSpeed_OnBoundsChanged;
             speedStatData.OnClampedValueChanged += Speed_OnChange;
             StatsHolder.StatsCollection.AddStat(_speedStatDataCreator.StatObject, speedStatData);
@@ -39,6 +41,12 @@ namespace Game.Stats
             Acceleration_OnChanged(accelerationStatData, 0);
         }
 
+
+        private void FixedUpdate()
+        {
+            // mb move to CarController
+            _speedCF.Set2(_carController.Speed, false, false, false);
+        }
 
         private void MaxSpeed_OnBoundsChanged(ClampedFloat sender, Vector3 prev)
         {

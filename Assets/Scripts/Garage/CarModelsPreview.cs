@@ -12,11 +12,13 @@ namespace Garage
         public void InitializeCars(CarInfo[] carInfos, CarInfo currentCar)
         {
             int currentCarIndex = Array.FindIndex(carInfos, _ => _ == currentCar);
-            for(int i = 0; i < carInfos.Length; i++)
+            for (int i = 0; i < carInfos.Length; i++)
             {
                 GameObject newCarModel = Instantiate(carInfos[i].CarPrefab, carModelsHolder);
-                newCarModel.transform.position = carPreviewPoint.position + Vector3.forward * offset * (i - currentCarIndex);
-                newCarModel.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
+                var pos = carPreviewPoint.position + (i - currentCarIndex) * offset * Vector3.forward;
+                var rot = Quaternion.Euler(0f, 90f, 0f); //хардкод для чего?;
+                newCarModel.transform.SetPositionAndRotation(pos, rot);
+
                 //if (i - currentCarIndex == 0)
                 //{
                 //    newCarModel.AddComponent<CarRotation>();
@@ -26,7 +28,7 @@ namespace Garage
 
         public void DestroyCarModels()
         {
-            for(int i = 0; i < carModelsHolder.childCount; i++)
+            for (int i = 0; i < carModelsHolder.childCount; i++)
             {
                 Destroy(carModelsHolder.GetChild(i).gameObject);
             }

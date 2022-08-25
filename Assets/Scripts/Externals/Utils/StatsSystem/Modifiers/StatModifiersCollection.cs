@@ -40,7 +40,35 @@ namespace Externals.Utils.StatsSystem.Modifiers
 
         public void AddModifier(StatModifier m, int amount)
         {
+#if DEVOUR_DEBUG || UNITY_EDITOR
+            if (amount < 0)
+                throw new System.Exception($"attempt to remove negative amount: {amount}");
+#endif
             _addQueue.AddAmount(m, amount);
+        }
+
+        public void AddModifierImmediate(StatModifier m, int amount)
+        {
+#if DEVOUR_DEBUG || UNITY_EDITOR
+            if (amount < 0)
+                throw new System.Exception($"attempt to remove negative amount: {amount}");
+#endif
+            _modifiers.AddAmount(m, amount);
+            m.Modify(_optimizer, amount);
+            RaiseModifiedEvent();
+        }
+
+        public void RemoveModifierImmediate(StatModifier m, int amount)
+        {
+#if DEVOUR_DEBUG || UNITY_EDITOR
+            if (amount < 0)
+                throw new System.Exception($"attempt to remove negative amount: {amount}");
+#endif
+            if (_modifiers.TryRemoveExactAmount(m, amount))
+            {
+                m.Unmodify(_optimizer, amount);
+                RaiseModifiedEvent();
+            }
         }
 
 
@@ -59,6 +87,7 @@ namespace Externals.Utils.StatsSystem.Modifiers
             _modifiers.RemoveAmount(m, amount);
 
             m.Unmodify(_optimizer, amount);
+            RaiseModifiedEvent();
             return true;
         }
 

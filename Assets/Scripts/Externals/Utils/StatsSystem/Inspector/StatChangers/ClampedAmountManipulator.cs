@@ -3,11 +3,49 @@
 namespace Externals.Utils.StatsSystem
 {
     [System.Serializable]
+    public class ClampedFloatBoundsManipulator : IStatChanger
+    {
+        [SerializeField] private StatObject _statObject;
+        [SerializeField] private bool _changeMin;
+        [SerializeField] private float _min;
+        [SerializeField] private bool _changeMax;
+        [SerializeField] private float _max;
+        [SerializeField] private bool _changeCur;
+        [SerializeField] private float _cur;
+
+        public void Apply(StatsCollection statsCollection, bool inverse = false)
+        {
+            if (!statsCollection.TryGetStatData(_statObject, out var sdRaw))
+            {
+                Debug.LogError($"key not found: {_statObject}");
+                return;
+            }
+
+            if (sdRaw is ClampedFloatStatData sd)
+            {
+                //ignore inverse flag
+
+                float min = _changeMin ? _min : sd.Min;
+                float max = _changeMax ? _max : sd.Max;
+
+                if (_changeCur)
+                    sd.SetBounds(min, max, _cur);
+                else
+                    sd.SetBounds(min, max);
+            }
+            else
+            {
+                Debug.LogError($"unable to cast {sdRaw.GetType()} as" +
+                    $" {nameof(ClampedFloatStatData)} ({_statObject})");
+            }
+        }
+    }
+    [System.Serializable]
     public class ClampedAmountManipulator<T> : IStatChanger
     {
         [SerializeField] private StatObject _statObject;
-        [SerializeField] private T _value;
         [SerializeField] private ClampedAmountManipulation _manipulation;
+        [SerializeField] private T _value;
 
 
         public void Apply(StatsCollection statsCollection, bool inverse = false)

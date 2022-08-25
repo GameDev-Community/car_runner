@@ -5,9 +5,9 @@ using UnityEngine;
 namespace Externals.Utils.StatsSystem.Modifiers
 {
 
-    public sealed class FloatModifiableStatData : IModifiableStatData, IFloatValueCallback
+    public sealed class FloatModifiableStatData : IModifiableStatData, IValueCallback<float>
     {
-        public event Action<IFloatValueCallback, float> OnFloatValueChanged;
+        public event Action<IValueCallback<float>, float> OnValueChanged;
 
         private readonly StatObject _statObject;
         private readonly StatModifiersCollection _modifiersCollection;
@@ -55,7 +55,7 @@ namespace Externals.Utils.StatsSystem.Modifiers
                 _value = System.Math.Clamp(_value, clamps.x, clamps.y);
             }
 
-            OnFloatValueChanged?.Invoke(this, _value - tmp);
+            OnValueChanged?.Invoke(this, _value - tmp);
         }
     }
 }

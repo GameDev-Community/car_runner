@@ -1059,6 +1059,81 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
+--- !u!1 &1596886260
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1596886262}
+  - component: {fileID: 1596886263}
+  m_Layer: 0
+  m_Name: EditorTest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1596886262
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1596886260}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1596886263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1596886260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5e6c71e03142734f8f5019762778dd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _statObject: {fileID: 11400000, guid: 76831c0c6511968458932b7bae1b841b, type: 2}
+  _clampedValueManipulationType: 0
+  _notImplemented: 0
+  _floatAmountManipulator:
+    _statObject: {fileID: 0}
+    _manipulation: 0
+    _value: 0
+    _try: 0
+  _intAmountManipulator:
+    _statObject: {fileID: 0}
+    _manipulation: 0
+    _value: 0
+    _try: 0
+  _floatClampedAmountManipulators:
+    _statObject: {fileID: 0}
+    _manipulation: 0
+    _value: 0
+  _intClampedAmountManipulators:
+    _statObject: {fileID: 0}
+    _manipulation: 0
+    _value: 0
+  _clampedFloatBoundsManipulator:
+    _statObject: {fileID: 0}
+    _changeMin: 0
+    _min: 0
+    _changeMax: 0
+    _max: 0
+    _changeCur: 0
+    _cur: 0
+  _statModifierCreators: []
+  _actionID: -1
 --- !u!1 &1827870759
 GameObject:
   m_ObjectHideFlags: 0

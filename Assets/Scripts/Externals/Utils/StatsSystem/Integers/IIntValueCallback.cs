@@ -2,8 +2,8 @@
 
 namespace Externals.Utils.StatsSystem
 {
-    public interface IIntValueCallback : IValuable<int>
+    public interface IValueCallback<TValue> : IValuable<TValue>
     {
-        public event System.Action<IIntValueCallback, int> OnIntValueChanged;
+        public event System.Action<IValueCallback<TValue>, TValue> OnValueChanged;
     }
 }

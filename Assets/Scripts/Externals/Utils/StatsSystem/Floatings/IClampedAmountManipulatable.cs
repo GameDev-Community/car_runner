@@ -1,23 +1,23 @@
 ﻿namespace Externals.Utils.StatsSystem
 {
-    internal interface IClampedAmountManipulatable<T>
+    public interface IClampedAmountManipulatable<TValue>
     {
-        public bool CanAddExact(T delta);
+        public bool CanAddExact(TValue delta);
 
-        public bool CanRemoveExact(T delta);
+        public bool CanRemoveExact(TValue delta);
 
-        public bool CanChangeExact(T delta);
+        public bool CanChangeExact(TValue delta);
 
-
-        /// <returns>final delta</returns>
-        public T AddSafe(T delta);
 
         /// <returns>final delta</returns>
-        public T RemoveSafe(T delta);
+        public TValue AddSafe(TValue delta);
+
+        /// <returns>final delta</returns>
+        public TValue RemoveSafe(TValue delta);
 
         ///<param name="inversed">from x to -x</param>
         /// <returns>final delta</returns>
-        public T ChangeSafe(T delta, bool inversed = false);
-        public T SetSafe(T value);
+        public TValue ChangeSafe(TValue delta, bool inversed = false);
+        public TValue SetSafe(TValue value);
     }
 }

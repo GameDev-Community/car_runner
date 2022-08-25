@@ -17,3 +17,7 @@ MonoBehaviour:
     _description: "\u0417\u0432\u0443\u0447\u0438\u0442 \u043A\u0430\u043A \u0442\u043E\u0441\u0442"
     _lowresTex: {fileID: 0}
     _hiresTex: {fileID: 0}
+  _statDataInfo:
+    NumericsType: 1
+    Clamped: 1
+    Modifiable: 1

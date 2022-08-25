@@ -5,12 +5,12 @@ using Utils;
 
 namespace Externals.Utils.StatsSystem
 {
-    public class ClampedFloat : IFloatValueCallback, IAmountManipulatable<float>, IClampedAmountManipulatable<float>
+    public class ClampedFloat : IValueCallback<float>, IAmountManipulatable<float>, IClampedAmountManipulatable<float>, IClampedBoundsManipulatable<float>
     {
         /// <summary>
         /// sender, delta
         /// </summary>
-        public event System.Action<IFloatValueCallback, float> OnFloatValueChanged;
+        public event System.Action<IValueCallback<float>, float> OnValueChanged;
 
         /// <summary>
         /// sender, dirty delta, safe delta
@@ -370,7 +370,7 @@ namespace Externals.Utils.StatsSystem
         protected void SetValue(float value, float dirtyDelta, float safeDelta, bool reachedMin, bool reachedMax)
         {
             _value = value;
-            OnFloatValueChanged?.Invoke(this, safeDelta);
+            OnValueChanged?.Invoke(this, safeDelta);
             OnClampedValueChanged?.Invoke(this, dirtyDelta, safeDelta);
 
 

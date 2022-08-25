@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Garage
 {
+    [System.Obsolete("moved to CarInfo struct", false)]
     [CreateAssetMenu(menuName = "Cars/CarInfo")]
     internal sealed class CarInfo : ScriptableObject
     {

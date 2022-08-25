@@ -17,3 +17,7 @@ MonoBehaviour:
     _description: Eto tozhe smeshno
     _lowresTex: {fileID: 2800000, guid: 602cb87b6a29443b8636370ea0751574, type: 3}
     _hiresTex: {fileID: 2800000, guid: dffef66376be4fa480fb02b19edbe903, type: 3}
+  _statDataInfo:
+    NumericsType: 1
+    Clamped: 0
+    Modifiable: 1

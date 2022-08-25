@@ -10,12 +10,14 @@ namespace Utils
     {
         private readonly List<GameObject> _content;
         private readonly Vector3 _position;
+        private readonly bool _fromPool;
 
 
-        public Chunk(List<GameObject> content, Vector3 pos)
+        public Chunk(List<GameObject> content, Vector3 pos, bool fromPool)
         {
             _content = content;
             _position = pos;
+            _fromPool = fromPool;
         }
 
 
@@ -51,7 +53,8 @@ namespace Utils
                 }
             }
 
-            ListPool<GameObject>.Release(list);
+            if (_fromPool)
+                ListPool<GameObject>.Release(list);
         }
     }
 

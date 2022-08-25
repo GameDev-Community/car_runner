@@ -3,12 +3,12 @@ using System;
 
 namespace Externals.Utils.StatsSystem
 {
-    public class IntStatData : IStatData, IIntValueCallback, IAmountManipulatable<int>
+    public class IntStatData : IStatData, IValueCallback<int>, IAmountManipulatable<int>
     {
         /// <summary>
         /// sender, delta
         /// </summary>
-        public event System.Action<IIntValueCallback, int> OnIntValueChanged;
+        public event System.Action<IValueCallback<int>, int> OnValueChanged;
 
         private readonly StatObject _statObject;
         private int _value;
@@ -64,7 +64,7 @@ namespace Externals.Utils.StatsSystem
             if (CanChange(delta, out var result))
             {
                 _value = result;
-                OnIntValueChanged?.Invoke(this, delta);
+                OnValueChanged?.Invoke(this, delta);
                 return true;
             }
 
@@ -128,14 +128,14 @@ Fail:
                 throw new Exception("value should be positive");
 #endif
             _value -= delta;
-            OnIntValueChanged?.Invoke(this, delta);
+            OnValueChanged?.Invoke(this, delta);
         }
 
         public void Set(int value)
         {
             int delta = value - _value;
             _value = value;
-            OnIntValueChanged?.Invoke(this, delta);
+            OnValueChanged?.Invoke(this, delta);
         }
 
         public bool TryAdd(int delta)
@@ -143,7 +143,7 @@ Fail:
             if (CanAdd(delta, out var r))
             {
                 _value = r;
-                OnIntValueChanged?.Invoke(this, delta);
+                OnValueChanged?.Invoke(this, delta);
                 return true;
             }
 
@@ -155,7 +155,7 @@ Fail:
             if (CanRemove(delta, out var r))
             {
                 _value = r;
-                OnIntValueChanged?.Invoke(this, delta);
+                OnValueChanged?.Invoke(this, delta);
                 return true;
             }
 
@@ -168,7 +168,7 @@ Fail:
             {
                 int delta = value - _value;
                 _value = value;
-                OnIntValueChanged?.Invoke(this, delta);
+                OnValueChanged?.Invoke(this, delta);
                 return true;
             }
 

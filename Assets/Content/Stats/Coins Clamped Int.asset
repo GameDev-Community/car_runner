@@ -17,3 +17,7 @@ MonoBehaviour:
     _description: 
     _lowresTex: {fileID: 0}
     _hiresTex: {fileID: 0}
+  _statDataInfo:
+    NumericsType: 0
+    Clamped: 1
+    Modifiable: 0

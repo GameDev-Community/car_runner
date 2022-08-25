@@ -7,8 +7,8 @@ namespace Externals.Utils.StatsSystem
     public class AmountManipulator<T> : IStatChanger
     {
         [SerializeField] private StatObject _statObject;
-        [SerializeField] private T _value;
         [SerializeField] private AmountManipulation _manipulation;
+        [SerializeField] private T _value;
         [SerializeField] private bool _try;
 
 

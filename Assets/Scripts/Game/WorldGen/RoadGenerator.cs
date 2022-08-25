@@ -171,7 +171,7 @@ namespace Systems.WorldGen
               _interactablesRandom, _positionsRandom, _interactablesGoodChanceCurve,
               false);
 
-            Chunk chunk = new(content, p);
+            Chunk chunk = new(content, p, true);
             AddChunk(chunk);
 
             if (_chunksCount == _chunksBufferSize)
@@ -207,7 +207,7 @@ namespace Systems.WorldGen
 
             yield return co;
 
-            Chunk chunk = new(content, p);
+            Chunk chunk = new(content, p, true);
             AddChunk(chunk);
 
             if (_chunksCount == _chunksBufferSize)
@@ -240,7 +240,7 @@ namespace Systems.WorldGen
 
             lock (_genLocker)
             {
-                Chunk chunk = new(content, p);
+                Chunk chunk = new(content, p, true);
                 AddChunk(chunk);
             }
 

@@ -3,12 +3,12 @@ using Externals.Utils.Valuables;
 
 namespace Externals.Utils.StatsSystem
 {
-    public class FloatStatData : IStatData, IFloatValueCallback, IAmountManipulatable<float>
+    public class FloatStatData : IStatData, IValueCallback<float>, IAmountManipulatable<float>
     {
         /// <summary>
         /// sender, delta
         /// </summary>
-        public event System.Action<IFloatValueCallback, float> OnFloatValueChanged;
+        public event System.Action<IValueCallback<float>, float> OnValueChanged;
 
         private readonly StatObject _statObject;
         private float _value;
@@ -35,7 +35,7 @@ namespace Externals.Utils.StatsSystem
                 delta = -delta;
 
             _value += delta;
-            OnFloatValueChanged?.Invoke(this, delta);
+            OnValueChanged?.Invoke(this, delta);
         }
 
         public bool CanChange(float delta, out float result)
@@ -58,7 +58,7 @@ namespace Externals.Utils.StatsSystem
             if (CanChange(delta, out var result))
             {
                 _value = result;
-                OnFloatValueChanged?.Invoke(this, delta);
+                OnValueChanged?.Invoke(this, delta);
                 return true;
             }
 
@@ -110,7 +110,7 @@ namespace Externals.Utils.StatsSystem
             DevourRuntimeHelpers.ThrowIfInfinityOrNaN(delta);
 #endif
             _value -= delta;
-            OnFloatValueChanged?.Invoke(this, delta);
+            OnValueChanged?.Invoke(this, delta);
         }
 
         public void Set(float value)
@@ -120,7 +120,7 @@ namespace Externals.Utils.StatsSystem
 #endif
             float delta = value - _value;
             _value = value;
-            OnFloatValueChanged?.Invoke(this, delta);
+            OnValueChanged?.Invoke(this, delta);
         }
 
         public bool TryAdd(float delta)
@@ -128,7 +128,7 @@ namespace Externals.Utils.StatsSystem
             if (CanAdd(delta, out var r))
             {
                 _value = r;
-                OnFloatValueChanged?.Invoke(this, delta);
+                OnValueChanged?.Invoke(this, delta);
                 return true;
             }
 
@@ -140,7 +140,7 @@ namespace Externals.Utils.StatsSystem
             if (CanRemove(delta, out var r))
             {
                 _value = r;
-                OnFloatValueChanged?.Invoke(this, delta);
+                OnValueChanged?.Invoke(this, delta);
                 return true;
             }
 
@@ -153,7 +153,7 @@ namespace Externals.Utils.StatsSystem
             {
                 float delta = value - _value;
                 _value = value;
-                OnFloatValueChanged?.Invoke(this, delta);
+                OnValueChanged?.Invoke(this, delta);
                 return true;
             }
 

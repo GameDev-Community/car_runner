@@ -34,7 +34,36 @@ namespace Externals.Utils.StatsSystem
 
         public void Apply(StatsCollection statsCollection, bool inverse = false)
         {
+            var x = statsCollection.TryGetStatDataT<IModifiableStatData>(_statObject, out var msd);
 
+            if (!x)
+            {
+#if UNITY_EDITOR
+                Debug.LogError($"{statsCollection}, {_statObject}");
+                if (statsCollection.TryGetStatData(_statObject, out var debugSD))
+                {
+                    Debug.LogError(debugSD.GetType());
+                }
+                else
+                {
+                    Debug.LogError("Stat not found");
+                }
+#endif
+
+                return;
+            }
+
+            var mds = msd.StatModifiers;
+
+            if (inverse)
+            {
+                mds.RemoveModifierImmediate(Create(), _amount);
+            }
+            else
+            {
+                mds.AddModifierImmediate(Create(), _amount);
+                mds.FinishAddingModifiers();
+            }
         }
     }
 }

@@ -33,7 +33,7 @@ namespace Game.Stats
 
 
             var accelerationStatData = _accelerationStatDataCreator.Create();
-            accelerationStatData.OnFloatValueChanged += Acceleration_OnChanged;
+            accelerationStatData.OnValueChanged += Acceleration_OnChanged;
             StatsHolder.StatsCollection.AddStat(_accelerationStatDataCreator.StatObject, accelerationStatData);
 
             MaxSpeed_OnBoundsChanged(speedStatData, Vector3.zero);
@@ -59,7 +59,7 @@ namespace Game.Stats
             _carController.Speed = sender.Value;
         }
 
-        private void Acceleration_OnChanged(IFloatValueCallback sender, float delta)
+        private void Acceleration_OnChanged(IValueCallback<float> sender, float delta)
         {
             _carController.Acceleration = sender.Value;
         }

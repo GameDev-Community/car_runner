@@ -17,3 +17,7 @@ MonoBehaviour:
     _description: Liquid gold!
     _lowresTex: {fileID: 0}
     _hiresTex: {fileID: 0}
+  _statDataInfo:
+    NumericsType: 1
+    Clamped: 1
+    Modifiable: 0

@@ -6,12 +6,12 @@ using Utils;
 namespace Externals.Utils.StatsSystem
 {
     //todo: обработать границы int32
-    public class ClampedInt : IIntValueCallback, IAmountManipulatable<int>, IClampedAmountManipulatable<int>
+    public class ClampedInt : IValueCallback<int>, IAmountManipulatable<int>, IClampedAmountManipulatable<int>, IClampedBoundsManipulatable<int>
     {
         /// <summary>
         /// sender, delta
         /// </summary>
-        public event System.Action<IIntValueCallback, int> OnIntValueChanged;
+        public event System.Action<IValueCallback<int>, int> OnValueChanged;
 
         /// <summary>
         /// sender, dirty delta, safe delta
@@ -255,7 +255,7 @@ namespace Externals.Utils.StatsSystem
             _value = value;
             int dirtyDelta = MathModule.ClampLongToInt(longDirtyDelta);
             int safeDelta = MathModule.ClampLongToInt(longSafeDelta);
-            OnIntValueChanged?.Invoke(this, safeDelta);
+            OnValueChanged?.Invoke(this, safeDelta);
             OnClampedValueChanged?.Invoke(this, dirtyDelta, safeDelta);
 
             if (reachedMin)

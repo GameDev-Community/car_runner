@@ -19,7 +19,7 @@ namespace Externals.Utils.StatsSystem.Modifiers
             var max = _maxStat.Value;
             SetBounds(0, max, max * initialRatio);
 
-            _maxStat.OnFloatValueChanged += HandleMaxStatChanged;
+            _maxStat.OnValueChanged += HandleMaxStatChanged;
         }
 
 
@@ -29,7 +29,7 @@ namespace Externals.Utils.StatsSystem.Modifiers
         public Vector2? MaxBoundClamps { get => _maxStat.Clamps; set => _maxStat.Clamps = value; }
 
 
-        private void HandleMaxStatChanged(IFloatValueCallback sender, float delta)
+        private void HandleMaxStatChanged(IValueCallback<float> sender, float delta)
         {
             SetBounds(0, sender.Value);
         }

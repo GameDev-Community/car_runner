@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Reflection;
 using UnityEditor;
-using System.Reflection;
+using UnityEngine;
 
 namespace Externals.Utils.StatsSystem
 {
@@ -47,30 +47,60 @@ namespace Externals.Utils.StatsSystem
                         if (isInteger)
                         {
                             //draw ClampedIntBoundsManipulator
+                            var clampedIntBoundsManipulatorProp = serializedObject.FindProperty("_clampedIntBoundsManipulator");
+                            EditorGUILayout.PropertyField(clampedIntBoundsManipulatorProp);
+                            actionID = 6;
                         }
                         else
                         {
                             //draw ClampedFloatBoundsManipulator
                             var clampedFloatBoundsManipulatorProp = serializedObject.FindProperty("_clampedFloatBoundsManipulator");
                             EditorGUILayout.PropertyField(clampedFloatBoundsManipulatorProp);
+                            actionID = 5;
                         }
-                        
+
                     }
                 }
                 else
                 {
                     //change value
+
+                    if (isInteger)
+                    {
+                        var intClampedAmountManipulatorProp = serializedObject.FindProperty("_intClampedAmountManipulators");
+                        EditorGUILayout.PropertyField(intClampedAmountManipulatorProp);
+                        actionID = 4;
+                    }
+                    else
+                    {
+                        var floatClampedAmountManipulatorProp = serializedObject.FindProperty("_floatClampedAmountManipulators");
+                        EditorGUILayout.PropertyField(floatClampedAmountManipulatorProp);
+                        actionID = 3;
+                    }
                 }
             }
+            else
+            {
+                //non-clamped
 
-
-
+                if (isInteger)
+                {
+                    var intAmountManipulatorProp = serializedObject.FindProperty("_intAmountManipulator");
+                    EditorGUILayout.PropertyField(intAmountManipulatorProp);
+                    actionID = 2;
+                }
+                else
+                {
+                    var floatAmountManipulatorProp = serializedObject.FindProperty("_floatAmountManipulator");
+                    EditorGUILayout.PropertyField(floatAmountManipulatorProp);
+                    actionID = 1;
+                }
+            }
 
 End:
             var idField = typeof(StatDataManipulation).GetField("_actionID", BindingFlags.Instance | BindingFlags.NonPublic);
             idField.SetValue(target, actionID);
             EditorUtility.SetDirty(target);
-            //EditorGUILayout.TextField(idField.GetValue(target).ToString());
             serializedObject.ApplyModifiedProperties();
         }
     }
@@ -101,7 +131,8 @@ End:
         [SerializeField] private ClampedAmountManipulator<int> _intClampedAmountManipulators; //ID 4
 
         //for clamped non-modifiable floats to manipulate bounds
-        [SerializeField] private ClampedFloatBoundsManipulator _clampedFloatBoundsManipulator; //ID 5
+        [SerializeField] private ClampedBoundsManipulator<float> _clampedFloatBoundsManipulator; //ID 5
+        [SerializeField] private ClampedBoundsManipulator<int> _clampedIntBoundsManipulator; //ID 6
 
 
         [SerializeField, HideInInspector] private int _actionID;
@@ -132,6 +163,9 @@ End:
                     break;
                 case 5:
                     _clampedFloatBoundsManipulator.Apply(sc, inv);
+                    break;
+                case 6:
+                    _clampedIntBoundsManipulator.Apply(sc, inv);
                     break;
                 default:
 #if UNITY_EDITOR

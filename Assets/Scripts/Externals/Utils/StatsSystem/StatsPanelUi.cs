@@ -17,21 +17,5 @@ namespace Externals.Utils.StatsSystem
         public abstract void Visualize(T data);
     }
 
-    //public class FloatDynamicStatVisualizer : StatVisualizerBase<FloatDynamicStatVisualizer>
-    //{
-    //    [SerializeField]
-    //    private ImageConversion
-    //    [SerializeField] private TMPro.TextMeshProUGUI _statValueText;
-
-
-    //    public override void Init(FloatDynamicStatVisualizer data)
-    //    {
-    //        throw new System.NotImplementedException();
-    //    }
-
-    //    public override void Visualize(FloatDynamicStatVisualizer data)
-    //    {
-    //        throw new System.NotImplementedException();
-    //    }
-    //}
+   //public class ClampedStatDataVisualizer : StatVisualizerBase<clamped>
 }

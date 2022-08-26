@@ -1103,11 +1103,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5e6c71e03142734f8f5019762778dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _statObject: {fileID: 11400000, guid: 76831c0c6511968458932b7bae1b841b, type: 2}
+  _statObject: {fileID: 11400000, guid: 4c01e2e9c13853c4c92ad660f1c9d6a1, type: 2}
   _clampedValueManipulationType: 0
-  _notImplemented: 0
+  _statModifierCreators:
+  - _statObject: {fileID: 11400000, guid: 4c01e2e9c13853c4c92ad660f1c9d6a1, type: 2}
+    _mode: 1
+    _value: 0
+    _amount: 0
   _floatAmountManipulator:
-    _statObject: {fileID: 0}
+    _statObject: {fileID: 11400000, guid: e7dcb17c829401348a86ac5b07d5f45a, type: 2}
     _manipulation: 0
     _value: 0
     _try: 0
@@ -1125,15 +1129,22 @@ MonoBehaviour:
     _manipulation: 0
     _value: 0
   _clampedFloatBoundsManipulator:
-    _statObject: {fileID: 0}
+    _statObject: {fileID: 11400000, guid: c2995acfbb2148f48a23e73ae571a8e5, type: 2}
     _changeMin: 0
     _min: 0
     _changeMax: 0
     _max: 0
     _changeCur: 0
     _cur: 0
-  _statModifierCreators: []
-  _actionID: -1
+  _clampedIntBoundsManipulator:
+    _statObject: {fileID: 11400000, guid: fd348f187346ce342a72b230783a5c49, type: 2}
+    _changeMin: 0
+    _min: 0
+    _changeMax: 0
+    _max: 0
+    _changeCur: 0
+    _cur: 0
+  _actionID: 0
 --- !u!1 &1827870759
 GameObject:
   m_ObjectHideFlags: 0

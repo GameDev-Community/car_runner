@@ -24,7 +24,7 @@ namespace Externals.Utils.StatsSystem
         public float Value => _value;
 
 
-        #region IOperatiable
+        #region IAmountManipulatable
 
         public void Change(float delta, bool inverse = false)
         {

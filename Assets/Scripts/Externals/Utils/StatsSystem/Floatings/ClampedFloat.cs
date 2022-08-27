@@ -7,11 +7,8 @@ namespace Externals.Utils.StatsSystem
 {
     public class ClampedFloat : IValueCallback<float>, IAmountManipulatable<float>, IClampedAmountManipulatable<float>, IClampedBoundsManipulatable<float>
     {
-        /// <summary>
-        /// sender, delta
-        /// </summary>
-        public event System.Action<IValueCallback<float>, float> OnValueChanged;
 
+        public event System.Action<IValueCallback<float>, float> OnValueChanged;
         /// <summary>
         /// sender, dirty delta, safe delta
         /// </summary>

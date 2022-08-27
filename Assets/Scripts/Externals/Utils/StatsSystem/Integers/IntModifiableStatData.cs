@@ -1,21 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Utils;
 
 namespace Externals.Utils.StatsSystem.Modifiers
 {
-    public sealed class FloatModifiableStatData : IModifiableStatData, IValueCallback<float>
+    public sealed class IntModifiableStatData : IModifiableStatData, IValueCallback<int>
     {
-        public event Action<IValueCallback<float>, float> OnValueChanged;
+        public event Action<IValueCallback<int>, int> OnValueChanged;
 
         private readonly StatObject _statObject;
         private readonly StatModifiersCollection _modifiersCollection;
 
-        private readonly float _source;
-        private float _value;
-        private Vector2? _clamps;
+        private readonly int _source;
+        private int _value;
+        private Vector2Int? _clamps;
 
-        public FloatModifiableStatData(StatObject statObject, float modifyingSourceValue, IEnumerable<StatModifier> modifiers)
+        public IntModifiableStatData(StatObject statObject, int modifyingSourceValue, IEnumerable<StatModifier> modifiers)
         {
             _statObject = statObject;
             _source = modifyingSourceValue;
@@ -31,17 +32,17 @@ namespace Externals.Utils.StatsSystem.Modifiers
                 _modifiersCollection.FinishAddingModifiers();
             }
 
-            _value = System.Math.Clamp(_modifiersCollection.ModifyValue(_source), float.MinValue, float.MaxValue);
+            _value = MathModule.ClampLongToInt((long)_modifiersCollection.ModifyValue(_source));
             _modifiersCollection.OnModified += HandleModified;
         }
 
 
         public StatObject StatObject => _statObject;
-        public float Value => _value;
-        public float SourceValue => _source;
+        public int Value => _value;
+        public int SourceValue => _source;
         public StatModifiersCollection StatModifiers => _modifiersCollection;
 
-        public Vector2? Clamps
+        public Vector2Int? Clamps
         {
             get => _clamps;
             set
@@ -55,7 +56,7 @@ namespace Externals.Utils.StatsSystem.Modifiers
 
                     if (cv != _value)
                     {
-                        float delta = cv - _value;
+                        int delta = cv - _value;
                         _value = cv;
                         OnValueChanged?.Invoke(this, delta);
                     }
@@ -71,7 +72,7 @@ namespace Externals.Utils.StatsSystem.Modifiers
         private void HandleModified(StatModifiersCollection modifiersCollection)
         {
             var tmp = _value;
-            _value = modifiersCollection.ModifyValue(_source);
+            _value = MathModule.ClampLongToInt((long)_modifiersCollection.ModifyValue(_source));
 
             if (Clamps.HasValue)
             {

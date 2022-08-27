@@ -77,7 +77,7 @@ namespace Externals.Utils.StatsSystem
                                     modifiers[i] = _modifiers[i].Create();
                                 }
                             }
-                            data = new ClampedIntModifiableStatData(_statObject, _maxSource, modifiers, _initial, _saveRatio);
+                            data = new IntDynamicStatData(_statObject, (int)_maxSource, modifiers, _initial, _saveRatio);
                         }
                         else
                         {

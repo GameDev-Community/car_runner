@@ -25,8 +25,25 @@ namespace Game.Core
 
         private void Awake()
         {
-            _carController = (ICarController)_carController_raw;
-            _statsHolder = (IStatsHolder)_statsHolder_raw;
+            try
+            {
+                _carController = (ICarController)_carController_raw;
+            }
+            catch (System.Exception ex)
+            {
+                UnityEngine.Debug.LogError(ex);
+            }
+
+            try
+            {
+                _statsHolder = (IStatsHolder)_statsHolder_raw;
+            }
+            catch (System.Exception ex)
+            {
+                UnityEngine.Debug.LogError(ex);
+            }
+
+            
             SaveManager.OnSave += SaveManager_OnSave;
             SaveManager.OnLoad += SaveManager_OnLoad;
         }

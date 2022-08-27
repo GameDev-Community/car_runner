@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace Externals.Utils.StatsSystem.Modifiers
 {
-    public sealed class FloatDynamicStatData : ClampedFloatStatData, IModifiableStatData
+    public sealed class IntDynamicStatData : ClampedIntStatData, IModifiableStatData
     {
-        private readonly FloatModifiableStatData _maxStat;
+        private readonly IntModifiableStatData _maxStat;
 
 
-        public FloatDynamicStatData(StatObject statObject, float maxSource, IEnumerable<StatModifier> modifiers, float initialRatio, bool saveRatio, float minBoundsDelta = 1E-10F)
+        public IntDynamicStatData(StatObject statObject, int maxSource, IEnumerable<StatModifier> modifiers, float initialRatio, bool saveRatio, int minBoundsDelta = 2)
             : base(statObject, 0, minBoundsDelta, 0, false, saveRatio, minBoundsDelta)
         {
             if (maxSource <= 0 || float.IsInfinity(maxSource))
@@ -17,8 +17,8 @@ namespace Externals.Utils.StatsSystem.Modifiers
 
             _maxStat = new(statObject, maxSource, modifiers);
             var max = _maxStat.Value;
-            initialRatio = System.Math.Clamp(initialRatio, 0f, 1f);
-            SetBounds(0, max, max * initialRatio);
+            initialRatio = System.Math.Clamp(initialRatio, 0, 1);
+            SetBounds(0, max, (int)(max * initialRatio));
 
             _maxStat.OnValueChanged += HandleMaxStatChanged;
         }
@@ -27,10 +27,10 @@ namespace Externals.Utils.StatsSystem.Modifiers
         public StatModifiersCollection StatModifiers => _maxStat.StatModifiers;
 
 
-        public Vector2? MaxBoundClamps { get => _maxStat.Clamps; set => _maxStat.Clamps = value; }
+        public Vector2Int? MaxBoundClamps { get => _maxStat.Clamps; set => _maxStat.Clamps = value; }
 
 
-        private void HandleMaxStatChanged(IValueCallback<float> sender, float delta)
+        private void HandleMaxStatChanged(IValueCallback<int> sender, int delta)
         {
             SetBounds(0, sender.Value);
         }

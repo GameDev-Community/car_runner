@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Externals.Utils.StatsSystem.Modifiers
 {
-    public sealed class FloatModifiableStatData : IModifiableStatData, IValueCallback<float>
+    public sealed class FloatModifiableStatData : IModifiableStatData, IValueCallback<float>, IClampedModifiable<float>
     {
         public event Action<IValueCallback<float>, float> OnValueChanged;
 
@@ -13,7 +13,9 @@ namespace Externals.Utils.StatsSystem.Modifiers
 
         private readonly float _source;
         private float _value;
-        private Vector2? _clamps;
+        private float? _minModVal;
+        private float? _maxModVal;
+
 
         public FloatModifiableStatData(StatObject statObject, float modifyingSourceValue, IEnumerable<StatModifier> modifiers)
         {
@@ -41,46 +43,69 @@ namespace Externals.Utils.StatsSystem.Modifiers
         public float SourceValue => _source;
         public StatModifiersCollection StatModifiers => _modifiersCollection;
 
-        public Vector2? Clamps
+
+        public float? MinModifiableValue
         {
-            get => _clamps;
-            set
-            {
-                _clamps = value;
+            get => _minModVal;
+            set => SetModifiableClamps(value, _maxModVal);
+        }
 
-                if (_clamps.HasValue)
-                {
-                    var clamps = _clamps.Value;
-                    var cv = System.Math.Clamp(_value, clamps.x, clamps.y);
-
-                    if (cv != _value)
-                    {
-                        float delta = cv - _value;
-                        _value = cv;
-                        OnValueChanged?.Invoke(this, delta);
-                    }
-                }
-                else
-                {
-                    HandleModified(_modifiersCollection);
-                }
-            }
+        public float? MaxModifiableValue
+        {
+            get => _minModVal;
+            set => SetModifiableClamps(value, _maxModVal);
         }
 
 
+        public void SetModifiableClamps(float? min, float? max)
+        {
+            //todo: add min > max checks (with nulls)
+            bool flag = false;
+
+            if (_minModVal != min)
+                _minModVal = min;
+            else
+                flag = true;
+
+            if (_maxModVal != max)
+                _maxModVal = max;
+            else if (flag)
+                return;
+
+
+            float minR = min ?? float.MinValue;
+            float maxR = max ?? float.MaxValue;
+
+            float cv = System.Math.Clamp(_value, minR, maxR);
+
+            if (cv == _value)
+                return;
+
+            var delta = cv - _value;
+            _value = cv;
+            OnValueChanged?.Invoke(this, delta);
+        }
+
         private void HandleModified(StatModifiersCollection modifiersCollection)
         {
-            var tmp = _value;
-            _value = modifiersCollection.ModifyValue(_source);
+            var v = modifiersCollection.ModifyValue(_source);
 
-            if (Clamps.HasValue)
+            if (_minModVal.HasValue || _maxModVal.HasValue)
             {
-                var clamps = Clamps.Value;
-                _value = System.Math.Clamp(_value, clamps.x, clamps.y);
+                //todo: optimize to 1 constraint (if x > y -> x = y)
+
+                float min = _minModVal ?? float.MinValue;
+                float max = _maxModVal ?? float.MaxValue;
+
+                v = System.Math.Clamp(v, min, max);
             }
 
-            if (tmp != _value)
-                OnValueChanged?.Invoke(this, _value - tmp);
+            if (v != _value)
+            {
+                var delta = v - _value;
+                _value = v;
+                OnValueChanged?.Invoke(this, delta);
+            }
         }
     }
 }

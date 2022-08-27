@@ -4,7 +4,7 @@ namespace Externals.Utils.StatsSystem
 {
     public class StatsHolder : MonoBehaviour, IStatsHolder
     {
-        [SerializeField] private StatDataCreator[] _initialStats;
+        [SerializeField] private StatDataInitializer[] _initialStats;
 
         private readonly StatsCollection _statsCollection = new();
 

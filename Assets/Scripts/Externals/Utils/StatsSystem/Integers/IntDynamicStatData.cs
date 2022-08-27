@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Externals.Utils.StatsSystem.Modifiers
 {
-    public sealed class IntDynamicStatData : ClampedIntStatData, IModifiableStatData
+    public sealed class IntDynamicStatData : ClampedIntStatData, IModifiableStatData, IClampedModifiable<int>
     {
         private readonly IntModifiableStatData _maxStat;
 
 
         public IntDynamicStatData(StatObject statObject, int maxSource, IEnumerable<StatModifier> modifiers, float initialRatio, bool saveRatio, int minBoundsDelta = 2)
-            : base(statObject, 0, minBoundsDelta, 0, false, saveRatio, minBoundsDelta)
+            : base(statObject, 0, minBoundsDelta, 0, saveRatio, minBoundsDelta)
         {
             if (maxSource <= 0 || float.IsInfinity(maxSource))
                 throw new Exception("maxSource should be positive finite value");
@@ -26,8 +25,8 @@ namespace Externals.Utils.StatsSystem.Modifiers
 
         public StatModifiersCollection StatModifiers => _maxStat.StatModifiers;
 
-
-        public Vector2Int? MaxBoundClamps { get => _maxStat.Clamps; set => _maxStat.Clamps = value; }
+        public int? MinModifiableValue { get => _maxStat.MinModifiableValue; set => _maxStat.MinModifiableValue = value; }
+        public int? MaxModifiableValue { get => _maxStat.MaxModifiableValue; set => _maxStat.MaxModifiableValue = value; }
 
 
         private void HandleMaxStatChanged(IValueCallback<int> sender, int delta)
@@ -39,6 +38,11 @@ namespace Externals.Utils.StatsSystem.Modifiers
         public override string ToString()
         {
             return $"{GetType()}, min: {Min}, max: {Max}, Value: {Value}";
+        }
+
+        public void SetModifiableClamps(int? min, int? max)
+        {
+            _maxStat.SetModifiableClamps(min, max);
         }
     }
 }

@@ -41,7 +41,7 @@ namespace Externals.Utils.StatsSystem
             return false;
         }
 
-        public bool TryAddStat(StatDataCreator creator)
+        public bool TryAddStat(StatDataInitializer creator)
         {
             if (!ContainsStat(creator.StatObject))
             {

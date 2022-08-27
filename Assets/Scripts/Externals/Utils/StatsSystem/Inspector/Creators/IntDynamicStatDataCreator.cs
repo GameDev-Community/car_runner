@@ -3,23 +3,24 @@
 namespace Externals.Utils.StatsSystem.Modifiers
 {
     [System.Serializable]
-    public sealed class FloatDynamicStatDataCreator
+    public sealed class IntDynamicStatDataCreator
     {
         [SerializeField] private StatObject _statObject;
-        [SerializeField] private float _maxSource;
+        [SerializeField] private int _maxSource;
         [Tooltip("optional")]
         [SerializeField] private StatModifierCreator[] _initialModifiers;
         [SerializeField] private float _initialRatio;
         [SerializeField] private bool _saveRatio;
         [Tooltip("если включено - модификаторы не смогут вывести МАКСИМАЛЬНОЕ значение за рамки")]
         [SerializeField] private bool _clampMin;
-        [SerializeField] private float _minClamp;
+        [SerializeField] private int _minClamp;
         [SerializeField] private bool _clampMax;
-        [SerializeField] private float _maxClamp;
+        [SerializeField] private int _maxClamp;
 
-        public FloatDynamicStatDataCreator(StatObject statObject, float maxSource,
+
+        public IntDynamicStatDataCreator(StatObject statObject, int maxSource,
             StatModifierCreator[] initialModifiers, float initialRatio, bool saveRatio,
-            bool clampMin, float minClamp, bool clampMax, float maxClamp)
+            bool clampMin, int minClamp, bool clampMax, int maxClamp)
         {
             _statObject = statObject;
             _maxSource = maxSource;

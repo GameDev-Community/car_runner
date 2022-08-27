@@ -62,7 +62,6 @@ namespace Externals.Utils.StatsSystem
             else
             {
                 mds.AddModifierImmediate(Create(), _amount);
-                mds.FinishAddingModifiers();
             }
         }
     }

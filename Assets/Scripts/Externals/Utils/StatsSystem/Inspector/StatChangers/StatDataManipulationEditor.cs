@@ -37,33 +37,7 @@ namespace Externals.Utils.StatsSystem
                     if (isModifiable)
                     {
                         //draw modifiers constructor;
-                        var modifierCreatorsArrProp = serializedObject.FindProperty("_statModifierCreators");
-                        EditorGUILayout.PropertyField(modifierCreatorsArrProp);
-                        actionID = 0;
-
-                        var smcreatorsField = typeof(StatDataManipulation).GetField("_statModifierCreators", BindingFlags.Instance | BindingFlags.NonPublic);
-                        var smCreatorsArrRaw = smcreatorsField.GetValue(target);
-
-                        if (smCreatorsArrRaw != null)
-                        {
-                            var arr = (StatModifierCreator[])smCreatorsArrRaw;
-
-                            if (arr.Length > 0)
-                            {
-                                var smSoField = typeof(StatModifierCreator).GetField("_statObject", BindingFlags.Instance | BindingFlags.NonPublic);
-
-                                for (int i = 0; i < arr.Length; i++)
-                                {
-                                    StatModifierCreator x = arr[i];
-
-                                    if (x != null)
-                                    {
-                                        smSoField.SetValue(x, statObject);
-                                    }
-                                }
-                            }
-                        }
-
+                        DrawStatModifiers();
                     }
                     else
                     {
@@ -102,7 +76,7 @@ namespace Externals.Utils.StatsSystem
                         actionID = 4;
 
                         var amountManipulatorField = typeof(StatDataManipulation).GetField("_intClampedAmountManipulators", BindingFlags.Instance | BindingFlags.NonPublic);
-                        var amountManipulatorStatObjectField = typeof(ClampedAmountManipulator<float>).GetField("_statObject", BindingFlags.Instance | BindingFlags.NonPublic);
+                        var amountManipulatorStatObjectField = typeof(ClampedAmountManipulator<int>).GetField("_statObject", BindingFlags.Instance | BindingFlags.NonPublic);
                         amountManipulatorStatObjectField.SetValue(amountManipulatorField.GetValue(target), statObject);
                     }
                     else
@@ -112,7 +86,7 @@ namespace Externals.Utils.StatsSystem
                         actionID = 3;
 
                         var amountManipulatorField = typeof(StatDataManipulation).GetField("_floatClampedAmountManipulators", BindingFlags.Instance | BindingFlags.NonPublic);
-                        var amountManipulatorStatObjectField = typeof(ClampedAmountManipulator<int>).GetField("_statObject", BindingFlags.Instance | BindingFlags.NonPublic);
+                        var amountManipulatorStatObjectField = typeof(ClampedAmountManipulator<float>).GetField("_statObject", BindingFlags.Instance | BindingFlags.NonPublic);
                         amountManipulatorStatObjectField.SetValue(amountManipulatorField.GetValue(target), statObject);
                     }
                 }
@@ -121,26 +95,35 @@ namespace Externals.Utils.StatsSystem
             {
                 //non-clamped
 
-                if (isInteger)
+                if (isModifiable)
                 {
-                    var intAmountManipulatorProp = serializedObject.FindProperty("_intAmountManipulator");
-                    EditorGUILayout.PropertyField(intAmountManipulatorProp);
-                    actionID = 2;
-
-                    var amountManipulatorField = typeof(StatDataManipulation).GetField("_intAmountManipulator", BindingFlags.Instance | BindingFlags.NonPublic);
-                    var amountManipulatorStatObjectField = typeof(AmountManipulator<int>).GetField("_statObject", BindingFlags.Instance | BindingFlags.NonPublic);
-                    amountManipulatorStatObjectField.SetValue(amountManipulatorField.GetValue(target), statObject);
+                    DrawStatModifiers();
                 }
                 else
                 {
-                    var floatAmountManipulatorProp = serializedObject.FindProperty("_floatAmountManipulator");
-                    EditorGUILayout.PropertyField(floatAmountManipulatorProp);
-                    actionID = 1;
+                    if (isInteger)
+                    {
+                        var intAmountManipulatorProp = serializedObject.FindProperty("_intAmountManipulator");
+                        EditorGUILayout.PropertyField(intAmountManipulatorProp);
+                        actionID = 2;
 
-                    var amountManipulatorField = typeof(StatDataManipulation).GetField("_floatAmountManipulator", BindingFlags.Instance | BindingFlags.NonPublic);
-                    var amountManipulatorStatObjectField = typeof(AmountManipulator<float>).GetField("_statObject", BindingFlags.Instance | BindingFlags.NonPublic);
-                    amountManipulatorStatObjectField.SetValue(amountManipulatorField.GetValue(target), statObject);
+                        var amountManipulatorField = typeof(StatDataManipulation).GetField("_intAmountManipulator", BindingFlags.Instance | BindingFlags.NonPublic);
+                        var amountManipulatorStatObjectField = typeof(AmountManipulator<int>).GetField("_statObject", BindingFlags.Instance | BindingFlags.NonPublic);
+                        amountManipulatorStatObjectField.SetValue(amountManipulatorField.GetValue(target), statObject);
+                    }
+                    else
+                    {
+                        var floatAmountManipulatorProp = serializedObject.FindProperty("_floatAmountManipulator");
+                        EditorGUILayout.PropertyField(floatAmountManipulatorProp);
+                        actionID = 1;
+
+                        var amountManipulatorField = typeof(StatDataManipulation).GetField("_floatAmountManipulator", BindingFlags.Instance | BindingFlags.NonPublic);
+                        var amountManipulatorStatObjectField = typeof(AmountManipulator<float>).GetField("_statObject", BindingFlags.Instance | BindingFlags.NonPublic);
+                        amountManipulatorStatObjectField.SetValue(amountManipulatorField.GetValue(target), statObject);
+                    }
                 }
+
+              
             }
 
 End:
@@ -148,6 +131,37 @@ End:
             idField.SetValue(target, actionID);
             EditorUtility.SetDirty(target);
             serializedObject.ApplyModifiedProperties();
+
+
+            void DrawStatModifiers()
+            {
+                var modifierCreatorsArrProp = serializedObject.FindProperty("_statModifierCreators");
+                EditorGUILayout.PropertyField(modifierCreatorsArrProp);
+                actionID = 0;
+
+                var smcreatorsField = typeof(StatDataManipulation).GetField("_statModifierCreators", BindingFlags.Instance | BindingFlags.NonPublic);
+                var smCreatorsArrRaw = smcreatorsField.GetValue(target);
+
+                if (smCreatorsArrRaw != null)
+                {
+                    var arr = (StatModifierCreator[])smCreatorsArrRaw;
+
+                    if (arr.Length > 0)
+                    {
+                        var smSoField = typeof(StatModifierCreator).GetField("_statObject", BindingFlags.Instance | BindingFlags.NonPublic);
+
+                        for (int i = 0; i < arr.Length; i++)
+                        {
+                            StatModifierCreator x = arr[i];
+
+                            if (x != null)
+                            {
+                                smSoField.SetValue(x, statObject);
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 #endif

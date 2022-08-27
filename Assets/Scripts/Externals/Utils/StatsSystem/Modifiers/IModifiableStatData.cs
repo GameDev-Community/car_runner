@@ -3,7 +3,6 @@
     public interface IModifiableStatData : IStatData
     {
         public StatModifiersCollection StatModifiers { get; }
-
         //члены ниже переехали в StatModifiersCollection
 
         //public bool ContainsModifier(StatModifier m);

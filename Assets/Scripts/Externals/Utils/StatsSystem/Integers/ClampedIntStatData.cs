@@ -4,8 +4,8 @@
     {
         private readonly StatObject _statObject;
 
-        public ClampedIntStatData(StatObject statObject, int min, int max, float initial, bool ratio, bool saveRatio, int minBoundsDelta = 1)
-            : base(min, max, initial, ratio, saveRatio, minBoundsDelta)
+        public ClampedIntStatData(StatObject statObject, int min, int max, int initial, bool saveRatio, int minBoundsDelta = 2)
+            : base(min, max, initial, saveRatio, minBoundsDelta)
         {
             _statObject = statObject;
         }

@@ -5,7 +5,68 @@ using Utils;
 
 namespace Externals.Utils.StatsSystem.Modifiers
 {
-    public sealed class IntModifiableStatData : IModifiableStatData, IValueCallback<int>
+    [System.Serializable]
+    public class IntModifiableStatDataCreator
+    {
+        [SerializeField] private StatObject _statObject;
+        [SerializeField] private int _modifyingSourceValue;
+        [Tooltip("optional")]
+        [SerializeField] private StatModifierCreator[] _initialModifiers;
+        [Tooltip("если включено - модификаторы не смогут вывести значение за рамки")]
+        [SerializeField] private bool _clampMin;
+        [SerializeField] private int _minClamp;
+        [SerializeField] private bool _clampMax;
+        [SerializeField] private int _maxClamp;
+
+
+        public IntModifiableStatDataCreator(StatObject statObject, int modifyingSourceValue, 
+            StatModifierCreator[] initialModifiers, bool clampMin, int minClamp, bool clampMax, int maxClamp)
+        {
+            _statObject = statObject;
+            _modifyingSourceValue = modifyingSourceValue;
+            _initialModifiers = initialModifiers;
+            _clampMin = clampMin;
+            _minClamp = minClamp;
+            _clampMax = clampMax;
+            _maxClamp = maxClamp;
+        }
+
+
+        public IntModifiableStatData Create()
+        {
+            StatModifier[] modifiers = null;
+
+            var ims = _initialModifiers;
+            if (ims != null)
+            {
+                int imsC = ims.Length;
+                if (imsC > 0)
+                {
+                    modifiers = new StatModifier[imsC];
+
+                    for (int i = -1; ++i < imsC;)
+                        modifiers[i] = ims[i].Create();
+                }
+            }
+
+            var sd = new IntModifiableStatData(_statObject, _modifyingSourceValue, modifiers);
+
+            if (_clampMin && _clampMax)
+            {
+                sd.SetModifiableClamps(_minClamp, _maxClamp);
+            }
+            else
+            {
+                if (_clampMin)
+                    sd.MinModifiableValue = _minClamp;
+                else if (_clampMax)
+                    sd.MaxModifiableValue = _maxClamp;
+            }
+
+            return sd;
+        }
+    }
+    public sealed class IntModifiableStatData : IModifiableStatData, IValueCallback<int>, IClampedModifiable<int>
     {
         public event Action<IValueCallback<int>, int> OnValueChanged;
 
@@ -14,7 +75,9 @@ namespace Externals.Utils.StatsSystem.Modifiers
 
         private readonly int _source;
         private int _value;
-        private Vector2Int? _clamps;
+        private int? _minModVal;
+        private int? _maxModVal;
+
 
         public IntModifiableStatData(StatObject statObject, int modifyingSourceValue, IEnumerable<StatModifier> modifiers)
         {
@@ -42,46 +105,71 @@ namespace Externals.Utils.StatsSystem.Modifiers
         public int SourceValue => _source;
         public StatModifiersCollection StatModifiers => _modifiersCollection;
 
-        public Vector2Int? Clamps
+        public int? MinModifiableValue
         {
-            get => _clamps;
-            set
-            {
-                _clamps = value;
+            get => _minModVal;
+            set => SetModifiableClamps(value, _maxModVal);
+        }
 
-                if (_clamps.HasValue)
-                {
-                    var clamps = _clamps.Value;
-                    var cv = System.Math.Clamp(_value, clamps.x, clamps.y);
+        public int? MaxModifiableValue
+        {
+            get => _minModVal;
+            set => SetModifiableClamps(value, _maxModVal);
+        }
 
-                    if (cv != _value)
-                    {
-                        int delta = cv - _value;
-                        _value = cv;
-                        OnValueChanged?.Invoke(this, delta);
-                    }
-                }
-                else
-                {
-                    HandleModified(_modifiersCollection);
-                }
-            }
+
+        public void SetModifiableClamps(int? min, int? max)
+        {
+            //todo: add min > max checks (with nulls)
+            bool flag = false;
+
+            if (_minModVal != min)
+                _minModVal = min;
+            else
+                flag = true;
+
+            if (_maxModVal != max)
+                _maxModVal = max;
+            else if (flag)
+                return;
+
+
+            int minR = min ?? int.MinValue;
+            int maxR = max ?? int.MaxValue;
+
+            var cv = System.Math.Clamp(_value, minR, maxR);
+
+            if (cv == _value)
+                return;
+
+            var delta = cv - _value;
+            _value = cv;
+            OnValueChanged?.Invoke(this, delta);
         }
 
 
         private void HandleModified(StatModifiersCollection modifiersCollection)
         {
-            var tmp = _value;
-            _value = MathModule.ClampLongToInt((long)_modifiersCollection.ModifyValue(_source));
+            var v = MathModule.ClampLongToInt((long)_modifiersCollection.ModifyValue(_source));
 
-            if (Clamps.HasValue)
+            if (_minModVal.HasValue || _maxModVal.HasValue)
             {
-                var clamps = Clamps.Value;
-                _value = System.Math.Clamp(_value, clamps.x, clamps.y);
+                //todo: optimize to 1 constraint (if x > y -> x = y)
+
+                int min = _minModVal ?? int.MinValue;
+                int max = _maxModVal ?? int.MaxValue;
+
+                v = System.Math.Clamp(v, min, max);
             }
 
-            if (tmp != _value)
-                OnValueChanged?.Invoke(this, _value - tmp);
+            if (v != _value)
+            {
+                var delta = v - _value;
+                _value = v;
+                OnValueChanged?.Invoke(this, delta);
+            }
         }
+
+
     }
 }

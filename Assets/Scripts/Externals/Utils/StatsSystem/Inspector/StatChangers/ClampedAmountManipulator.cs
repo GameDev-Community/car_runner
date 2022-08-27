@@ -10,6 +10,9 @@ namespace Externals.Utils.StatsSystem
         [SerializeField] private T _value;
 
 
+        public StatObject StatObject => _statObject;
+
+
         public void Apply(StatsCollection statsCollection, bool inverse = false)
         {
             if (!statsCollection.TryGetStatData(_statObject, out var sdRaw))

@@ -31,7 +31,7 @@ namespace Externals.Utils.StatsSystem
 
         private bool _saveRatio;
 
-        public ClampedInt(int min, int max, float initial, bool initialValueIsRatio, bool saveRatio, int minBoundsDelta = 2)
+        public ClampedInt(int min, int max, int initial, bool saveRatio, int minBoundsDelta = 2)
         {
 
             _saveRatio = saveRatio;
@@ -44,7 +44,7 @@ namespace Externals.Utils.StatsSystem
             if (boundsCheck > 0)
                 _max += boundsCheck;
 
-            _value = initialValueIsRatio ? (int)((_max - _min) * (float)initial) : System.Math.Clamp((int)initial, _min, _max);
+            _value = System.Math.Clamp(initial, _min, _max);
         }
 
 

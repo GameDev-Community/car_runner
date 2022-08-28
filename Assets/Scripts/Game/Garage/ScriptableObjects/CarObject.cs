@@ -11,7 +11,8 @@ namespace Game.Garage
     {
         [SerializeField] private MetaInfo _metaInfo;
         [SerializeField] private CarSourceStats _sourceStats;
-        [SerializeField] UpgradeObject[] _upgrades;
+        [SerializeField] private GameObject _carPreviewPrefab;
+        [SerializeField] private UpgradeObject[] _upgrades;
 
         public MetaInfo MetaInfo => _metaInfo;
     }

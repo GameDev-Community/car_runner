@@ -18,11 +18,6 @@ namespace Garage
                 var pos = carPreviewPoint.position + (i - currentCarIndex) * offset * Vector3.forward;
                 var rot = Quaternion.Euler(0f, 90f, 0f); //хардкод для чего?;
                 newCarModel.transform.SetPositionAndRotation(pos, rot);
-
-                //if (i - currentCarIndex == 0)
-                //{
-                //    newCarModel.AddComponent<CarRotation>();
-                //}
             }
         }
 

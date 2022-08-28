@@ -9,13 +9,13 @@ namespace Externals.Utils.StatsSystem.Modifiers
         private readonly FloatModifiableStatData _maxStat;
 
 
-        public FloatDynamicStatData(StatObject statObject, float sourceValue, IEnumerable<StatModifier> modifiers, float initialRatio, bool saveRatio, float minBoundsDelta = 1E-10F)
-            : base(statObject, 0, minBoundsDelta, 0, saveRatio, minBoundsDelta)
+        public FloatDynamicStatData(StatObject statObject, float maxSource, IEnumerable<StatModifier> modifiers, float initialRatio, float minBoundsDelta = 1E-10F)
+            : base(statObject, 0, minBoundsDelta, 0, minBoundsDelta)
         {
-            if (sourceValue <= 0 || float.IsInfinity(sourceValue))
+            if (maxSource <= 0 || float.IsInfinity(maxSource))
                 throw new Exception("maxSource should be positive finite value");
 
-            _maxStat = new(statObject, sourceValue, modifiers);
+            _maxStat = new(statObject, maxSource, modifiers);
             var max = _maxStat.Value;
             initialRatio = System.Math.Clamp(initialRatio, 0f, 1f);
             SetBounds(0, max, max * initialRatio);

@@ -10,7 +10,6 @@ namespace Externals.Utils.StatsSystem.Modifiers
         [Tooltip("optional")]
         [SerializeField] private StatModifierCreator[] _initialModifiers;
         [SerializeField] private float _initialRatio;
-        [SerializeField] private bool _saveRatio;
         [Tooltip("если включено - модификаторы не смогут вывести МАКСИМАЛЬНОЕ значение за рамки")]
         [SerializeField] private bool _clampMin;
         [SerializeField] private float _minClamp;
@@ -18,14 +17,13 @@ namespace Externals.Utils.StatsSystem.Modifiers
         [SerializeField] private float _maxClamp;
 
         public FloatDynamicStatDataCreator(StatObject statObject, float maxSource,
-            StatModifierCreator[] initialModifiers, float initialRatio, bool saveRatio,
+            StatModifierCreator[] initialModifiers, float initialRatio,
             bool clampMin, float minClamp, bool clampMax, float maxClamp)
         {
             _statObject = statObject;
             _maxSource = maxSource;
             _initialModifiers = initialModifiers;
             _initialRatio = initialRatio;
-            _saveRatio = saveRatio;
             _clampMin = clampMin;
             _minClamp = minClamp;
             _clampMax = clampMax;
@@ -38,7 +36,7 @@ namespace Externals.Utils.StatsSystem.Modifiers
 
         public FloatDynamicStatData Create()
         {
-            var sd = new FloatDynamicStatData(_statObject, _maxSource, null, _initialRatio, _saveRatio);
+            var sd = new FloatDynamicStatData(_statObject, _maxSource, null, _initialRatio);
             var ims = _initialModifiers;
 
             if (ims != null)

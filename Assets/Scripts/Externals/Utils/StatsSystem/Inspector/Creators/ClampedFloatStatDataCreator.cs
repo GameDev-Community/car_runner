@@ -9,16 +9,14 @@ namespace Externals.Utils.StatsSystem
         [SerializeField] private float _min;
         [SerializeField] private float _max;
         [SerializeField] private float _initial;
-        [SerializeField] private bool _saveRatio;
 
 
-        public ClampedFloatStatDataCreator(StatObject statObject, float min, float max, float initial, bool saveRatio)
+        public ClampedFloatStatDataCreator(StatObject statObject, float min, float max, float initial)
         {
             _statObject = statObject;
             _min = min;
             _max = max;
             _initial = initial;
-            _saveRatio = saveRatio;
         }
 
 
@@ -26,6 +24,6 @@ namespace Externals.Utils.StatsSystem
 
 
         public ClampedFloatStatData Create()
-            => new(_statObject, _min, _max, _initial, _saveRatio);
+            => new(_statObject, _min, _max, _initial);
     }
 }

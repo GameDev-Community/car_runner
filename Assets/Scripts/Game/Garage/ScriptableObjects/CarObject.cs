@@ -6,44 +6,6 @@ using UnityEngine;
 namespace Game.Garage
 {
 
-    [CreateAssetMenu(menuName = "Game/Garage/Cars/Upgrades/Upgrade Object")]
-    public class UpgradeObject : GameDatabaseElement
-    {
-        [System.Serializable]
-        public struct UpgrageTier
-        {
-            public MetaInfo MetaInfo;
-
-            //public CustomActionTest[] _improves;
-        }
-
-        [SerializeField] private MetaInfo _metaInfo;
-        [Space]
-        [SerializeField] private UpgrageTier[] _tiers;
-
-
-        public MetaInfo MetaInfo => _metaInfo;
-
-
-        public UpgrageTier GetUpgrageTier(int tier)
-        {
-            return _tiers[tier];
-        }
-
-
-        public bool TryGetUpgrateTier(int tier, out UpgrageTier upgrageTier)
-        {
-            if (tier < 0 || tier >= _tiers.Length)
-            {
-                upgrageTier = default;
-                return false;
-            }
-
-            upgrageTier = GetUpgrageTier(tier);
-            return true;
-        }
-    }
-
     [CreateAssetMenu(menuName = "Game/Garage/Cars/Car Object")]
     public class CarObject : GameDatabaseElement
     {

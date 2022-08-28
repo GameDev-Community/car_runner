@@ -17,6 +17,7 @@ namespace Externals.Utils.StatsSystem
         {
             public NumericsType NumericsType;
             public bool Clamped;
+            public bool SaveRatio;
             public bool Modifiable;
         }
 

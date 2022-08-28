@@ -8,8 +8,8 @@ namespace Externals.Utils.StatsSystem.Modifiers
         private readonly IntModifiableStatData _maxStat;
 
 
-        public IntDynamicStatData(StatObject statObject, int maxSource, IEnumerable<StatModifier> modifiers, float initialRatio, bool saveRatio, int minBoundsDelta = 2)
-            : base(statObject, 0, minBoundsDelta, 0, saveRatio, minBoundsDelta)
+        public IntDynamicStatData(StatObject statObject, int maxSource, IEnumerable<StatModifier> modifiers, float initialRatio, int minBoundsDelta = 2)
+            : base(statObject, 0, minBoundsDelta, 0, minBoundsDelta)
         {
             if (maxSource <= 0 || float.IsInfinity(maxSource))
                 throw new Exception("maxSource should be positive finite value");

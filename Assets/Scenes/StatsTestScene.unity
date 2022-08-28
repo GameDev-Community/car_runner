@@ -1871,6 +1871,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 930833799, guid: 24aa733aecf833348bf39efd6ca0f557, type: 3}
+      propertyPath: _initialStats.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2660513046140204875, guid: 24aa733aecf833348bf39efd6ca0f557,
         type: 3}
       propertyPath: _speedStatDataCreator._maxSource
@@ -1878,8 +1882,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2660513046140204875, guid: 24aa733aecf833348bf39efd6ca0f557,
         type: 3}
+      propertyPath: _speedStatDataCreator._initialRatio
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2660513046140204875, guid: 24aa733aecf833348bf39efd6ca0f557,
+        type: 3}
       propertyPath: _accelerationStatDataCreator._modifyingSourceValue
-      value: 10
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4467738667231121252, guid: 24aa733aecf833348bf39efd6ca0f557,
         type: 3}

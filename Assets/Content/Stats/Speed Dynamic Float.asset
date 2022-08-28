@@ -20,4 +20,5 @@ MonoBehaviour:
   _statDataInfo:
     NumericsType: 1
     Clamped: 1
+    SaveRatio: 0
     Modifiable: 1

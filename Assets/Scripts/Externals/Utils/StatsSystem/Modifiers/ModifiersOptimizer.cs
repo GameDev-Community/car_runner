@@ -24,7 +24,7 @@ namespace Externals.Utils.StatsSystem.Modifiers
 
         public float ModifyValue(float v)
         {
-            if (_flat <= 0 || _mult <= 0)
+            if (_flat <= 0 || _mult <= -1)
                 return 0;
 
             ToSingles(out var flat, out var mult);

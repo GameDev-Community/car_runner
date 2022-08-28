@@ -71,21 +71,21 @@ namespace Externals.Utils.StatsSystem
 
                     if (isInteger)
                     {
-                        var intClampedAmountManipulatorProp = serializedObject.FindProperty("_intClampedAmountManipulators");
+                        var intClampedAmountManipulatorProp = serializedObject.FindProperty("_intClampedAmountManipulator");
                         EditorGUILayout.PropertyField(intClampedAmountManipulatorProp);
                         actionID = 4;
 
-                        var amountManipulatorField = typeof(StatDataManipulation).GetField("_intClampedAmountManipulators", BindingFlags.Instance | BindingFlags.NonPublic);
+                        var amountManipulatorField = typeof(StatDataManipulation).GetField("_intClampedAmountManipulator", BindingFlags.Instance | BindingFlags.NonPublic);
                         var amountManipulatorStatObjectField = typeof(ClampedAmountManipulator<int>).GetField("_statObject", BindingFlags.Instance | BindingFlags.NonPublic);
                         amountManipulatorStatObjectField.SetValue(amountManipulatorField.GetValue(target), statObject);
                     }
                     else
                     {
-                        var floatClampedAmountManipulatorProp = serializedObject.FindProperty("_floatClampedAmountManipulators");
+                        var floatClampedAmountManipulatorProp = serializedObject.FindProperty("_floatClampedAmountManipulator");
                         EditorGUILayout.PropertyField(floatClampedAmountManipulatorProp);
                         actionID = 3;
 
-                        var amountManipulatorField = typeof(StatDataManipulation).GetField("_floatClampedAmountManipulators", BindingFlags.Instance | BindingFlags.NonPublic);
+                        var amountManipulatorField = typeof(StatDataManipulation).GetField("_floatClampedAmountManipulator", BindingFlags.Instance | BindingFlags.NonPublic);
                         var amountManipulatorStatObjectField = typeof(ClampedAmountManipulator<float>).GetField("_statObject", BindingFlags.Instance | BindingFlags.NonPublic);
                         amountManipulatorStatObjectField.SetValue(amountManipulatorField.GetValue(target), statObject);
                     }

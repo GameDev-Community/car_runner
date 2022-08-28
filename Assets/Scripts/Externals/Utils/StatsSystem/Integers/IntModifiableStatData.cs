@@ -1,71 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
 using Utils;
 
 namespace Externals.Utils.StatsSystem.Modifiers
 {
-    [System.Serializable]
-    public class IntModifiableStatDataCreator
-    {
-        [SerializeField] private StatObject _statObject;
-        [SerializeField] private int _modifyingSourceValue;
-        [Tooltip("optional")]
-        [SerializeField] private StatModifierCreator[] _initialModifiers;
-        [Tooltip("если включено - модификаторы не смогут вывести значение за рамки")]
-        [SerializeField] private bool _clampMin;
-        [SerializeField] private int _minClamp;
-        [SerializeField] private bool _clampMax;
-        [SerializeField] private int _maxClamp;
-
-
-        public IntModifiableStatDataCreator(StatObject statObject, int modifyingSourceValue, 
-            StatModifierCreator[] initialModifiers, bool clampMin, int minClamp, bool clampMax, int maxClamp)
-        {
-            _statObject = statObject;
-            _modifyingSourceValue = modifyingSourceValue;
-            _initialModifiers = initialModifiers;
-            _clampMin = clampMin;
-            _minClamp = minClamp;
-            _clampMax = clampMax;
-            _maxClamp = maxClamp;
-        }
-
-
-        public IntModifiableStatData Create()
-        {
-            StatModifier[] modifiers = null;
-
-            var ims = _initialModifiers;
-            if (ims != null)
-            {
-                int imsC = ims.Length;
-                if (imsC > 0)
-                {
-                    modifiers = new StatModifier[imsC];
-
-                    for (int i = -1; ++i < imsC;)
-                        modifiers[i] = ims[i].Create();
-                }
-            }
-
-            var sd = new IntModifiableStatData(_statObject, _modifyingSourceValue, modifiers);
-
-            if (_clampMin && _clampMax)
-            {
-                sd.SetModifiableClamps(_minClamp, _maxClamp);
-            }
-            else
-            {
-                if (_clampMin)
-                    sd.MinModifiableValue = _minClamp;
-                else if (_clampMax)
-                    sd.MaxModifiableValue = _maxClamp;
-            }
-
-            return sd;
-        }
-    }
     public sealed class IntModifiableStatData : IModifiableStatData, IValueCallback<int>, IClampedModifiable<int>
     {
         public event Action<IValueCallback<int>, int> OnValueChanged;

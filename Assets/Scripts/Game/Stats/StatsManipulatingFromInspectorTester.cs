@@ -37,7 +37,7 @@ namespace Game.Stats
             foreach (var m in _manipulations)
             {
                 m.Apply(sc, false);
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(0.1f);
             }
         }
 

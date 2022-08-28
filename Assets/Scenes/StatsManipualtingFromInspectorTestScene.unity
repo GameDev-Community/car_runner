@@ -488,7 +488,7 @@ MonoBehaviour:
     _min: 0
     _max: 222
     _initial: 70
-    _saveRatio: 0
+    _saveRatio: 1
   _intModifiableStatDataCreator:
     _statObject: {fileID: 0}
     _modifyingSourceValue: 0
@@ -516,7 +516,7 @@ MonoBehaviour:
   _statObject: {fileID: 11400000, guid: 4c01e2e9c13853c4c92ad660f1c9d6a1, type: 2}
   _floatDynamicStatDataCreator:
     _statObject: {fileID: 11400000, guid: 4c01e2e9c13853c4c92ad660f1c9d6a1, type: 2}
-    _maxSource: 17.12
+    _maxSource: 900
     _initialModifiers: []
     _initialRatio: 0.5
     _saveRatio: 1
@@ -655,15 +655,15 @@ MonoBehaviour:
     _maxSource: 5
     _initialModifiers:
     - _statObject: {fileID: 11400000, guid: 76831c0c6511968458932b7bae1b841b, type: 2}
-      _mode: 1
+      _mode: 2
       _value: 2.05
       _amount: 139
     _initialRatio: 1
     _saveRatio: 0
-    _clampMin: 1
+    _clampMin: 0
     _minClamp: 0
-    _clampMax: 1
-    _maxClamp: 90
+    _clampMax: 0
+    _maxClamp: 90000000
   _clampedFloatStatDataCreator:
     _statObject: {fileID: 11400000, guid: c2995acfbb2148f48a23e73ae571a8e5, type: 2}
     _min: 0
@@ -708,322 +708,6 @@ MonoBehaviour:
   _intStatDataCreator:
     _statObject: {fileID: 0}
     _initial: 0
---- !u!1 &1512813684
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1512813685}
-  - component: {fileID: 1512813687}
-  - component: {fileID: 1512813686}
-  - component: {fileID: 1512813691}
-  - component: {fileID: 1512813690}
-  - component: {fileID: 1512813689}
-  - component: {fileID: 1512813688}
-  m_Layer: 0
-  m_Name: TesterRegistrator
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1512813685
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1512813684}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1512813686
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1512813684}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5e6c71e03142734f8f5019762778dd3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _statObject: {fileID: 11400000, guid: e7dcb17c829401348a86ac5b07d5f45a, type: 2}
-  _clampedValueManipulationType: 0
-  _statModifierCreators:
-  - _statObject: {fileID: 11400000, guid: e7dcb17c829401348a86ac5b07d5f45a, type: 2}
-    _mode: 1
-    _value: 9.17
-    _amount: 1
-  - _statObject: {fileID: 11400000, guid: e7dcb17c829401348a86ac5b07d5f45a, type: 2}
-    _mode: 2
-    _value: 0.26
-    _amount: 1
-  - _statObject: {fileID: 11400000, guid: e7dcb17c829401348a86ac5b07d5f45a, type: 2}
-    _mode: 1
-    _value: -3.86
-    _amount: 2
-  _floatAmountManipulator:
-    _statObject: {fileID: 11400000, guid: e7dcb17c829401348a86ac5b07d5f45a, type: 2}
-    _manipulation: 0
-    _value: 90
-    _try: 0
-  _intAmountManipulator:
-    _statObject: {fileID: 0}
-    _manipulation: 0
-    _value: 0
-    _try: 0
-  _floatClampedAmountManipulators:
-    _statObject: {fileID: 0}
-    _manipulation: 0
-    _value: 0
-  _intClampedAmountManipulators:
-    _statObject: {fileID: 0}
-    _manipulation: 0
-    _value: 0
-  _clampedFloatBoundsManipulator:
-    _statObject: {fileID: 0}
-    _changeMin: 0
-    _min: 0
-    _changeMax: 0
-    _max: 0
-    _changeCur: 0
-    _cur: 0
-  _clampedIntBoundsManipulator:
-    _statObject: {fileID: 0}
-    _changeMin: 0
-    _min: 0
-    _changeMax: 0
-    _max: 0
-    _changeCur: 0
-    _cur: 0
-  _actionID: 0
---- !u!114 &1512813687
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1512813684}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84a0ab29fc3e7084a9e979d2d0a77895, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _manipulations:
-  - {fileID: 1512813686}
-  - {fileID: 1512813691}
-  - {fileID: 1512813690}
-  - {fileID: 1512813689}
---- !u!114 &1512813688
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1512813684}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5e6c71e03142734f8f5019762778dd3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _statObject: {fileID: 11400000, guid: 4c01e2e9c13853c4c92ad660f1c9d6a1, type: 2}
-  _clampedValueManipulationType: 1
-  _statModifierCreators: []
-  _floatAmountManipulator:
-    _statObject: {fileID: 11400000, guid: e7dcb17c829401348a86ac5b07d5f45a, type: 2}
-    _manipulation: 0
-    _value: 90
-    _try: 0
-  _intAmountManipulator:
-    _statObject: {fileID: 0}
-    _manipulation: 0
-    _value: 0
-    _try: 0
-  _floatClampedAmountManipulators:
-    _statObject: {fileID: 11400000, guid: 4c01e2e9c13853c4c92ad660f1c9d6a1, type: 2}
-    _manipulation: 1
-    _value: 1e+15
-  _intClampedAmountManipulators:
-    _statObject: {fileID: 0}
-    _manipulation: 0
-    _value: 0
-  _clampedFloatBoundsManipulator:
-    _statObject: {fileID: 11400000, guid: c2995acfbb2148f48a23e73ae571a8e5, type: 2}
-    _changeMin: 0
-    _min: 0
-    _changeMax: 0
-    _max: 0
-    _changeCur: 0
-    _cur: 0
-  _clampedIntBoundsManipulator:
-    _statObject: {fileID: 0}
-    _changeMin: 0
-    _min: 0
-    _changeMax: 0
-    _max: 0
-    _changeCur: 0
-    _cur: 0
-  _actionID: 3
---- !u!114 &1512813689
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1512813684}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5e6c71e03142734f8f5019762778dd3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _statObject: {fileID: 11400000, guid: c2995acfbb2148f48a23e73ae571a8e5, type: 2}
-  _clampedValueManipulationType: 1
-  _statModifierCreators: []
-  _floatAmountManipulator:
-    _statObject: {fileID: 11400000, guid: e7dcb17c829401348a86ac5b07d5f45a, type: 2}
-    _manipulation: 0
-    _value: 90
-    _try: 0
-  _intAmountManipulator:
-    _statObject: {fileID: 0}
-    _manipulation: 0
-    _value: 0
-    _try: 0
-  _floatClampedAmountManipulators:
-    _statObject: {fileID: 11400000, guid: c2995acfbb2148f48a23e73ae571a8e5, type: 2}
-    _manipulation: 1
-    _value: 1e+15
-  _intClampedAmountManipulators:
-    _statObject: {fileID: 0}
-    _manipulation: 0
-    _value: 0
-  _clampedFloatBoundsManipulator:
-    _statObject: {fileID: 11400000, guid: c2995acfbb2148f48a23e73ae571a8e5, type: 2}
-    _changeMin: 0
-    _min: 0
-    _changeMax: 0
-    _max: 0
-    _changeCur: 0
-    _cur: 0
-  _clampedIntBoundsManipulator:
-    _statObject: {fileID: 0}
-    _changeMin: 0
-    _min: 0
-    _changeMax: 0
-    _max: 0
-    _changeCur: 0
-    _cur: 0
-  _actionID: 3
---- !u!114 &1512813690
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1512813684}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5e6c71e03142734f8f5019762778dd3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _statObject: {fileID: 11400000, guid: fd348f187346ce342a72b230783a5c49, type: 2}
-  _clampedValueManipulationType: 1
-  _statModifierCreators: []
-  _floatAmountManipulator:
-    _statObject: {fileID: 11400000, guid: e7dcb17c829401348a86ac5b07d5f45a, type: 2}
-    _manipulation: 1
-    _value: 400
-    _try: 0
-  _intAmountManipulator:
-    _statObject: {fileID: 0}
-    _manipulation: 0
-    _value: 0
-    _try: 0
-  _floatClampedAmountManipulators:
-    _statObject: {fileID: 0}
-    _manipulation: 0
-    _value: 0
-  _intClampedAmountManipulators:
-    _statObject: {fileID: 11400000, guid: fd348f187346ce342a72b230783a5c49, type: 2}
-    _manipulation: 0
-    _value: 8
-  _clampedFloatBoundsManipulator:
-    _statObject: {fileID: 0}
-    _changeMin: 0
-    _min: 0
-    _changeMax: 0
-    _max: 0
-    _changeCur: 0
-    _cur: 0
-  _clampedIntBoundsManipulator:
-    _statObject: {fileID: 11400000, guid: fd348f187346ce342a72b230783a5c49, type: 2}
-    _changeMin: 0
-    _min: 0
-    _changeMax: 0
-    _max: 0
-    _changeCur: 0
-    _cur: 0
-  _actionID: 4
---- !u!114 &1512813691
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1512813684}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5e6c71e03142734f8f5019762778dd3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _statObject: {fileID: 11400000, guid: 76831c0c6511968458932b7bae1b841b, type: 2}
-  _clampedValueManipulationType: 1
-  _statModifierCreators: []
-  _floatAmountManipulator:
-    _statObject: {fileID: 11400000, guid: e7dcb17c829401348a86ac5b07d5f45a, type: 2}
-    _manipulation: 0
-    _value: 900
-    _try: 0
-  _intAmountManipulator:
-    _statObject: {fileID: 0}
-    _manipulation: 0
-    _value: 0
-    _try: 0
-  _floatClampedAmountManipulators:
-    _statObject: {fileID: 11400000, guid: 76831c0c6511968458932b7bae1b841b, type: 2}
-    _manipulation: 1
-    _value: 8.1
-  _intClampedAmountManipulators:
-    _statObject: {fileID: 0}
-    _manipulation: 0
-    _value: 0
-  _clampedFloatBoundsManipulator:
-    _statObject: {fileID: 0}
-    _changeMin: 0
-    _min: 0
-    _changeMax: 0
-    _max: 0
-    _changeCur: 0
-    _cur: 0
-  _clampedIntBoundsManipulator:
-    _statObject: {fileID: 0}
-    _changeMin: 0
-    _min: 0
-    _changeMax: 0
-    _max: 0
-    _changeCur: 0
-    _cur: 0
-  _actionID: 3
 --- !u!1 &1704725322
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,22 +3,21 @@
 namespace Externals.Utils.StatsSystem.Modifiers
 {
     [System.Serializable]
-    public sealed class FloatModifiableStatDataCreator
+    public sealed class IntModifiableStatDataCreator
     {
         [SerializeField] private StatObject _statObject;
-        [SerializeField] private float _modifyingSourceValue;
+        [SerializeField] private int _modifyingSourceValue;
         [Tooltip("optional")]
         [SerializeField] private StatModifierCreator[] _initialModifiers;
         [Tooltip("если включено - модификаторы не смогут вывести значение за рамки")]
         [SerializeField] private bool _clampMin;
-        [SerializeField] private float _minClamp;
+        [SerializeField] private int _minClamp;
         [SerializeField] private bool _clampMax;
-        [SerializeField] private float _maxClamp;
+        [SerializeField] private int _maxClamp;
 
 
-        public FloatModifiableStatDataCreator(StatObject statObject, float modifyingSourceValue,
-            StatModifierCreator[] initialModifiers, bool clampMin, float minClamp,
-            bool clampMax, float maxClamp)
+        public IntModifiableStatDataCreator(StatObject statObject, int modifyingSourceValue, 
+            StatModifierCreator[] initialModifiers, bool clampMin, int minClamp, bool clampMax, int maxClamp)
         {
             _statObject = statObject;
             _modifyingSourceValue = modifyingSourceValue;
@@ -33,9 +32,9 @@ namespace Externals.Utils.StatsSystem.Modifiers
         public StatObject StatObject => _statObject;
 
 
-        public FloatModifiableStatData Create()
+        public IntModifiableStatData Create()
         {
-            var sd = new FloatModifiableStatData(_statObject, _modifyingSourceValue, null);
+            var sd = new IntModifiableStatData(_statObject, _modifyingSourceValue, null);
             var ims = _initialModifiers;
 
             if (ims != null)
@@ -53,7 +52,6 @@ namespace Externals.Utils.StatsSystem.Modifiers
                 }
             }
 
-
             if (_clampMin && _clampMax)
             {
                 sd.SetModifiableClamps(_minClamp, _maxClamp);
@@ -65,7 +63,6 @@ namespace Externals.Utils.StatsSystem.Modifiers
                 else if (_clampMax)
                     sd.MaxModifiableValue = _maxClamp;
             }
-
 
             return sd;
         }

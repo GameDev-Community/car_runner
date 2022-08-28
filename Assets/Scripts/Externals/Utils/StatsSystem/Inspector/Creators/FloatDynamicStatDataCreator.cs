@@ -38,22 +38,24 @@ namespace Externals.Utils.StatsSystem.Modifiers
 
         public FloatDynamicStatData Create()
         {
-            StatModifier[] modifiers = null;
-
+            var sd = new FloatDynamicStatData(_statObject, _maxSource, null, _initialRatio, _saveRatio);
             var ims = _initialModifiers;
+
             if (ims != null)
             {
                 int imsC = ims.Length;
                 if (imsC > 0)
                 {
-                    modifiers = new StatModifier[imsC];
-
+                    var sms = sd.StatModifiers;
                     for (int i = -1; ++i < imsC;)
-                        modifiers[i] = ims[i].Create();
+                    {
+                        var mc = ims[i];
+                        sms.AddModifier(mc.Create(), mc.Amount);
+                    }
+                    sms.FinishAddingModifiers();
                 }
             }
 
-            var sd = new FloatDynamicStatData(_statObject, _maxSource, modifiers, _initialRatio, _saveRatio);
 
             if (_clampMin && _clampMax)
             {

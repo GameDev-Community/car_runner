@@ -30,7 +30,7 @@ namespace Tests.EditMode
             }
 
             float sourceV = 100;
-            FloatDynamicStatData dynamicStatData = new(tmpStatObj, sourceV, modifiers, 0.5f, true);
+            FloatDynamicStatData dynamicStatData = new(tmpStatObj, sourceV, modifiers, 0.5f);
             collection.AddStat(tmpStatObj, dynamicStatData);
 
             {
@@ -139,7 +139,7 @@ namespace Tests.EditMode
             }
 
             float sourceV = 100;
-            FloatDynamicStatData dynamicStatData = new(tmpStatObj, sourceV, modifiers, 0.5f, true);
+            FloatDynamicStatData dynamicStatData = new(tmpStatObj, sourceV, modifiers, 0.5f);
             collection.AddStat(tmpStatObj, dynamicStatData);
 
             {

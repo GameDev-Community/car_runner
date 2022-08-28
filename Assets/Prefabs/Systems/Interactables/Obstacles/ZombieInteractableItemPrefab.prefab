@@ -505,7 +505,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.3512662
+  m_Radius: 0.31
   m_Center: {x: -0.35126624, y: -0.000000024143741, z: 4.372362e-24}
 --- !u!54 &944429674069520684
 Rigidbody:
@@ -519,7 +519,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -1244,10 +1244,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.134105
-  m_Height: 0.4012892
+  m_Radius: 0.11715278
+  m_Height: 0.35452145
   m_Direction: 0
-  m_Center: {x: 0.20064564, y: -0.0027805397, z: -2.8805514e-10}
+  m_Center: {x: 0.20065026, y: 0.00014588448, z: -4.82926e-10}
 --- !u!54 &944429674069565897
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1260,7 +1260,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -1335,7 +1335,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 944429674069775620}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: -0.51924133, y: -0.000020980835, z: -0.972929}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1377,12 +1377,12 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 944429674069775620}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: dbbc53a6bc8f5c64bb234194ce1380aa, type: 3}
   m_Controller: {fileID: 9100000, guid: 92c93b80307cf90438fcfadd52eab10c, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -1544,8 +1544,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0010184, y: 0.85941666, z: 0.56523144}
-  m_Center: {x: 0.18622041, y: 0.014841944, z: -1.6590634e-24}
+  m_Size: {x: 0.89383173, y: 0.78385514, z: 0.50197387}
+  m_Center: {x: 0.17128462, y: -0.0053665233, z: 0.00000023841864}
 --- !u!54 &944429674069536803
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1558,7 +1558,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -1898,10 +1898,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.12225601
-  m_Height: 0.54849994
+  m_Radius: 0.10589247
+  m_Height: 0.51577747
   m_Direction: 0
-  m_Center: {x: 0.18947978, y: 0.000004664537, z: -0.002984435}
+  m_Center: {x: 0.1874351, y: -0.0020406623, z: -0.002984435}
 --- !u!54 &944429674069499927
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1914,7 +1914,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -2147,10 +2147,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.11250387
-  m_Height: 0.48838794
+  m_Radius: 0.08489063
+  m_Height: 0.44543064
   m_Direction: 0
-  m_Center: {x: 0.24816507, y: -0.0021900767, z: 0.0013252201}
+  m_Center: {x: 0.24816316, y: -0.006280983, z: 0.0013252201}
 --- !u!54 &944429674069526260
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2163,7 +2163,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -2365,10 +2365,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.123592764
-  m_Height: 0.5526885
+  m_Radius: 0.09934018
+  m_Height: 0.47992694
   m_Direction: 0
-  m_Center: {x: -0.1903915, y: -0.00000013342103, z: 0.00074195844}
+  m_Center: {x: -0.18750377, y: 0.0011547056, z: 0.00074195844}
 --- !u!54 &944429674069593899
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2381,7 +2381,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -3182,10 +3182,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.11359301
-  m_Height: 0.49441898
+  m_Radius: 0.08429668
+  m_Height: 0.42001334
   m_Direction: 0
-  m_Center: {x: -0.24720949, y: 0.00070774474, z: 0.0013885495}
+  m_Center: {x: -0.24906915, y: 0.0048928843, z: 0.0013885495}
 --- !u!54 &944429674069516922
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3198,7 +3198,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -3570,10 +3570,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.11143328
-  m_Height: 0.5025718
+  m_Radius: 0.09064885
+  m_Height: 0.47923696
   m_Direction: 0
-  m_Center: {x: -0.2924269, y: -0.000000003812337, z: -0.0046358164}
+  m_Center: {x: -0.2870423, y: -0.000000004272178, z: 0.0007135521}
 --- !u!54 &944429674069524508
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3586,7 +3586,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -3788,10 +3788,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.11628886
-  m_Height: 0.49187917
+  m_Radius: 0.091163
+  m_Height: 0.4685009
   m_Direction: 0
-  m_Center: {x: 0.28750524, y: 0.000000002968847, z: -0.0007363608}
+  m_Center: {x: 0.2839988, y: 0.0000000024081286, z: 0.0010180793}
 --- !u!54 &944429674069606984
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3804,7 +3804,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -4072,8 +4072,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.11561073, y: 0.7875058, z: 0.56523144}
-  m_Center: {x: 0.071111865, y: -0.0050346535, z: 0}
+  m_Size: {x: 0.07168189, y: 0.7875058, z: 0.45277286}
+  m_Center: {x: 0.061447643, y: -0.0050346707, z: 0.0052716746}
 --- !u!54 &944429674069553905
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4086,7 +4086,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -4135,10 +4135,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.13292894
-  m_Height: 0.39443275
+  m_Radius: 0.11870302
+  m_Height: 0.3608124
   m_Direction: 0
-  m_Center: {x: -0.19721715, y: 0.00065211684, z: 0.000000001172385}
+  m_Center: {x: -0.1993732, y: 0.00022493019, z: 8.6384955e-10}
 --- !u!54 &944429674069613205
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4151,7 +4151,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -4427,8 +4427,8 @@ GameObject:
   - component: {fileID: 5232744886604279982}
   - component: {fileID: 5232744886604279980}
   - component: {fileID: 7988539058348221561}
-  - component: {fileID: 6333999227773040640}
   - component: {fileID: 6333999227773040641}
+  - component: {fileID: 4457879738874706310}
   m_Layer: 20
   m_Name: ZombieInteractableItemPrefab
   m_TagString: Untagged
@@ -4463,8 +4463,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.115816, y: 3.314038, z: 0.40728378}
-  m_Center: {x: 0.058073044, y: 1.6377345, z: 0.04226303}
+  m_Size: {x: 1.3100586, y: 2.8627367, z: 0.75516224}
+  m_Center: {x: -0.020652771, y: 1.4120839, z: -0.018850803}
 --- !u!114 &5232744886604279980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4493,8 +4493,8 @@ MonoBehaviour:
   _onInteract_InteractorPosition:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6333999227773040640}
-        m_TargetAssemblyTypeName: Utils.WreckableItem, Utils
+      - m_Target: {fileID: 4457879738874706310}
+        m_TargetAssemblyTypeName: Utils.WreckableRagdollItem, Utils
         m_MethodName: Wreck
         m_Mode: 0
         m_Arguments:
@@ -4507,7 +4507,6 @@ MonoBehaviour:
         m_CallState: 2
   _interactableActions:
   - {fileID: 7988539058348221561}
-  - {fileID: 6333999227773040641}
   _autodestructionDelay: 10
 --- !u!114 &7988539058348221561
 MonoBehaviour:
@@ -4528,21 +4527,6 @@ MonoBehaviour:
   _changeClampedAmountManipalatableIntegers: []
   _changeAmountManipulatableFloats: []
   _changeAmountManipulatableIntegers: []
---- !u!114 &6333999227773040640
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5232744886604279977}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15f93be0669cc1e448e70995d6d24a4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _wreckages: []
-  _explosionForce: 0
-  _explosionRadius: 0
 --- !u!114 &6333999227773040641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4562,3 +4546,30 @@ MonoBehaviour:
     _useMaterialAndChangeTexture: 1
     _particlesTex: {fileID: 2800000, guid: 2ce5c55e85304b819a1826ecbc839aa5, type: 3}
     _transparent: 0
+--- !u!114 &4457879738874706310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5232744886604279977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26cb3172db933d845bbdf95d79f9ccab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _wreckages:
+  - {fileID: 944429674069553905}
+  - {fileID: 944429674069536803}
+  - {fileID: 944429674069520684}
+  - {fileID: 944429674069499927}
+  - {fileID: 944429674069526260}
+  - {fileID: 944429674069593899}
+  - {fileID: 944429674069516922}
+  - {fileID: 944429674069613205}
+  - {fileID: 944429674069524508}
+  - {fileID: 944429674069565897}
+  - {fileID: 944429674069606984}
+  _explosionForce: 0
+  _explosionRadius: 0
+  animator: {fileID: 944429674079427346}

@@ -8,7 +8,7 @@ namespace Utils
         [SerializeField] private float _explosionForce;
         [SerializeField] private float _explosionRadius;
 
-        public void Wreck(Vector3 explosionPosition)
+        public virtual void Wreck(Vector3 explosionPosition)
         {
             foreach (var wreckage in _wreckages)
             {
@@ -17,7 +17,7 @@ namespace Utils
             }
         }
 
-        public void Wreck()
+        public virtual void Wreck()
         {
             Wreck(transform.position);
         }

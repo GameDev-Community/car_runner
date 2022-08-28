@@ -791,7 +791,7 @@ GameObject:
   - component: {fileID: 916679395609690752}
   - component: {fileID: 930833799}
   - component: {fileID: 2660513046140204875}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Car 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -946,8 +946,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48680f9f0cca861459a2783cb5f4b35c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initialStats:
-  - {fileID: 0}
+  _initialStats: []
 --- !u!114 &2660513046140204875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -964,7 +963,7 @@ MonoBehaviour:
   _carController_raw: {fileID: 7960713514110774790}
   _speedStatDataCreator:
     _statObject: {fileID: 11400000, guid: 4c01e2e9c13853c4c92ad660f1c9d6a1, type: 2}
-    _maxSource: 150
+    _maxSource: 15
     _initialModifiers: []
     _initialRatio: 0
     _clampMin: 0

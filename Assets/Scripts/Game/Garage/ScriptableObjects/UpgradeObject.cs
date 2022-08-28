@@ -29,7 +29,7 @@ namespace Game.Garage
             [Tooltip("индексоси хуй of UpgradeTier (should be" +
                 " < this UpgradeTier index) чтобы исключить" +
                 " из шахты говна (см пример)")]
-            [SerializeField] private readonly int[] _excludingTiers;
+            [SerializeField] private int[] _excludingTiers;
 
             [SerializeField, ReadOnly] private int _index;
             [SerializeField, HideInInspector] private StatModifierCreator[] _allImproves;

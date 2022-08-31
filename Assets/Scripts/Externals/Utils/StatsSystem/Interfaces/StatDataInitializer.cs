@@ -63,7 +63,6 @@ namespace Externals.Utils.StatsSystem
         /// </summary>
         [SerializeField, HideInInspector] private int _actionID;
         [SerializeField] private StatObject _statObject;
-
         [SerializeField] private FloatDynamicStatDataCreator _floatDynamicStatDataCreator;
         [SerializeField] private ClampedFloatStatDataCreator _clampedFloatStatDataCreator;
         [SerializeField] private FloatModifiableStatDataCreator _floatModifiableStatDataCreator;
@@ -73,8 +72,17 @@ namespace Externals.Utils.StatsSystem
         [SerializeField] private IntModifiableStatDataCreator _intModifiableStatDataCreator;
         [SerializeField] private IntStatDataCreator _intStatDataCreator;
 
-
         public StatObject StatObject => _statObject;
+
+
+        public FloatDynamicStatDataCreator FloatDynamicStatDataCreator => _floatDynamicStatDataCreator;
+        public ClampedFloatStatDataCreator ClampedFloatStatDataCreator => _clampedFloatStatDataCreator;
+        public FloatModifiableStatDataCreator FloatModifiableStatDataCreator => _floatModifiableStatDataCreator;
+        public FloatStatDataCreator FloatStatDataCreator => _floatStatDataCreator;
+        public IntDynamicStatDataCreator IntDynamicStatDataCreator => _intDynamicStatDataCreator;
+        public ClampedIntStatDataCreator ClampedIntStatDataCreator => _clampedIntStatDataCreator;
+        public IntModifiableStatDataCreator IntModifiableStatDataCreator => _intModifiableStatDataCreator;
+        public IntStatDataCreator IntStatDataCreator => _intStatDataCreator;
 
 
         public IStatData Create()

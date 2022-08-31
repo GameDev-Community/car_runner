@@ -29,44 +29,14 @@ namespace Game.Garage
         /// 6: IntModifiableStatData
         /// 7: IntStatData
         /// </summary>
-        [SerializeField, HideInInspector] private int _actionID;
-        [SerializeField] private StatObject _statObject;
-
-        [SerializeField] private FloatDynamicStatDataCreator _floatDynamicStatDataCreator;
-        [SerializeField] private ClampedFloatStatDataCreator _clampedFloatStatDataCreator;
-        [SerializeField] private FloatModifiableStatDataCreator _floatModifiableStatDataCreator;
-        [SerializeField] private FloatStatDataCreator _floatStatDataCreator;
-        [SerializeField] private IntDynamicStatDataCreator _intDynamicStatDataCreator;
-        [SerializeField] private ClampedIntStatDataCreator _clampedIntStatDataCreator;
-        [SerializeField] private IntModifiableStatDataCreator _intModifiableStatDataCreator;
-        [SerializeField] private IntStatDataCreator _intStatDataCreator;
-
+        [SerializeField] private StatDataRuntimeCreator _creator;
         private System.Action<StatDataRuntimeCreator> _onCompleteCallback;
-
-        public StatObject StatObject => _statObject;
-
-
-        public IStatData Create()
-        {
-            return _actionID switch
-            {
-                0 => _floatDynamicStatDataCreator.Create(),
-                1 => _clampedFloatStatDataCreator.Create(),
-                2 => _floatModifiableStatDataCreator.Create(),
-                3 => _floatStatDataCreator.Create(),
-                4 => _intDynamicStatDataCreator.Create(),
-                5 => _clampedIntStatDataCreator.Create(),
-                6 => _intModifiableStatDataCreator.Create(),
-                7 => _intStatDataCreator.Create(),
-                _ => throw new System.NotImplementedException("unexpected id: " + _actionID.ToString()),
-            };
-        }
 
 
         private void OnGUI()
         {
             SerializedObject.Update();
-            var soProp = P("_statObject");
+            var soProp = PR("_statObject");
             DrawP(soProp);
 
             int actionID = -1;
@@ -87,12 +57,12 @@ namespace Game.Garage
                     if (isModifiable)
                     {
                         actionID = 4;
-                        FindAndDrawP("_intDynamicStatDataCreator");
+                        FindAndDrawPR("_intDynamicStatDataCreator");
                     }
                     else
                     {
                         actionID = 5;
-                        FindAndDrawP("_clampedIntStatDataCreator");
+                        FindAndDrawPR("_clampedIntStatDataCreator");
                     }
                 }
                 else
@@ -100,12 +70,12 @@ namespace Game.Garage
                     if (isModifiable)
                     {
                         actionID = 0;
-                        FindAndDrawP("_floatDynamicStatDataCreator");
+                        FindAndDrawPR("_floatDynamicStatDataCreator");
                     }
                     else
                     {
                         actionID = 1;
-                        FindAndDrawP("_clampedFloatStatDataCreator");
+                        FindAndDrawPR("_clampedFloatStatDataCreator");
                     }
                 }
             }
@@ -116,12 +86,12 @@ namespace Game.Garage
                     if (isModifiable)
                     {
                         actionID = 6;
-                        FindAndDrawP("_intModifiableStatDataCreator");
+                        FindAndDrawPR("_intModifiableStatDataCreator");
                     }
                     else
                     {
                         actionID = 7;
-                        FindAndDrawP("_intStatDataCreator");
+                        FindAndDrawPR("_intStatDataCreator");
                     }
                 }
                 else
@@ -129,18 +99,19 @@ namespace Game.Garage
                     if (isModifiable)
                     {
                         actionID = 2;
-                        FindAndDrawP("_floatModifiableStatDataCreator");
+                        FindAndDrawPR("_floatModifiableStatDataCreator");
                     }
                     else
                     {
                         actionID = 3;
-                        FindAndDrawP("_floatStatDataCreator");
+                        FindAndDrawPR("_floatStatDataCreator");
                     }
                 }
             }
 
 End:
-            _actionID = actionID;
+
+            _creator.SetField("_actionID", actionID);
 
             Apply();
 
@@ -150,32 +121,50 @@ End:
             if (add || cancel)
             {
 
-                _onCompleteCallback.Invoke(_);
+                _onCompleteCallback.Invoke(_creator);
 
                 Close();
                 return;
             }
 
 
-            UnityEditor.SerializedProperty P(string fieldName) => SerializedObject.FindProperty(fieldName);
+            //UnityEditor.SerializedProperty P(string fieldName) => SerializedObject.FindProperty(fieldName);
+            UnityEditor.SerializedProperty PR(string fieldName) => SerializedObject.FindProperty(nameof(_creator)).FindPropertyRelative(fieldName);
 
             void DrawP(UnityEditor.SerializedProperty p) => EditorGUILayout.PropertyField(p);
 
-            void FindAndDrawP(string fieldName)
+            void FindAndDrawPR(string fieldName)
             {
-                SerializedProperty sp = P(fieldName);
+                SerializedProperty sp = PR(fieldName);
                 DrawP(sp);
 
+                Jopa(sp);
+            }
+
+            //void FindAndDrawP(string fieldName)
+            //{
+            //    SerializedProperty sp = P(fieldName);
+            //    DrawP(sp);
+
+            //    Jopa(sp);
+            //}
+
+            System.Reflection.FieldInfo FI(System.Type t, string fieldName)
+                => t.GetField(fieldName, BindingFlags.Instance | BindingFlags.NonPublic);
+
+
+            void Jopa(SerializedProperty sp)
+            {
                 object statDataCreatorObject = actionID switch
                 {
-                    0 => _floatDynamicStatDataCreator,
-                    1 => _clampedFloatStatDataCreator,
-                    2 => _floatModifiableStatDataCreator,
-                    3 => _floatStatDataCreator,
-                    4 => _intDynamicStatDataCreator,
-                    5 => _clampedIntStatDataCreator,
-                    6 => _intModifiableStatDataCreator,
-                    7 => _intStatDataCreator,
+                    0 => _creator.FloatDynamicStatDataCreator,
+                    1 => _creator.ClampedFloatStatDataCreator,
+                    2 => _creator.FloatModifiableStatDataCreator,
+                    3 => _creator.FloatStatDataCreator,
+                    4 => _creator.IntDynamicStatDataCreator,
+                    5 => _creator.ClampedIntStatDataCreator,
+                    6 => _creator.IntModifiableStatDataCreator,
+                    7 => _creator.IntStatDataCreator,
                     _ => null,
                 };
 
@@ -214,9 +203,6 @@ End:
                     }
                 }
             }
-
-            System.Reflection.FieldInfo FI(System.Type t, string fieldName)
-                => t.GetField(fieldName, BindingFlags.Instance | BindingFlags.NonPublic);
         }
 
 
@@ -323,7 +309,7 @@ End:
         }
 
 
-        private void AddStatData(IStatData statDataInitializer)
+        private void AddStatData(StatDataRuntimeCreator statDataInitializer)
         {
             if (statDataInitializer == null)
                 return;
@@ -336,12 +322,12 @@ End:
     public class CarCreator
     {
         private MetaInfo _metaInfo;
-        private IStatData[] _sourceStats;
+        private StatDataRuntimeCreator[] _sourceStats;
         private UpgradeObject[] _upgrades;
 
 
         public MetaInfo MetaInfo { get => _metaInfo; set => _metaInfo = value; }
-        public IStatData[] SourceStats { get => _sourceStats; set => _sourceStats = value; }
+        public StatDataRuntimeCreator[] SourceStats { get => _sourceStats; set => _sourceStats = value; }
         public UpgradeObject[] Upgrades { get => _upgrades; set => _upgrades = value; }
 
 
@@ -349,12 +335,7 @@ End:
         {
             var carObj = ScriptableObject.CreateInstance<CarObject>();
             carObj.SetField(nameof(_metaInfo), _metaInfo);
-            SerializableStatData[] ssds = new SerializableStatData[_sourceStats.Length];
-            for (int i = 0; i < ssds.Length; i++)
-            {
-                ssds[i] = new SerializableStatData(_sourceStats[i]);
-            }
-            carObj.SetField(nameof(_sourceStats), ssds);
+            carObj.SetField(nameof(_sourceStats), _sourceStats);
             //carObj.SetField(nameof(_upgrades), _upgrades);
             AssetDatabase.CreateAsset(carObj, pathToSaveAsset);
             EditorUtility.SetDirty(carObj);
@@ -377,19 +358,6 @@ End:
         public MetaInfo MetaInfo => _metaInfo;
 
 
-        private void IX()
-        {
-            Dictionary<int, string> xd = null;
-
-            FieldInfo internalArrayFI = xd.GetType().GetField("entries");
-            var internalArray = (Array)internalArrayFI.GetValue(xd);
-            var entry = internalArray.GetValue(0);
-            var keyFI = entry.GetType().GetField("key");
-            var key = (int)keyFI.GetValue(entry);
-            var valueFI = entry.GetType().GetField("value");
-            var value = (string)valueFI.GetValue(entry);
-        }
-
         private void OnValidate()
         {
             _statsCount = _sourceStats.Length;
@@ -398,7 +366,7 @@ End:
 
             foreach (var item in _sourceStats)
             {
-                var sd = item;
+                var sd = item.Create();
                 UnityEngine.Debug.Log(sd.GetType().ToString());
 
                 UnityEngine.Debug.Log(sd.StatObject);

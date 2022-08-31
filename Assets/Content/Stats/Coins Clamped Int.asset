@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0c625489ca6ded47a8f4b6b46bc262f, type: 3}
   m_Name: Coins Clamped Int
   m_EditorClassIdentifier: 
+  _databaseElementId: 2
   _metaInfo:
     _name: Coins
     _description: 
@@ -20,4 +21,5 @@ MonoBehaviour:
   _statDataInfo:
     NumericsType: 0
     Clamped: 1
+    SaveRatio: 0
     Modifiable: 0

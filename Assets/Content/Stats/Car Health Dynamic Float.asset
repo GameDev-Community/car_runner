@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0c625489ca6ded47a8f4b6b46bc262f, type: 3}
   m_Name: Car Health Dynamic Float
   m_EditorClassIdentifier: 
+  _databaseElementId: 1
   _metaInfo:
     _name: Health
     _description: "\u0417\u0432\u0443\u0447\u0438\u0442 \u043A\u0430\u043A \u0442\u043E\u0441\u0442"
@@ -20,4 +21,5 @@ MonoBehaviour:
   _statDataInfo:
     NumericsType: 1
     Clamped: 1
+    SaveRatio: 0
     Modifiable: 1

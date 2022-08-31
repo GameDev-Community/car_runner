@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using DevourDev.Unity.ScriptableObjects;
+using UnityEngine;
 
 namespace Externals.Utils.StatsSystem
 {
     [CreateAssetMenu(menuName = "Stats System/Stat Object")]
-    public class StatObject : ScriptableObject
+    public class StatObject : GameDatabaseElement
     {
         public enum NumericsType
         {
@@ -32,7 +33,6 @@ namespace Externals.Utils.StatsSystem
 
         public StatDataInfo GetStatDataInfo()
             => _statDataInfo;
-
-
     }
+
 }

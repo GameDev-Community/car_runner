@@ -4,4 +4,5 @@
     {
         public StatObject StatObject { get; }
     }
+
 }

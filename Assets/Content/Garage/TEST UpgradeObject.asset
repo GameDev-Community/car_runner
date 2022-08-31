@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4de08cdf203fbb4c8a6728f3c978c6b, type: 3}
+  m_Name: TEST UpgradeObject
+  m_EditorClassIdentifier: 
+  _databaseElementId: 0
+  _metaInfo:
+    _name: 
+    _description: 
+    _lowresTex: {fileID: 0}
+    _hiresTex: {fileID: 0}
+  _tiers:
+  - _metaInfo:
+      _name: 
+      _description: 
+      _lowresTex: {fileID: 0}
+      _hiresTex: {fileID: 0}
+    _improves:
+    - _statObject: {fileID: 11400000, guid: e7dcb17c829401348a86ac5b07d5f45a, type: 2}
+      _mode: 0
+      _value: 0
+      _amount: 0
+    - _statObject: {fileID: 11400000, guid: 4c01e2e9c13853c4c92ad660f1c9d6a1, type: 2}
+      _mode: 0
+      _value: 0
+      _amount: 0
+    _includePreviousTiers: 0
+    _excludingTiers: 
+    _index: 0
+    _allImproves: []
+  _computeUpgrades: 0

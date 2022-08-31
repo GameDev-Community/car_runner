@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0c625489ca6ded47a8f4b6b46bc262f, type: 3}
   m_Name: Acceleration Modifiable Float
   m_EditorClassIdentifier: 
+  _databaseElementId: 0
   _metaInfo:
     _name: Acceleration
     _description: Eto tozhe smeshno

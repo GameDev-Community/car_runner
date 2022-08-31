@@ -100,14 +100,14 @@ End:
             {
                 var sp = P(fieldName);
                 DrawP(sp);
-                var spFI = FIHere(fieldName);
-                var soFI = FI(spFI.FieldType, "_statObject");
-                var spVal = spFI.GetValue(target);
+                FieldInfo spFI = FIHere(fieldName);
+                FieldInfo soFI = FI(spFI.FieldType, "_statObject");
+                object spVal = spFI.GetValue(target);
                 soFI.SetValue(spVal, statObject);
 
                 if (isModifiable)
                 {
-                    var smcFI = FI(spFI.FieldType, "_initialModifiers");
+                    FieldInfo smcFI = FI(spFI.FieldType, "_initialModifiers");
 
                     if (smcFI == null)
                     {
@@ -115,7 +115,7 @@ End:
                         return;
                     }
 
-                    var smcVal = smcFI.GetValue(spVal);
+                    object smcVal = smcFI.GetValue(spVal);
 
                     if (smcVal != null && smcVal is StatModifierCreator[] arr)
                     {

@@ -5,6 +5,7 @@ namespace Utils
     public class ZombieMeshInitializer : MonoBehaviour
     {
         [SerializeField] private SkinnedMeshRenderer[] zombieMeshes;
+        [SerializeField] private bool debugMode = false;
 
         private void Start()
         {
@@ -14,7 +15,7 @@ namespace Utils
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
-            if (zombieMeshes.Length > 0)
+            if (debugMode && zombieMeshes.Length > 0)
                 Gizmos.DrawCube(zombieMeshes[0].bounds.center, zombieMeshes[0].bounds.size);
         }
 #endif

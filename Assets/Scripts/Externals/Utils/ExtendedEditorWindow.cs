@@ -88,5 +88,15 @@ namespace DevourDev.Unity.Utils.Editor.Window
         {
             _serializedObject.ApplyModifiedProperties();
         }
+
+        protected UnityEditor.SerializedProperty P(string fieldName) => SerializedObject.FindProperty(fieldName);
+
+        protected void FindAndDrawP(string fieldName)
+        {
+            SerializedProperty sp = P(fieldName);
+            DrawP(sp);
+        }
+
+        protected void DrawP(UnityEditor.SerializedProperty p) => EditorGUILayout.PropertyField(p);
     }
 }

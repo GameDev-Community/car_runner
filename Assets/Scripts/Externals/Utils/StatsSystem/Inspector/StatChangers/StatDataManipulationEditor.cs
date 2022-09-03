@@ -30,9 +30,9 @@ namespace Externals.Utils.StatsSystem
                 var clampedValueManipulationTypeProp = serializedObject.FindProperty("_clampedValueManipulationType");
                 EditorGUILayout.PropertyField(clampedValueManipulationTypeProp);
 
-                var clampedValueManipulationType = (StatDataManipulation.ClampedValueManipulationType)clampedValueManipulationTypeProp.intValue;
+                var clampedValueManipulationType = (ClampedValueManipulationType)clampedValueManipulationTypeProp.intValue;
 
-                if (clampedValueManipulationType == StatDataManipulation.ClampedValueManipulationType.Bounds)
+                if (clampedValueManipulationType == ClampedValueManipulationType.Bounds)
                 {
                     if (isModifiable)
                     {

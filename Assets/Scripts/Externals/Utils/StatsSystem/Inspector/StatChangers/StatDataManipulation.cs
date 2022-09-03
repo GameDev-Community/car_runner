@@ -2,14 +2,14 @@
 
 namespace Externals.Utils.StatsSystem
 {
+    public enum ClampedValueManipulationType
+    {
+        Bounds,
+        Value
+    }
+
     public class StatDataManipulation : MonoBehaviour, IStatChanger
     {
-        public enum ClampedValueManipulationType
-        {
-            Bounds,
-            Value
-        }
-
         [SerializeField, HideInInspector] private int _actionID;
 
         [SerializeField] private StatObject _statObject;

@@ -2,11 +2,8 @@
 
 namespace Externals.Utils.StatsSystem
 {
-#if false
-//это говно должно было быть хуйней для апгрейдов, но его рот ебал нахуй кастом инспектора ебаного,
-который только в компонентах юнити работает, ебать его в корень жопы нахуй сука хуй!
     [System.Serializable]
-    public class Blya_Rename_Me_StatDataManipulation : IStatChanger
+    public class StatDataRuntimeManipulator : IStatChanger
     {
         [SerializeField, HideInInspector] private int _actionID;
 
@@ -18,6 +15,9 @@ namespace Externals.Utils.StatsSystem
         [SerializeField] private AmountManipulator<float> _floatAmountManipulator; //ID 1
         [SerializeField] private AmountManipulator<int> _intAmountManipulator; //ID 2
 
+        //for iclamped amount manipulatables
+        [SerializeField] private ClampedAmountManipulator<float> _floatClampedAmountManipulator; //ID 3
+        [SerializeField] private ClampedAmountManipulator<int> _intClampedAmountManipulator; //ID 4
 
         //for clamped non-modifiable floats to manipulate bounds
         [SerializeField] private ClampedBoundsManipulator<float> _clampedFloatBoundsManipulator; //ID 5
@@ -28,6 +28,8 @@ namespace Externals.Utils.StatsSystem
         //1) изменение ГРАНИЦ ограниченых статов;
         //2) изменение значений неограниченых статов;
         // (и в 1 и во 2 случаях, манипуляции с модификаторами включительны)
+
+        //todo: ограничивать (3 и 4) из под гуя, вернуть 3 и 4.
 
         public void Apply(StatsCollection sc, bool inv = false)
         {
@@ -46,6 +48,12 @@ namespace Externals.Utils.StatsSystem
                 case 2:
                     _intAmountManipulator.Apply(sc, inv);
                     break;
+                case 3:
+                    _floatClampedAmountManipulator.Apply(sc, inv);
+                    break;
+                case 4:
+                    _intClampedAmountManipulator.Apply(sc, inv);
+                    break;
                 case 5:
                     _clampedFloatBoundsManipulator.Apply(sc, inv);
                     break;
@@ -60,5 +68,4 @@ namespace Externals.Utils.StatsSystem
             }
         }
     }
-#endif
 }

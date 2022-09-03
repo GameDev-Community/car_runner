@@ -1,9 +1,35 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Utils;
+using Utils.Items;
+using Utils.Items.Customizables;
 
 namespace Game.Core.Car
 {
+    public class CustomizableCar : MonoBehaviour, ICustomizablesOwner
+    {
+        [SerializeField] private ItemsPoints<CustomizableItem>[] _wheelsCustomizables;
+
+        private Dictionary<ItemType, ItemsPoints<CustomizableItem>> _customizablesDic;
+
+
+        private void Awake()
+        {
+            _customizablesDic = ItemsPoints<CustomizableItem>.ToDictionary(_wheelsCustomizables);
+
+
+        }
+
+
+        public void ChangeItem(ItemType type, CustomizableItem newItem)
+        {
+            if (!_customizablesDic.TryGetValue(type, out ItemsPoints<CustomizableItem> ips))
+                return;
+
+           
+        }
+    }
     public class CarController : MonoBehaviour, ICarController
     {
         [SerializeField] private float _sidewaysSpeed = 400f;
@@ -11,7 +37,7 @@ namespace Game.Core.Car
 
         [SerializeField] private Speedometer _speedometer;
         [SerializeField] private Rigidbody _rb;
-        [SerializeField] private WheelCollider[] wheelColliders;
+        [SerializeField] private WheelCollider[] _wheelColliders;
         [SerializeField] private Vector3 _forceDir = Vector3.forward;
 
         private bool _grounded;
@@ -125,9 +151,9 @@ namespace Game.Core.Car
 
         private void UpdateVisual(float horizontalInput)
         {
-            for (int i = 0; i < wheelColliders.Length; i++)
+            for (int i = 0; i < _wheelColliders.Length; i++)
             {
-                wheelColliders[i].GetWorldPose(out Vector3 position, out Quaternion rotation);
+                _wheelColliders[i].GetWorldPose(out Vector3 position, out Quaternion rotation);
                 //OnWheelColliderWorldPosChanged?.Invoke(this, i, position);
                 OnWheelColliderWorldRotChanged?.Invoke(this, i, rotation);
             }

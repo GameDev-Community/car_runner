@@ -6,8 +6,8 @@ namespace Utils.Items.Customizables
     /// объект, хранящий изменяемые штуковины
     /// и определяющий логику их изменений.
     /// </summary>
-    public interface ICustomizablesOwner
+    public interface ICustomizablesOwner<TItem> where TItem : IItem
     {
-        public void ChangeItem(ItemType type, CustomizableItem newItem);
+        public void ChangeItem(TItem newItem);
     }
 }

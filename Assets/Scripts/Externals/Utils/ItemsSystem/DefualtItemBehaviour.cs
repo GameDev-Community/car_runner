@@ -2,7 +2,7 @@
 
 namespace Utils.Items
 {
-    public class ItemDefault : MonoBehaviour
+    public class DefualtItemBehaviour : MonoBehaviour, IItem
     {
         [SerializeField] private ItemType _itemType;
 

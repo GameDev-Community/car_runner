@@ -1,9 +1,7 @@
-using Externals.Utils.Outlining;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Game
+namespace Externals.Utils.Outlining
 {
     public class OutlineTest : MonoBehaviour
     {

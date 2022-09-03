@@ -41,5 +41,43 @@ namespace DevourDev.Base.Reflections
             return fv is T t ? t : default;
         }
 
+        public static T FullCopy<T>(this T comp, T other)
+        {
+            Type type = comp.GetType();
+            Type othersType = other.GetType();
+
+            if (type != othersType)
+            {
+                throw new Exception($"The type \"{type.AssemblyQualifiedName}\" of \"{comp}\" does not " +
+                    $"match the type \"{othersType.AssemblyQualifiedName}\" of \"{other}\"!");
+            }
+
+            BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Default;
+            PropertyInfo[] pinfos = type.GetProperties(flags);
+
+            foreach (var pinfo in pinfos)
+            {
+                if (pinfo.CanWrite)
+                {
+                    try
+                    {
+                        pinfo.SetValue(comp, pinfo.GetValue(other));
+                    }
+                    catch
+                    {
+                        throw;
+                    }
+                }
+            }
+
+            FieldInfo[] finfos = type.GetFields(flags);
+
+            foreach (var finfo in finfos)
+            {
+                finfo.SetValue(comp, finfo.GetValue(other));
+            }
+            return comp;
+        }
+
     }
 }

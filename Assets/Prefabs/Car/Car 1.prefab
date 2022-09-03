@@ -30,7 +30,7 @@ Transform:
   m_Children:
   - {fileID: 7960713513693067225}
   m_Father: {fileID: 7960713512282815226}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7308267273089559796
 GameObject:
@@ -62,7 +62,7 @@ Transform:
   m_Children:
   - {fileID: 7960713513808615060}
   m_Father: {fileID: 7960713512282815226}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7960713512282815229
 GameObject:
@@ -92,10 +92,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2940105437856737445}
-  - {fileID: 2682131714933800087}
-  - {fileID: 4878450875211425116}
   - {fileID: 304247014423752283}
+  - {fileID: 2682131714933800087}
+  - {fileID: 2940105437856737445}
+  - {fileID: 4878450875211425116}
   m_Father: {fileID: 7960713512534378872}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -415,7 +415,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7960713513372786451}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!146 &7960713513057920176
 WheelCollider:
@@ -475,10 +475,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7960713514103323106}
-  - {fileID: 7960713514369633193}
-  - {fileID: 7960713513562327479}
   - {fileID: 7960713513057920179}
+  - {fileID: 7960713514369633193}
+  - {fileID: 7960713514103323106}
+  - {fileID: 7960713513562327479}
   m_Father: {fileID: 7960713514110774788}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -512,7 +512,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7960713513372786451}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!146 &7960713513562327476
 WheelCollider:
@@ -742,7 +742,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7960713513372786451}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!146 &7960713514103323107
 WheelCollider:
@@ -879,11 +879,11 @@ MonoBehaviour:
   _roadHalfWidth: 4
   _speedometer: {fileID: 0}
   _rb: {fileID: 7960713514110774789}
-  wheelColliders:
-  - {fileID: 7960713514103323107}
-  - {fileID: 7960713514369633190}
-  - {fileID: 7960713513562327476}
+  _wheelColliders:
   - {fileID: 7960713513057920176}
+  - {fileID: 7960713514369633190}
+  - {fileID: 7960713514103323107}
+  - {fileID: 7960713513562327476}
   _forceDir: {x: 0, y: 0, z: 1}
 --- !u!114 &7960713514110774793
 MonoBehaviour:
@@ -923,17 +923,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _controller: {fileID: 7960713514110774790}
   _dashboard: {fileID: 0}
-  carMeshTransform: {fileID: 7960713512534378872}
+  _carMeshTransform: {fileID: 7960713512534378872}
   _wheelTransforms:
+  - {fileID: 304247014423752283}
+  - {fileID: 2682131714933800087}
   - {fileID: 2940105437856737445}
-  - {fileID: 2682131714933800087}
   - {fileID: 4878450875211425116}
-  - {fileID: 304247014423752283}
-  _steeringWheelTransforms:
-  - {fileID: 2682131714933800087}
-  - {fileID: 304247014423752283}
-  wheelSteerAngle: 35
-  carAngle: 5
+  _steeringWheelIndexes: 0000000000000000
+  _wheelSteerAngle: 35
+  _carAngle: 5
 --- !u!114 &930833799
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1070,7 +1068,7 @@ Transform:
   m_Children:
   - {fileID: 7960713512485212498}
   m_Father: {fileID: 7960713512282815226}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8859448013511531002
 GameObject:

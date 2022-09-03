@@ -111,11 +111,67 @@ namespace Externals.Utils.Outlining
         public float TargetWidth => _targetWidth;
 
 
+        public void UpdateRenderers()
+        {
+            var arr = GetComponentsInChildren<Renderer>();
+            var c = arr.Length;
+
+            for (int i = -1; ++i < c;)
+            {
+                var r = arr[i];
+
+                var mats = r.sharedMaterials;
+                var matsC = mats.Length;
+
+                bool flag0 = false;
+                bool flag1 = false;
+                foreach (var sharedMat in mats)
+                {
+                    if (sharedMat == _outlineMaskMaterial)
+                    {
+                        flag0 = true;
+                        Debug.Log("outline mask mat found");
+                    }
+
+                    if (sharedMat == _outlineFillMaterial)
+                    {
+                        flag1 = true;
+                        Debug.Log("outline fill mat found");
+                    }
+                }
+
+                int newMatsC = matsC;
+
+                if (!flag0)
+                    ++newMatsC;
+
+                if (!flag1)
+                    ++newMatsC;
+
+                var newMats = new Material[newMatsC];
+
+                Array.Copy(mats, newMats, matsC);
+
+                if (!flag0)
+                {
+                    newMats[matsC] = _outlineMaskMaterial;
+                    ++matsC;
+                }
+
+                if (!flag1)
+                {
+                    newMats[matsC] = _outlineFillMaterial;
+                }
+
+                r.materials = newMats;
+            }
+        }
+
         public OutlineAnimatingState GetAnimatingState()
         {
             if (_widthAnimating != null)
             {
-                if(_targetWidth > _outlineWidth)
+                if (_targetWidth > _outlineWidth)
                 {
                     return OutlineAnimatingState.Increasing;
                 }
@@ -250,21 +306,28 @@ End:
             {
 
                 // Append outline shaders
-                var materials = renderer.sharedMaterials.ToList();
+                //var materials = renderer.sharedMaterials.ToList();
 
-                materials.Add(_outlineMaskMaterial);
-                materials.Add(_outlineFillMaterial);
+                //materials.Add(_outlineMaskMaterial);
+                //materials.Add(_outlineFillMaterial);
 
-                renderer.materials = materials.ToArray();
+                //renderer.materials = materials.ToArray();
+
+                var shMats = renderer.sharedMaterials;
+                var sc = shMats.Length;
+                var newMats = new Material[sc + 2];
+
+                Array.Copy(shMats, newMats, sc);
+
+                newMats[sc] = _outlineMaskMaterial;
+                newMats[++sc] = _outlineFillMaterial;
+                renderer.materials = newMats;
             }
         }
 
 #if UNITY_EDITOR
         void OnValidate()
         {
-            if (UnityEngine.Application.isPlaying)
-                return;
-
             // Update material properties
             _needsUpdate = true;
 
@@ -295,8 +358,14 @@ End:
 
         void OnDisable()
         {
+            bool flag = false;
             foreach (var renderer in _renderers)
             {
+                if (renderer == null)
+                {
+                    flag = true;
+                    continue;
+                }
 
                 // Remove outline shaders
                 var materials = renderer.sharedMaterials.ToList();
@@ -305,6 +374,11 @@ End:
                 materials.Remove(_outlineFillMaterial);
 
                 renderer.materials = materials.ToArray();
+            }
+
+            if (flag)
+            {
+                _renderers = GetComponentsInChildren<Renderer>();
             }
         }
 
@@ -360,9 +434,8 @@ End:
                 meshFilter.sharedMesh.SetUVs(3, smoothNormals);
 
                 // Combine submeshes
-                var renderer = meshFilter.GetComponent<Renderer>();
 
-                if (renderer != null)
+                if (meshFilter.TryGetComponent<Renderer>(out var renderer))
                 {
                     CombineSubmeshes(meshFilter.sharedMesh, renderer.sharedMaterials);
                 }

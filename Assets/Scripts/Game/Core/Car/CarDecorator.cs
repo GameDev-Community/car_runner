@@ -10,12 +10,16 @@ namespace Game.Core.Car
         [SerializeField] private CarDashboardUi _dashboard;
 
         [Space]
-        [SerializeField] private Transform carMeshTransform;
+        [SerializeField] private Transform _carMeshTransform;
         [SerializeField] private Transform[] _wheelTransforms;
-        [SerializeField] private Transform[] _steeringWheelTransforms;
+        [SerializeField] private int[] _steeringWheelIndexes;
 
-        [SerializeField] private float wheelSteerAngle = 35f;
-        [SerializeField] private float carAngle = 5f;
+        [SerializeField] private float _wheelSteerAngle = 35f;
+        [SerializeField] private float _carAngle = 5f;
+
+
+        public Transform[] WheelTransforms { get => _wheelTransforms; set => _wheelTransforms = value; }
+
 
         private void Start()
         {
@@ -36,14 +40,15 @@ namespace Game.Core.Car
 
         private void HandleTurnChanged(CarController arg1, float turnDirection)
         {
-            for (int i = 0; i < _steeringWheelTransforms.Length; i++)
+            for (int i = 0; i < _steeringWheelIndexes.Length; i++)
             {
-                Quaternion currentQuaternion = _steeringWheelTransforms[i].localRotation;
-                Quaternion steeringQuaternion = Quaternion.Euler(Vector3.up * wheelSteerAngle * turnDirection);
-                _steeringWheelTransforms[i].localRotation = steeringQuaternion * currentQuaternion;
+                var wheelTransform = _wheelTransforms[_steeringWheelIndexes[i]];
+                Quaternion currentQuaternion = wheelTransform.localRotation;
+                Quaternion steeringQuaternion = Quaternion.Euler(_wheelSteerAngle * turnDirection * Vector3.up);
+                wheelTransform.localRotation = steeringQuaternion * currentQuaternion;
             }
 
-            carMeshTransform.localRotation = Quaternion.Euler(Vector3.up * carAngle * turnDirection);
+            _carMeshTransform.localRotation = Quaternion.Euler(_carAngle * turnDirection * Vector3.up);
         }
     }
 }

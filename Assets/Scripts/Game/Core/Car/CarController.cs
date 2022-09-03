@@ -1,35 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 using Utils;
-using Utils.Items;
-using Utils.Items.Customizables;
 
 namespace Game.Core.Car
 {
-    public class CustomizableCar : MonoBehaviour, ICustomizablesOwner
-    {
-        [SerializeField] private ItemsPoints<CustomizableItem>[] _wheelsCustomizables;
-
-        private Dictionary<ItemType, ItemsPoints<CustomizableItem>> _customizablesDic;
-
-
-        private void Awake()
-        {
-            _customizablesDic = ItemsPoints<CustomizableItem>.ToDictionary(_wheelsCustomizables);
-
-
-        }
-
-
-        public void ChangeItem(ItemType type, CustomizableItem newItem)
-        {
-            if (!_customizablesDic.TryGetValue(type, out ItemsPoints<CustomizableItem> ips))
-                return;
-
-           
-        }
-    }
     public class CarController : MonoBehaviour, ICarController
     {
         [SerializeField] private float _sidewaysSpeed = 400f;
@@ -67,6 +41,9 @@ namespace Game.Core.Car
         public bool Grounded => _grounded;
         public float VerticalMoving => _verticalMovingV;
         public float HorizontalMoving => _horizontalMovingV;
+
+        public WheelCollider[] WheelColliders { get => _wheelColliders; set => _wheelColliders = value; }
+
 
         public void SetHorizontalMoving(float v)
         {

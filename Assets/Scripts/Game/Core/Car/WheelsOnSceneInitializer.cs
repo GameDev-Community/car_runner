@@ -3,6 +3,8 @@ using UnityEngine;
 using Utils.Items;
 using UnityEditor;
 using DevourDev.Base.Reflections;
+using System.Reflection;
+using System.Collections.Generic;
 
 namespace Game.Core.Car
 {
@@ -49,8 +51,15 @@ namespace Game.Core.Car
             for (int i = -1; ++i < wtsC;)
             {
                 var wheelTr = wts[i];
-                var wheelBeh = wheelTr.gameObject.AddComponent<WheelItemBehaviour>();
+                var wbGO = wheelTr.gameObject;
+
+                if (!wbGO.TryGetComponent<WheelItemBehaviour>(out var wheelBeh))
+                {
+                    wheelBeh = wbGO.AddComponent<WheelItemBehaviour>();
+                }
+
                 wheelBeh.SetField("_wheelCollider", wcs[i]);
+                wheelBeh.SetInheritedField(typeof(DefualtItemBehaviour), "_itemType", itemsType); 
                 wheelBehs[i] = wheelBeh;
 
                 EditorUtility.SetDirty(wheelBeh.gameObject);

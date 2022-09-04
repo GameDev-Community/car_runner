@@ -8723,7 +8723,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _outlineMode: 0
   _outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  _outlineWidth: 20
+  _outlineWidth: 8.07
   _precomputeOutline: 0
   _bakeKeys: []
   _bakeValues: []

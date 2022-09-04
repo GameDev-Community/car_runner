@@ -15,7 +15,7 @@ namespace DevourDev.Base.Reflections
             if (target is Type)
                 throw new Exception("target is TYPE");
 
-            return target.GetType().GetField(fieldName, (BindingFlags)_getFieldFlags);
+            return target.GetType().GetField(fieldName, (BindingFlags)_getFieldFlags | BindingFlags.Default);
         }
 
         public static FieldInfo FI(this Type type, string fieldName)
@@ -27,6 +27,24 @@ namespace DevourDev.Base.Reflections
         {
             var field = target.FI(fieldName);
             field.SetValue(target, value);
+        }
+
+        public static void SetInheritedField(this object target, Type containingType, string fieldName, object value)
+        {
+            var field = containingType.FI(fieldName);
+            field.SetValue(target, value);
+        }
+
+        public static T GetInheritedFieldValue<T>(this object target, Type containingType, string fieldName)
+        {
+            var fi = containingType.FI(fieldName);
+
+            if (fi == null)
+                return default!;
+
+            var fv = fi.GetValue(target);
+
+            return fv is T t ? t : default;
         }
 
         public static T GetFieldValue<T>(this object target, string fieldName)

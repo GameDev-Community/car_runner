@@ -36,6 +36,7 @@ namespace Game.Core.Car
                 var itemParent = oldItemTr.parent;
                 var itemPos = oldItemTr.localPosition;
                 var itemRot = oldItemTr.localRotation;
+                var itemScale = oldItemTr.localScale;
 
                 GameObject.Destroy(item.gameObject);
                                
@@ -43,6 +44,7 @@ namespace Game.Core.Car
                 var newItemTr = newItemInst.transform;
                 newItemTr.localPosition = itemPos;
                 newItemTr.localRotation = itemRot;
+                newItemTr.localScale = itemScale;
                 var newWC = newItemInst.WheelCollider;
                 var newWCTr = newWC.transform;
                 newWCTr.SetParent(wcParent, false);

@@ -10,6 +10,13 @@ namespace DevourDev.Base.Reflections
     public static class ReflextionHelpers
     {
         private const int _getFieldFlags = 36; // BindingFlags.Instance | BindingFlags.NonPublic
+
+
+        public static void InvokeMethod(this object target, string methodName, object[] parameters = null)
+        {
+            var method = target.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic);
+            method.Invoke(target, parameters);
+        }
         public static FieldInfo FI(this object target, string fieldName)
         {
             if (target is Type)

@@ -3,6 +3,7 @@ using DevourDev.Unity.Utils.Editor;
 using DevourDev.Unity.Utils.Editor.Window;
 using Externals.Utils;
 using Externals.Utils.StatsSystem;
+using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -16,6 +17,7 @@ namespace Game.Garage
         [SerializeField] private Texture2D _lowresTex;
         [SerializeField] private Texture2D _hiresTex;
         [SerializeField] private List<StatDataRuntimeCreator> _initialStats;
+        [SerializeField] private List<UpgradeData> _upgrades;
 
         private CarCreator _creator;
 
@@ -28,6 +30,7 @@ namespace Game.Garage
             w._creator = creator;
             w.SerializedObject = new SerializedObject(w);
             w._initialStats = new();
+            w._upgrades = new();
         }
 
         private void OnDestroy()
@@ -38,6 +41,8 @@ namespace Game.Garage
 
         private void OnGUI()
         {
+            SerializedObject.Update();
+
             SerializedObject.FDP(nameof(_carName));
             SerializedObject.FDP(nameof(_description));
 
@@ -59,7 +64,7 @@ namespace Game.Garage
 
                 bool flag = false;
 
-                GUILayout.Label(sd.StatObject.MetaInfo.Name);
+                GUILayout.Label(sd.StatObject.MetaInfo.Name?? $"stat #{i}");
 
                 if (GUILayout.Button("change"))
                 {
@@ -79,14 +84,42 @@ namespace Game.Garage
                     goto End;
             }
 
+            for (int i = 0; i < _upgrades.Count; i++)
+            {
+                var u = _upgrades[i];
+                GUILayout.BeginHorizontal();
+
+                bool flag = false;
+
+                GUILayout.Label(u.MetaInfo.Name);
+
+                if (GUILayout.Button("change))"))
+                {
+                    flag = true;
+                }
+
+                if (GUILayout.Button("remove"))
+                {
+                    flag = true;
+                    _upgrades.RemoveAt(i);
+                }
+
+                GUILayout.EndHorizontal();
+
+                if (flag)
+                    goto End;
+            }
+
             if (GUILayout.Button("Create Stat"))
             {
                 StatDataInitializerWindow.Open(AddStatData);
+                goto End;
             }
 
             if (GUILayout.Button("Create Upgrage"))
             {
-                StatDataInitializerWindow.Open(AddStatData);
+                UpgradeCreatorWindow.Open(AddUpgrade);
+                goto End;
             }
 
 
@@ -99,9 +132,12 @@ namespace Game.Garage
                     Apply();
                     _creator.MetaInfo = new MetaInfo(_carName, _description, _lowresTex, _hiresTex);
                     _creator.SourceStats = _initialStats.ToArray();
+                    _creator.Upgrades = _upgrades.ToArray();
                     var x = _creator.Create(pathToAsset);
-                    return;
+                    goto End;
                 }
+
+                goto End;
             }
 
 End:
@@ -118,6 +154,17 @@ End:
             _initialStats.Add(statDataInitializer);
             Repaint();
         }
+
+        private void AddUpgrade(UpgradeData upg)
+        {
+            if (upg == null)
+                return;
+
+            _upgrades.Add(upg);
+            Repaint();
+        }
+
+
     }
 }
 #endif

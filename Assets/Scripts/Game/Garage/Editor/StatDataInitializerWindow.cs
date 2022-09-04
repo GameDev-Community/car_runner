@@ -8,10 +8,6 @@ using UnityEngine;
 
 namespace Game.Garage
 {
-    public class StatDataManipulatorWindow : ExtendedEditorWindow
-    {
-        [SerializeField] private StatDataRuntimeManipulator _manipulator;
-    }
     public class StatDataInitializerWindow : ExtendedEditorWindow
     {
         /// <summary>
@@ -108,20 +104,27 @@ End:
 
             _creator.SetField("_actionID", actionID);
 
-            Apply();
 
-            bool add = GUILayout.Button("Add");
+            bool add = soProp.objectReferenceValue != null && GUILayout.Button("Add");
             bool cancel = GUILayout.Button("Cancel");
 
             if (add || cancel)
             {
 
-                _onCompleteCallback.Invoke(_creator);
+                Apply();
+
+                if (add)
+                    _onCompleteCallback.Invoke(_creator);
+                else
+                    _onCompleteCallback.Invoke(null);
 
                 Close();
                 return;
             }
-
+            else
+            {
+                Apply();
+            }
 
             //UnityEditor.SerializedProperty P(string fieldName) => SerializedObject.FindProperty(fieldName);
             UnityEditor.SerializedProperty PR(string fieldName) => SerializedObject.FindProperty(nameof(_creator)).FindPropertyRelative(fieldName);
@@ -206,6 +209,7 @@ End:
             var w = GetWindow<StatDataInitializerWindow>("Stat Data Creator");
             w.SerializedObject = new SerializedObject(w);
             w._onCompleteCallback = onCompleteCallback;
+            w._creator = new StatDataRuntimeCreator();
         }
     }
 

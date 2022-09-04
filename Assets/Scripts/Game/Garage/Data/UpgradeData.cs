@@ -9,8 +9,8 @@ using Utils.Attributes;
 
 namespace Game.Garage
 {
-    [CreateAssetMenu(menuName = "Game/Garage/Cars/Upgrades/Upgrade Object")]
-    public class UpgradeObject : GameDatabaseElement
+    [System.Serializable]
+    public class UpgradeData
     {
         [System.Serializable]
         public class UpgrageTier
@@ -63,25 +63,27 @@ namespace Game.Garage
         [Space]
         [SerializeField, NonReorderable] private UpgrageTier[] _tiers;
 
-#if UNITY_EDITOR
-        [SerializeField] private bool _computeUpgrades;
-#endif
+//#if UNITY_EDITOR
+//        [SerializeField] private bool _computeUpgrades;
+//#endif
 
 
         public MetaInfo MetaInfo => _metaInfo;
 
 
 #if UNITY_EDITOR
-        private void OnValidate()
-        {
-            if (_computeUpgrades)
-            {
-                _computeUpgrades = false;
-                ComputeUpgrates();
-            }
-        }
+        //private void OnValidate()
+        //{
+        //    if (_computeUpgrades)
+        //    {
+        //        _computeUpgrades = false;
+        //        ComputeUpgrates();
+        //    }
+        //}
 
-        private void ComputeUpgrates()
+
+        //invoking with Reflection
+        private void ComputeUpgrades()
         {
             var tiers = _tiers;
             var c = tiers.Length;
@@ -137,7 +139,7 @@ namespace Game.Garage
                 allImprovesFI.SetValue(x, allImprs.ToArray());
             }
 
-            UnityEditor.EditorUtility.SetDirty(this);
+            //UnityEditor.EditorUtility.SetDirty(this);
         }
 #endif
         public UpgrageTier GetUpgrageTier(int tier)

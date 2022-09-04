@@ -10,9 +10,9 @@ namespace Game.Garage
     [CreateAssetMenu(menuName = "Game/Garage/Cars/Car Object")]
     public class CarObject : GameDatabaseElement    {
         [SerializeField] private MetaInfo _metaInfo;
-        [SerializeField, HideInInspector] private StatDataRuntimeCreator[] _sourceStats; //ahaiasidasodaspphooooooi
+        [SerializeField] private StatDataRuntimeCreator[] _sourceStats; //ahaiasidasodaspphooooooi
         [SerializeField] private GameObject _carPreviewPrefab;
-        [SerializeField] private UpgradeObject[] _upgrades;
+        [SerializeField] private UpgradeData[] _upgrades;
         [SerializeField] private int _statsCount;
 
 

@@ -12,6 +12,7 @@ namespace Game.Garage
     [System.Serializable]
     public class UpgradeData
     {
+        //хуй
         [System.Serializable]
         public class UpgrageTier
         {

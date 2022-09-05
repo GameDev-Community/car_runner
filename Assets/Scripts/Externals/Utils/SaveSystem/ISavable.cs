@@ -9,9 +9,9 @@ namespace Externals.Utils.SaveManager
     /// осуществлять сохранение и загрузку
     /// через SaveManager события
     /// </summary>
-    public interface ISavable<T>
+    public interface ISavable
     {
         public void Save(BinaryWriter bw);
-        public T Load(BinaryReader br);
+        public void Load(BinaryReader br);
     }
 }

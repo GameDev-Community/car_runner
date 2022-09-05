@@ -9,10 +9,16 @@ using Utils.Attributes;
 
 namespace Game.Garage
 {
-    [System.Serializable]
-    public class UpgradeData
+    // вернул сущность скриптабельного объекта, т.к. один апгрейд вполне может применяться
+    // к разным сущностям (машинам)
+    // Апгрейд - это АПГРЕЙД, следующая ступень улучшения, так что
+    // интегрировать его в предметы (купил икноку - получаешь меньше урона,
+    // применимо ко всем машинам) - архитектурно не верно. Предметы должны
+    // давать бонусы, не связанные с чем-то другим (например, предыдущими
+    // улучшениями, как апгрейды)
+    [CreateAssetMenu(menuName ="Garage/Upgrades/Upgrade Object")]
+    public class UpgradeObject : GameDatabaseElement
     {
-        //хуй
         [System.Serializable]
         public class UpgrageTier
         {
@@ -64,26 +70,26 @@ namespace Game.Garage
         [Space]
         [SerializeField, NonReorderable] private UpgrageTier[] _tiers;
 
-//#if UNITY_EDITOR
-//        [SerializeField] private bool _computeUpgrades;
-//#endif
+#if UNITY_EDITOR
+        [SerializeField] private bool _computeUpgrades;
+#endif
 
 
         public MetaInfo MetaInfo => _metaInfo;
 
 
 #if UNITY_EDITOR
-        //private void OnValidate()
-        //{
-        //    if (_computeUpgrades)
-        //    {
-        //        _computeUpgrades = false;
-        //        ComputeUpgrates();
-        //    }
-        //}
+        private void OnValidate()
+        {
+            if (_computeUpgrades)
+            {
+                _computeUpgrades = false;
+                ComputeUpgrades();
+            }
+        }
 
 
-        //invoking with Reflection
+        //invoking with Reflection or OnValidate
         private void ComputeUpgrades()
         {
             var tiers = _tiers;
@@ -140,7 +146,7 @@ namespace Game.Garage
                 allImprovesFI.SetValue(x, allImprs.ToArray());
             }
 
-            //UnityEditor.EditorUtility.SetDirty(this);
+            UnityEditor.EditorUtility.SetDirty(this);
         }
 #endif
         public UpgrageTier GetUpgrageTier(int tier)

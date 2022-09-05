@@ -6,23 +6,54 @@ using System.IO;
 
 namespace Game.Garage
 {
-    public class GarageData : ISavable<GarageData>
+    public class GarageData : ISavable
     {
+        private class UpgradeData : ISavable
+        {
+            private UpgradeObject _upgradeObject;
+            private int _lastUpgradeTier;
+
+
+            public UpgradeData()
+            {
+            }
+
+            public UpgradeData(UpgradeObject upgradeObject, int lastUpgradeTier)
+            {
+                _upgradeObject = upgradeObject;
+                _lastUpgradeTier = lastUpgradeTier;
+            }
+
+
+            public UpgradeObject UpgradeObject => _upgradeObject;
+            public int LastUpgradeTier { get => _lastUpgradeTier; set => _lastUpgradeTier = value; }
+
+
+            public void Load(BinaryReader br)
+            {
+                _upgradeObject = br.ReadGameDatabaseElement(Accessors.UpgradesDatabase);
+                _lastUpgradeTier = br.ReadInt32();
+
+            }
+
+            public void Save(BinaryWriter bw)
+            {
+                bw.WriteGameDatabaseElement(_upgradeObject);
+                bw.Write(_lastUpgradeTier);
+            }
+        }
+
+
         private readonly List<CarObject> _unlockedCars;
         private readonly List<CarObject> _acquiredCars;
-
-
-        private GarageData(IEnumerable<CarObject> unlockedCars, IEnumerable<CarObject> acquiredCars)
-        {
-            _unlockedCars = new(unlockedCars);
-            _acquiredCars = new(acquiredCars);
-        }
+        private readonly List<UpgradeData> _upgrades;
 
 
         public GarageData()
         {
             _unlockedCars = new();
             _acquiredCars = new();
+            _upgrades = new();
         }
 
 
@@ -34,13 +65,15 @@ namespace Game.Garage
         {
             bw.WriteGameDatabaseElements(_unlockedCars);
             bw.WriteGameDatabaseElements(_acquiredCars);
+
         }
 
-        public GarageData Load(BinaryReader br)
+        public void Load(BinaryReader br)
         {
             var cdb = Accessors.CarsDatabase;
-            return new GarageData(br.ReadGameDatabaseElements<CarObject>(cdb),
-                br.ReadGameDatabaseElements<CarObject>(cdb));
+            br.ReadGameDatabaseElementsNonAlloc<CarObject>(cdb, _unlockedCars);
+            br.ReadGameDatabaseElementsNonAlloc<CarObject>(cdb, _acquiredCars);
+            br.ReadSavablesNonAlloc<UpgradeData>(_upgrades);
         }
     }
 }

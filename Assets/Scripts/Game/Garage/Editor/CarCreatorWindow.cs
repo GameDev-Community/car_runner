@@ -17,7 +17,7 @@ namespace Game.Garage
         [SerializeField] private Texture2D _lowresTex;
         [SerializeField] private Texture2D _hiresTex;
         [SerializeField] private List<StatDataRuntimeCreator> _initialStats;
-        [SerializeField] private List<UpgradeData> _upgrades;
+        [SerializeField] private List<UpgradeObject> _upgrades;
 
         private CarCreator _creator;
 
@@ -155,7 +155,7 @@ End:
             Repaint();
         }
 
-        private void AddUpgrade(UpgradeData upg)
+        private void AddUpgrade(UpgradeObject upg)
         {
             if (upg == null)
                 return;

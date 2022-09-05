@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7c2a7471dc35364b9a6dc7cc6ab6650, type: 3}
+  m_Name: govnoSlona
+  m_EditorClassIdentifier: 
+  _databaseElementId: 0
+  _metaInfo:
+    _name: 2312312312
+    _description: 123213
+    _lowresTex: {fileID: 0}
+    _hiresTex: {fileID: 0}
+  _sourceStats: []
+  _carPreviewPrefab: {fileID: 0}
+  _upgrades:
+  - {fileID: 11400000, guid: a90ae0c453584dd4e8e691b8726bcf6d, type: 2}

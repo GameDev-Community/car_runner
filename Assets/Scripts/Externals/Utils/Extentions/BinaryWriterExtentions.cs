@@ -1,10 +1,9 @@
 ﻿using DevourDev.Unity.ScriptableObjects;
+using Externals.Utils.SaveManager;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Externals.Utils.Extentions
 {
@@ -20,6 +19,28 @@ namespace Externals.Utils.Extentions
             WriteUnsafe(bw, v);
         }
 
+
+        public static void WriteSavable(this BinaryWriter bw, ISavable savable)
+        {
+            savable.Save(bw);
+        }
+
+        public static void WriteSavables(this BinaryWriter bw, IList<ISavable> savables)
+        {
+            var c = savables.Count;
+            bw.Write(c);
+
+            for (int i = -1; ++i < c;)
+            {
+                savables[i].Save(bw);
+            }
+        }
+
+        public static void WriteGameDatabaseElement<T>(this BinaryWriter bw, T element)
+            where T : GameDatabaseElement
+        {
+            bw.Write(element.DatabaseElementID);
+        }
 
         public static void WriteGameDatabaseElements<T>(this BinaryWriter bw, IList<T> elements)
             where T : GameDatabaseElement

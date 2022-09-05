@@ -12,19 +12,19 @@ namespace Game.Garage
     public class UpgradeTierCreatorWindow : ExtendedEditorWindow
     {
         //[SerializeField] private MetaInfo _metaInfo;
-        [SerializeField] private UpgradeData.UpgrageTier _tier;
-        private System.Action<UpgradeData.UpgrageTier> _onCompleteCallback;
+        [SerializeField] private UpgradeObject.UpgrageTier _tier;
+        private System.Action<UpgradeObject.UpgrageTier> _onCompleteCallback;
         //private SerializedProperty _metaInfo_sp;
         private SerializedProperty _tier_sp;
 
 
-        public static void Open(System.Action<UpgradeData.UpgrageTier> onCompleteCallback)
+        public static void Open(System.Action<UpgradeObject.UpgrageTier> onCompleteCallback)
         {
             var w = GetWindow<UpgradeTierCreatorWindow>("Upgrade Creator");
             w.SerializedObject = new SerializedObject(w);
             w._onCompleteCallback = onCompleteCallback;
             //w._metaInfo = new("New Tier", "", null, null);
-            w._tier = new UpgradeData.UpgrageTier();
+            w._tier = new UpgradeObject.UpgrageTier();
             //w._metaInfo_sp = w.SerializedObject.FindProperty(nameof(_metaInfo));
             w._tier_sp = w.SerializedObject.FindProperty(nameof(_tier));
 
@@ -67,12 +67,12 @@ namespace Game.Garage
     public class UpgradeCreatorWindow : ExtendedEditorWindow
     {
         [SerializeField] private MetaInfo _metaInfo;
-        private System.Action<UpgradeData> _onCompleteCallback;
+        private System.Action<UpgradeObject> _onCompleteCallback;
 
-        private List<UpgradeData.UpgrageTier> _tiers;
+        private List<UpgradeObject.UpgrageTier> _tiers;
         private SerializedProperty _metaInfo_sp;
 
-        public static void Open(System.Action<UpgradeData> onCompleteCallback)
+        public static void Open(System.Action<UpgradeObject> onCompleteCallback)
         {
             var w = GetWindow<UpgradeCreatorWindow>("Upgrade Creator");
             w.SerializedObject = new SerializedObject(w);
@@ -120,9 +120,9 @@ End:
             Apply();
         }
 
-        private UpgradeData CreateUpgradeData()
+        private UpgradeObject CreateUpgradeData()
         {
-            var upgData = new UpgradeData();
+            var upgData = ScriptableObject.CreateInstance<UpgradeObject>();
             upgData.SetField("_metaInfo", _metaInfo);
             upgData.SetField("_tiers", _tiers.ToArray());
             upgData.InvokeMethod("ComputeUpgrades", null);
@@ -134,7 +134,7 @@ End:
             UpgradeTierCreatorWindow.Open(AddTier);
         }
 
-        private void AddTier(UpgradeData.UpgrageTier tier)
+        private void AddTier(UpgradeObject.UpgrageTier tier)
         {
             if (tier == null)
                 return;

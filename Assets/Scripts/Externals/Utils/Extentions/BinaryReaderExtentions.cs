@@ -1,5 +1,7 @@
 ﻿using DevourDev.Unity.ScriptableObjects;
+using Externals.Utils.SaveManager;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 
@@ -22,6 +24,61 @@ namespace Externals.Utils.Extentions
             return ReadArrayUnsafe<double>(br);
         }
 
+        public static T ReadSavable<T>(this BinaryReader br)
+            where T : ISavable, new()
+        {
+            var savable = new T();
+            savable.Load(br);
+            return savable;
+        }
+
+        public static T[] ReadSavables<T>(this BinaryReader br)
+            where T : ISavable, new()
+        {
+            var c = br.ReadInt32();
+            var arr = new T[c];
+
+            for (int i = -1; ++i < c;)
+            {
+                var x = new T();
+                x.Load(br);
+                arr[i] = x;
+            }
+
+            return arr;
+        }
+
+        public static void ReadSavablesNonAlloc<T>(this BinaryReader br, List<T> buffer)
+           where T : ISavable, new()
+        {
+            var c = br.ReadInt32();
+
+            var minCapacity = buffer.Count + c;
+
+            if (buffer.Capacity < minCapacity)
+            {
+                int cap = buffer.Count * 2;
+
+                if (cap < minCapacity)
+                    cap = minCapacity;
+
+                buffer.Capacity = cap;
+
+            }
+
+            for (int i = -1; ++i < c;)
+            {
+                var x = new T();
+                x.Load(br);
+                buffer.Add(x);
+            }
+        }
+
+        public static T ReadGameDatabaseElement<T>(this BinaryReader br, GameDatabase<T> database)
+            where T : GameDatabaseElement
+        {
+            return database.GetElement(br.ReadInt32());
+        }
 
         public static T[] ReadGameDatabaseElements<T>(this BinaryReader br, GameDatabase<T> database)
             where T : GameDatabaseElement
@@ -36,6 +93,32 @@ namespace Externals.Utils.Extentions
             }
 
             return els;
+        }
+
+        public static void ReadGameDatabaseElementsNonAlloc<T>(this BinaryReader br, GameDatabase<T> database, List<T> buffer)
+            where T : GameDatabaseElement
+        {
+            var ids = ReadArrayUnsafe<int>(br);
+            var c = ids.Length;
+
+            var minCapacity = buffer.Count + c;
+
+            if (buffer.Capacity < minCapacity)
+            {
+                int cap = buffer.Count * 2;
+
+                if (cap < minCapacity)
+                    cap = minCapacity;
+
+                buffer.Capacity = cap;
+
+            }
+
+            for (int i = -1; ++i < c;)
+            {
+                var x = database.GetElement(ids[i]);
+                buffer.Add(x);
+            }
         }
 
 

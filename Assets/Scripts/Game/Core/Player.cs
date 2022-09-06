@@ -1,7 +1,6 @@
 using Externals.Utils.SaveManager;
 using Externals.Utils.StatsSystem;
 using Game.Core.Car;
-using Game.Garage;
 using Game.Helpers;
 using UnityEngine;
 using UnityEngine.Events;
@@ -19,12 +18,9 @@ namespace Game.Core
         private ICarController _carController;
         private IStatsHolder _statsHolder;
 
-        private GarageData _garageData;
-
 
         public ICarController CarController => _carController;
         public IStatsHolder StatsHolder => _statsHolder;
-        public GarageData GarageData => _garageData;
 
 
         private void Awake()

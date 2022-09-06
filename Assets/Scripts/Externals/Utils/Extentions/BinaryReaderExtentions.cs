@@ -74,34 +74,6 @@ namespace Externals.Utils.Extentions
             }
         }
 
-        public static void ReadSavablesNonAllocToCollection<T>(this BinaryReader br, ICollection<T> buffer)
-         where T : ISavable, new()
-        {
-            var c = br.ReadInt32();
-
-            for (int i = -1; ++i < c;)
-            {
-                var x = new T();
-                x.Load(br);
-                buffer.Add(x);
-            }
-        }
-
-        public static void ReadSavablesNonAllocToRentedBuffer<T>(this BinaryReader br, out System.Buffers.ArrayPool<T> pool, out T[] arr, out int length)
-         where T : ISavable, new()
-        {
-            length = br.ReadInt32();
-            pool = System.Buffers.ArrayPool<T>.Shared;
-            arr = pool.Rent(length);
-
-            for (int i = -1; ++i < length;)
-            {
-                var x = new T();
-                x.Load(br);
-                arr[i] = x;
-            }
-        }
-
         public static T ReadGameDatabaseElement<T>(this BinaryReader br, GameDatabase<T> database)
             where T : GameDatabaseElement
         {
@@ -141,19 +113,6 @@ namespace Externals.Utils.Extentions
                 buffer.Capacity = cap;
 
             }
-
-            for (int i = -1; ++i < c;)
-            {
-                var x = database.GetElement(ids[i]);
-                buffer.Add(x);
-            }
-        }
-
-        public static void ReadGameDatabaseElementsNonAllocToCollection<T>(this BinaryReader br, GameDatabase<T> database, ICollection<T> buffer)
-            where T : GameDatabaseElement
-        {
-            var ids = ReadArrayUnsafe<int>(br);
-            var c = ids.Length;
 
             for (int i = -1; ++i < c;)
             {

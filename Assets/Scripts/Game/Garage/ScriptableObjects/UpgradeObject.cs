@@ -1,7 +1,6 @@
 ﻿using DevourDev.Unity.ScriptableObjects;
 using Externals.Utils;
 using Externals.Utils.StatsSystem;
-using Game.Core.Car;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -17,14 +16,13 @@ namespace Game.Garage
     // применимо ко всем машинам) - архитектурно не верно. Предметы должны
     // давать бонусы, не связанные с чем-то другим (например, предыдущими
     // улучшениями, как апгрейды)
-    [CreateAssetMenu(menuName = "Garage/Upgrades/Upgrade Object")]
+    [CreateAssetMenu(menuName ="Garage/Upgrades/Upgrade Object")]
     public class UpgradeObject : GameDatabaseElement
     {
         [System.Serializable]
         public class UpgrageTier
         {
             [SerializeField] private MetaInfo _metaInfo;
-            [SerializeField] private Utils.Items.DefualtItemBehaviour _visual;
             [SerializeField, NonReorderable] private StatModifierCreator[] _improves;
 
             [Tooltip("этот апгрейд не перезаписывает," +
@@ -45,7 +43,7 @@ namespace Game.Garage
             public int[] ExcludingTiers => _excludingTiers;
 
 
-            public void ApplyStats(StatsCollection sc)
+            public void Apply(StatsCollection sc)
             {
                 if (_allImproves != null && _allImproves.Length > 0)
                 {
@@ -64,16 +62,8 @@ namespace Game.Garage
                         item.Apply(sc, false);
                     }
                 }
-
-
-            }
-
-            public void ApplyVisuals(CustomizableCar customizableCar)
-            {
-                customizableCar.ChangeItem(_visual);
             }
         }
-
 
 
         [SerializeField] private MetaInfo _metaInfo;
@@ -164,32 +154,16 @@ namespace Game.Garage
             return _tiers[tier];
         }
 
-        /// <param name="tier">add minus to reverse (-1 == ^1)</param>
-        /// <param name="upgrageTier"></param>
-        /// <returns></returns>
+
         public bool TryGetUpgrateTier(int tier, out UpgrageTier upgrageTier)
         {
-            if (tier < 0)
-            {
-                tier = -tier;
-
-                if (_tiers.Length < tier)
-                {
-                    upgrageTier = null;
-                    return false;
-                }
-
-                upgrageTier = _tiers[^tier];
-                return true;
-            }
-
-            if (tier >= _tiers.Length)
+            if (tier < 0 || tier >= _tiers.Length)
             {
                 upgrageTier = default;
                 return false;
             }
 
-            upgrageTier = _tiers[tier];
+            upgrageTier = GetUpgrageTier(tier);
             return true;
         }
 

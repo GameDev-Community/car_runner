@@ -1,4 +1,5 @@
 ﻿using Externals.Utils.Runtime;
+using Game.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,14 +17,17 @@ namespace Game.Garage.Unsorted
         [SerializeField] private TextMeshProUGUI _carNameText;
         [SerializeField] private Image _previewImg;
 
-        private int _id;
+        private CarObject _carObject;
         private GarageUi _parent;
         private Sprite _tmpSprite;
 
 
-        public void Init(int id, GarageUi parent, CarObject carObject)
+        public CarObject CarObject => _carObject;
+
+
+        public void Init(CarObject carObject, GarageUi parent)
         {
-            _id = id;
+            _carObject = carObject;
             _parent = parent;
 
             var info = carObject.MetaInfo;
@@ -39,7 +43,7 @@ namespace Game.Garage.Unsorted
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            _parent.HandleCarSlotClick(_id);
+            _parent.HandleCarSlotClick(this);
         }
     }
     public class GarageUi : MonoBehaviour
@@ -58,6 +62,7 @@ namespace Game.Garage.Unsorted
             for (int i = -1; ++i < c;)
             {
                 var slot = Instantiate(_carSlotPrefab, _carSlotsParent);
+                slot.Init(cars[i], this);
                 _carSlots.Add(slot);
             }
         }
@@ -80,9 +85,9 @@ namespace Game.Garage.Unsorted
         }
 
 
-        internal void HandleCarSlotClick(int slotIndex)
+        internal void HandleCarSlotClick(CarSlotUi slot)
         {
-
+            Accessors
         }
     }
     public class GarageMaster : MonoBehaviour

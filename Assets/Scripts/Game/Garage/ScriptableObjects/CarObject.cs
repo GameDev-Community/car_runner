@@ -12,6 +12,7 @@ namespace Game.Garage
         [SerializeField] private StatDataRuntimeCreator[] _sourceStats;
         [SerializeField] private GameObject _carPreviewPrefab;
         [SerializeField] private UpgradeObject[] _upgrades;
+        [SerializeField] private int _cost;
 
 
         public MetaInfo MetaInfo => _metaInfo;

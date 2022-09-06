@@ -50,7 +50,9 @@ namespace Game.Garage.Unsorted
     {
         [SerializeField] private CarSlotUi _carSlotPrefab;
         [SerializeField] private Transform _carSlotsParent;
+
         private readonly List<CarSlotUi> _carSlots = new();
+        private GarageData _garageData;
 
 
         private void BuildCarSlots(CarObject[] cars)
@@ -87,7 +89,10 @@ namespace Game.Garage.Unsorted
 
         internal void HandleCarSlotClick(CarSlotUi slot)
         {
-            Accessors
+            //if()
+            //var wallet = Accessors.Wallet;
+
+
         }
     }
     public class GarageMaster : MonoBehaviour

@@ -7,5 +7,4 @@ namespace Utils.Items
     {
         public ItemType ItemType { get; }
     }
-    }
 }

@@ -1,4 +1,7 @@
-﻿namespace Utils.Items
+﻿using Externals.Utils.SaveManager;
+using System.IO;
+
+namespace Utils.Items
 {
     public interface IItem
     {

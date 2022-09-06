@@ -24,6 +24,7 @@ MonoBehaviour:
       _description: 
       _lowresTex: {fileID: 0}
       _hiresTex: {fileID: 0}
+    _visual: {fileID: 0}
     _improves:
     - _statObject: {fileID: 11400000, guid: e7dcb17c829401348a86ac5b07d5f45a, type: 2}
       _mode: 1
@@ -50,6 +51,7 @@ MonoBehaviour:
       _description: 
       _lowresTex: {fileID: 0}
       _hiresTex: {fileID: 0}
+    _visual: {fileID: 0}
     _improves:
     - _statObject: {fileID: 11400000, guid: e7dcb17c829401348a86ac5b07d5f45a, type: 2}
       _mode: 1

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4de08cdf203fbb4c8a6728f3c978c6b, type: 3}
   m_Name: upg_0
   m_EditorClassIdentifier: 
-  _databaseElementId: 0
+  _databaseElementId: 1
   _metaInfo:
     _name: New Upgrade
     _description: 
@@ -24,6 +24,7 @@ MonoBehaviour:
       _description: 
       _lowresTex: {fileID: 0}
       _hiresTex: {fileID: 0}
+    _visual: {fileID: 0}
     _improves:
     - _statObject: {fileID: 11400000, guid: fd348f187346ce342a72b230783a5c49, type: 2}
       _mode: 1

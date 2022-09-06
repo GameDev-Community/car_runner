@@ -29,6 +29,8 @@ namespace Game.Core
 
         private void Awake()
         {
+            _garageData = new();
+
             try
             {
                 _carController = (ICarController)_carController_raw;

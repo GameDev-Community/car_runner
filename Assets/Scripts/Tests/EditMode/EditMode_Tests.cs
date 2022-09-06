@@ -121,6 +121,65 @@ namespace Tests.EditMode
 
 
         }
+
+
+        [Test]
+        public void TestNumericsMath()
+        {
+            const int iterationsCount = 1000_000;
+            var sw = new System.Diagnostics.Stopwatch();
+
+            for (int i = -1; ++i < 100000;)
+            {
+                float x = 10;
+                x *= 4;
+            }
+
+            float[] farr = new float[iterationsCount];
+           var r = new System.Random(228);
+
+            for (int i = -1; ++i < iterationsCount;)
+            {
+                farr[i] = (float)r.NextDouble();
+            }
+
+            sw.Start();
+            for (int i = -1; ++i < iterationsCount;)
+            {
+                float v = farr[i];
+                farr[i] = System.MathF.Sqrt(v);
+            }   
+            sw.Stop();
+
+            UnityEngine.Debug.Log($"floats: {sw.Elapsed.TotalMilliseconds} ms\n" +
+               $"({sw.ElapsedTicks} ticks)");
+            double[] darr = new double[iterationsCount];
+            r = new System.Random(228);
+
+            for (int i = -1; ++i < iterationsCount;)
+            {
+                darr[i] = r.NextDouble();
+            }
+
+
+            sw.Reset();
+            sw.Start();
+
+            for (int i = -1; ++i < iterationsCount;)
+            {
+                double v = darr[i];
+                darr[i] = System.Math.Sqrt(v);
+            }
+
+            sw.Stop();
+
+            UnityEngine.Debug.Log($"doubles: {sw.Elapsed.TotalMilliseconds} ms\n" +
+                $"({sw.ElapsedTicks} ticks)");
+
+            
+        }
+
+
         [Test]
         public void TestFloatDynamicStatData()
         {

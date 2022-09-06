@@ -19,5 +19,6 @@ MonoBehaviour:
     _lowresTex: {fileID: 0}
     _hiresTex: {fileID: 0}
   _sourceStats: []
-  _carPreviewPrefab: {fileID: 0}
+  _carCustomizable: {fileID: 0}
   _upgrades: []
+  _cost: 0

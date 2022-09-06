@@ -1,5 +1,6 @@
 ﻿using DevourDev.Unity.ScriptableObjects;
 using Externals.Utils;
+using Externals.Utils.Runtime;
 using Externals.Utils.StatsSystem;
 using Game.Core.Car;
 using System.Collections.Generic;
@@ -70,6 +71,17 @@ namespace Game.Garage
 
             public void ApplyVisuals(CustomizableCar customizableCar)
             {
+                if(customizableCar == null)
+                {
+                    DevourRuntimeHelpers.ThrowMessageModal("Null Reference Exception: customizableCar", true);
+                }
+
+                if(_visual == null)
+                {
+                    DevourRuntimeHelpers.ThrowMessageModal("Null Reference Exception: " + customizableCar.name, false);
+                    return;
+
+                }
                 customizableCar.ChangeItem(_visual);
             }
         }

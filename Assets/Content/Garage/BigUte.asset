@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7c2a7471dc35364b9a6dc7cc6ab6650, type: 3}
   m_Name: BigUte
   m_EditorClassIdentifier: 
-  _databaseElementId: 0
+  _databaseElementId: 1
   _metaInfo:
     _name: BigUte
     _description: 
@@ -227,6 +227,8 @@ MonoBehaviour:
     _intStatDataCreator:
       _statObject: {fileID: 0}
       _initial: 0
-  _carPreviewPrefab: {fileID: 0}
+  _carCustomizable: {fileID: 2492108368251622949, guid: c64d71e22755f1c489399d8c508aa7e9,
+    type: 3}
   _upgrades:
   - {fileID: 11400000, guid: aea849804d5dff74c9b50002e2acdcf0, type: 2}
+  _cost: 0

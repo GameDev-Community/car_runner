@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DevourDev.Unity;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -79,11 +80,13 @@ namespace Externals.Utils.Runtime
                 newPos.x += dx;
                 newPos.y += dy;
                 newPos.z += dz;
+                tr.position = newPos;
 
                 await Task.Yield();
             }
 
             tr.position = dest;
+
         }
 
         public static async Task TranslateAsync(this Transform tr, Vector3 fullTranslation, float time, Space relativeTo, CancellationToken token)
@@ -156,6 +159,9 @@ namespace Externals.Utils.Runtime
 
         public static Sprite SpriteFromTexture(Texture2D t)
         {
+            if (t == null)
+                return null;
+
             return Sprite.Create(t, Rect.MinMaxRect(0, 0, t.width, t.height), new Vector2(0.5f, 0.5f));
         }
         public static void ThrowIfNegative(float v)

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4de08cdf203fbb4c8a6728f3c978c6b, type: 3}
   m_Name: TEST UpgradeObject
   m_EditorClassIdentifier: 
-  _databaseElementId: 0
+  _databaseElementId: 2
   _metaInfo:
     _name: 
     _description: 
@@ -24,6 +24,7 @@ MonoBehaviour:
       _description: 
       _lowresTex: {fileID: 0}
       _hiresTex: {fileID: 0}
+    _visual: {fileID: 0}
     _improves:
     - _statObject: {fileID: 11400000, guid: e7dcb17c829401348a86ac5b07d5f45a, type: 2}
       _mode: 0

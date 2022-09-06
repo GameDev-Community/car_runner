@@ -84,6 +84,11 @@ namespace Game.Garage
 
             var custCar = InstantiateCar();
 
+            if(custCar.TryGetComponent<Rigidbody>(out var hui))
+            {
+                hui.isKinematic = true;
+            }
+
             foreach (var u in _upgrades)
             {
                 if (u.TryGetUpgrateTier(-1, out var tier))

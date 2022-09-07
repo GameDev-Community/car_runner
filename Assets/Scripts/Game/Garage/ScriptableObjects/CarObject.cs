@@ -14,6 +14,7 @@ namespace Game.Garage
         [SerializeField] private MetaInfo _metaInfo;
         [SerializeField] private StatDataRuntimeCreator[] _sourceStats;
         [SerializeField] private CustomizableCar _carCustomizable;
+        [SerializeField] private CustomizableCar _readyToGoCarPrefab;
         [SerializeField] private UpgradeObject[] _upgrades;
         [SerializeField] private int _cost;
 
@@ -28,7 +29,7 @@ namespace Game.Garage
         /// <returns></returns>
         public GameObject CreateVisualsStock()
         {
-            var custCar = InstantiateCar();
+            var custCar = GetPreviewModelInstance();
 
             foreach (var u in _upgrades)
             {
@@ -49,7 +50,7 @@ namespace Game.Garage
         /// <returns></returns>
         public GameObject CreateVisualsTop()
         {
-            var custCar = InstantiateCar();
+            var custCar = GetPreviewModelInstance();
 
             foreach (var u in _upgrades)
             {
@@ -82,12 +83,7 @@ namespace Game.Garage
                 return CreateVisualsStock();
             }
 
-            var custCar = InstantiateCar();
-
-            if(custCar.TryGetComponent<Rigidbody>(out var hui))
-            {
-                hui.isKinematic = true;
-            }
+            var custCar = GetPreviewModelInstance();
 
             foreach (var u in _upgrades)
             {
@@ -102,9 +98,17 @@ namespace Game.Garage
         }
 
 
-        private CustomizableCar InstantiateCar()
+        private CustomizableCar GetPreviewModelInstance()
         {
-            return Instantiate(_carCustomizable);
+            var inst = Instantiate(_carCustomizable);
+
+            return inst;
+        }
+
+        private CustomizableCar GetReadyToGoCarInstance()
+        {
+            var inst = Instantiate(_readyToGoCarPrefab);
+            return inst;
         }
 
 
@@ -122,7 +126,7 @@ namespace Game.Garage
                 return CreateVisualsTop();
             }
 
-            var custCar = InstantiateCar();
+            var custCar = GetReadyToGoCarInstance();
             var sc = Accessors.PlayerStats;
 
             foreach (var u in _upgrades)
@@ -134,10 +138,12 @@ namespace Game.Garage
                         tier.ApplyVisuals(custCar);
                         tier.ApplyStats(sc);
                     }
+#if UNITY_EDITOR
                     else
                     {
                         DevourRuntimeHelpers.ThrowMessageModal("бляяяяяя", true);
                     }
+#endif
                 }
 
             }

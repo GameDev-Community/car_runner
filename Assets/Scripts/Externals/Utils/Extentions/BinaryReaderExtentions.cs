@@ -105,7 +105,8 @@ namespace Externals.Utils.Extentions
         public static T ReadGameDatabaseElement<T>(this BinaryReader br, GameDatabase<T> database)
             where T : GameDatabaseElement
         {
-            return database.GetElement(br.ReadInt32());
+            var id = br.ReadInt32();
+            return id < 0 ? null : database.GetElement(id);
         }
 
         public static T[] ReadGameDatabaseElements<T>(this BinaryReader br, GameDatabase<T> database)
@@ -117,7 +118,9 @@ namespace Externals.Utils.Extentions
 
             for (int i = -1; ++i < c;)
             {
-                els[i] = database.GetElement(ids[i]);
+                var id = ids[i];
+                var x = id < 0 ? null : database.GetElement(ids[i]);
+                els[i] = x;
             }
 
             return els;
@@ -144,7 +147,8 @@ namespace Externals.Utils.Extentions
 
             for (int i = -1; ++i < c;)
             {
-                var x = database.GetElement(ids[i]);
+                var id = ids[i];
+                var x = id < 0 ? null : database.GetElement(ids[i]);
                 buffer.Add(x);
             }
         }
@@ -157,7 +161,8 @@ namespace Externals.Utils.Extentions
 
             for (int i = -1; ++i < c;)
             {
-                var x = database.GetElement(ids[i]);
+                var id = ids[i];
+                var x = id < 0 ? null : database.GetElement(ids[i]);
                 buffer.Add(x);
             }
         }

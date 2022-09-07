@@ -27,7 +27,7 @@ namespace Externals.Utils.Extentions
 
         public static void WriteSavables(this BinaryWriter bw, IList<ISavable> savables)
         {
-            var c = savables.Count;
+            var c = savables != null ? savables.Count : -1;
             bw.Write(c);
 
             for (int i = -1; ++i < c;)
@@ -36,10 +36,10 @@ namespace Externals.Utils.Extentions
             }
         }
 
-        public static void WriteSavablesT<T> (this BinaryWriter bw, ICollection<T> savables)
+        public static void WriteSavablesT<T>(this BinaryWriter bw, ICollection<T> savables)
             where T : ISavable
         {
-            var c = savables.Count;
+            var c = savables != null ? savables.Count : -1;
             bw.Write(c);
 
             foreach (var item in savables)
@@ -51,22 +51,26 @@ namespace Externals.Utils.Extentions
         public static void WriteGameDatabaseElement<T>(this BinaryWriter bw, T element)
             where T : GameDatabaseElement
         {
-            bw.Write(element.DatabaseElementID);
+
+            bw.Write(element != null ? element.DatabaseElementID : -1);
         }
 
         public static void WriteGameDatabaseElements<T>(this BinaryWriter bw, ICollection<T> elements)
             where T : GameDatabaseElement
         {
-            var c = elements.Count;
+            var c = elements != null ? elements.Count : -1;
+
+            if (c < 0)
+                return;
 
             if (c > 128)
             {
                 int[] ids = System.Buffers.ArrayPool<int>.Shared.Rent(c);
 
                 int i = -1;
-                foreach (var item in elements)
+                foreach (var element in elements)
                 {
-                    ids[++i] = item.DatabaseElementID;
+                    ids[++i] = element != null ? element.DatabaseElementID : -1;
                 }
 
                 WriteUnsafe<int>(bw, ids);

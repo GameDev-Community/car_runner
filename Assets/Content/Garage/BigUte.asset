@@ -227,7 +227,7 @@ MonoBehaviour:
     _intStatDataCreator:
       _statObject: {fileID: 0}
       _initial: 0
-  _carCustomizable: {fileID: 2492108368251622949, guid: c64d71e22755f1c489399d8c508aa7e9,
+  _carCustomizable: {fileID: 2492108368251622949, guid: e1bbf6a2943edc640a1a5d58f4ac2164,
     type: 3}
   _upgrades:
   - {fileID: 11400000, guid: aea849804d5dff74c9b50002e2acdcf0, type: 2}

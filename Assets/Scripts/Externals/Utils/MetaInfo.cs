@@ -2,6 +2,7 @@
 
 namespace Externals.Utils
 {
+
     [System.Serializable]
     public class MetaInfo
     {

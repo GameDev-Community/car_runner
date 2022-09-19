@@ -45,6 +45,9 @@ namespace Game.Garage.Ui
         }
 
 
+
+
+
         private void SelectActiveCar(CarObject carObject, GameObject visualCarInst)
         {
             if (_highlightedCarGO != null)

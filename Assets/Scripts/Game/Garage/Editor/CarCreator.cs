@@ -23,35 +23,37 @@ namespace Game.Garage
 
         public CarObject Create(string pathToSaveAsset)
         {
+            const string upgradesFolderName = "Upgrades";
+            const string assetFielExtention = ".asset";
+
             var carObj = ScriptableObject.CreateInstance<CarObject>();
             carObj.SetField(nameof(_metaInfo), _metaInfo);
             carObj.SetField(nameof(_sourceStats), _sourceStats);
             carObj.SetField(nameof(_upgrades), _upgrades);
 
+            string carFileName = Path.GetFileNameWithoutExtension(pathToSaveAsset);
+            string contentRelativeFolderPath = DevourRuntimeHelpers.CatalogUp(pathToSaveAsset, 1);
+            contentRelativeFolderPath = Path.Combine(contentRelativeFolderPath, carFileName);
+            _ = Directory.CreateDirectory(contentRelativeFolderPath); //need only create directory (file system structure)
             var arr = _upgrades;
             int c = arr.Length;
 
             if (c > 0)
             {
-                var upgradesAbsFolderPath = new DirectoryInfo(pathToSaveAsset).Parent;
-                var upgradesFolderPath = DevourRuntimeHelpers.AbsPathToUnityRelative(upgradesAbsFolderPath);
-                var upgradesFolderName = Path.GetFileNameWithoutExtension(pathToSaveAsset) + "_upgrades";
-                var upgradesFolderFullName = Path.Combine(upgradesFolderPath, upgradesFolderName);
-                AssetDatabase.CreateFolder(upgradesFolderPath, upgradesFolderName);
-                //upgsPath = AssetDatabase.GUIDToAssetPath(upgsPath);
-
+                DirectoryInfo upgradesDirectory = new(Path.Combine(contentRelativeFolderPath, upgradesFolderName));
+                upgradesDirectory.Create();
+                var upgradesRelativeFolderPath = DevourRuntimeHelpers.AbsPathToUnityRelative(upgradesDirectory);
 
                 for (int i = -1; ++i < c;)
                 {
                     var ass = arr[i];
-                    //AssetDatabase.CreateAsset(ass, Path.Combine(upgsPath, $"upg_{i}.asset"));
-                    AssetDatabase.CreateAsset(ass, Path.Combine(upgradesFolderFullName, $"upg_{i}.asset"));
+                    AssetDatabase.CreateAsset(ass, Path.Combine(upgradesRelativeFolderPath, $"upg_{i}{assetFielExtention}"));
                     EditorUtility.SetDirty(ass);
                 }
             }
 
 
-            AssetDatabase.CreateAsset(carObj, pathToSaveAsset);
+            AssetDatabase.CreateAsset(carObj, Path.Combine(contentRelativeFolderPath, carFileName + assetFielExtention));
             EditorUtility.SetDirty(carObj);
 
             return carObj;

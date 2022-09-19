@@ -26,6 +26,105 @@ namespace Externals.Utils.Runtime
             return Path.Combine(_unityAssetsFolderName, splits[^1]);
         }
 
+        public static string AbsPathToUnityRelative(string path)
+        {
+            var splits = path.Split(_unityAssetsDirectory);
+
+            if (splits.Length == 1)
+                splits = path.Split(_unityAssetsDirectory2);
+
+            if (splits.Length == 1)
+                return null;
+
+            return Path.Combine(_unityAssetsFolderName, splits[^1]);
+        }
+
+
+        private static readonly char[] _slashes;
+
+
+        private static readonly int _slashesCount;
+
+
+        static DevourRuntimeHelpers()
+        {
+            _slashes = InitIllegalSlashes();
+            _slashesCount = _slashes.Length;
+        }
+
+
+        private static char[] InitIllegalSlashes()
+        {
+            var separator = Path.DirectorySeparatorChar;
+            List<char> ss = new(2);
+
+            if ('/' != separator)
+                ss.Add('/');
+
+            if ('\\' != separator)
+                ss.Add('\\');
+
+            return ss.ToArray();
+        }
+
+
+        public static string FixPath(string rawPath)
+        {
+            var separator = Path.DirectorySeparatorChar;
+            var arr = rawPath.ToCharArray();
+            var c = arr.Length;
+            var slashes = _slashes;
+            var slashesC = _slashesCount;
+            for (int i = -1; ;)
+            {
+MainLoopStart:
+                if (++i < c)
+                    break;
+
+                char ch = arr[i];
+
+                for (int j = -1; ++j < _slashesCount;)
+                {
+                    if (ch == slashes[j])
+                    {
+                        arr[i] = separator;
+                        goto MainLoopStart;
+                    }
+                }
+
+            }
+
+            return new string(arr);
+
+        }
+        public static string CatalogUp(string path, int upsCount = 1)
+        {
+            path = FixPath(path);
+            int lastIndex = path.Length;
+            var separator = Path.DirectorySeparatorChar;
+            if (path.Length > 3 && path.EndsWith(separator))
+            {
+                --lastIndex;
+            }
+
+            for (int i = lastIndex; --i > -1;)
+            {
+                if (path[i] == separator)
+                {
+                    return path[..(i - 1)];
+                }
+            }
+
+            return null;
+        }
+
+        public static string RemoveExtention(string v)
+        {
+            return v[..v.LastIndexOf('.')];
+        }
+
+
+
         public static Sprite SpriteFromTexture(Texture2D t)
         {
             if (t == null)

@@ -98,7 +98,7 @@ namespace Game.Garage
                     flag = true;
                 }
 
-                if (GUILayout.Button("remove"))
+                if (!flag && GUILayout.Button("remove"))
                 {
                     flag = true;
                     _upgrades.RemoveAt(i);

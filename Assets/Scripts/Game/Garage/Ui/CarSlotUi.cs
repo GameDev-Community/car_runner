@@ -6,6 +6,22 @@ using UnityEngine.UI;
 
 namespace Game.Garage.Ui
 {
+    public class UpgradeSlotUi : MonoBehaviour, IPointerClickHandler
+    {
+        [SerializeField] private Image _img;
+        [SerializeField] private TextMeshProUGUI _nameText;
+        [SerializeField] private TextMeshProUGUI _costText;
+        [SerializeField] private TextMeshProUGUI _activeTierText;
+
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
+
+
+
     public class CarSlotUi : MonoBehaviour, IPointerClickHandler
     {
         [SerializeField] private TextMeshProUGUI _carNameText;

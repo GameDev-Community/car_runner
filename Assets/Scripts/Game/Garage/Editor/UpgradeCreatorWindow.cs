@@ -88,6 +88,51 @@ namespace Game.Garage
 
             DrawP(_metaInfo_sp);
 
+            var arr = _tiers;
+            int tiersC = arr.Count;
+
+            for (int i = -1; ++i < tiersC;)
+            {
+                var t = arr[i];
+                bool endFlag = false;
+
+                GUILayout.BeginHorizontal();
+
+
+                var mi = t.MetaInfo;
+
+                if (mi != null)
+                {
+                    var n = mi.Name;
+
+                    if (n != null)
+                    {
+                        GUILayout.Label(n);
+                        goto Buttons;
+                    }
+                }
+
+                GUILayout.Label($"tier #{i}");
+
+Buttons:
+                if (GUILayout.Button($"change (not impl)"))
+                {
+                    UnityEngine.Debug.Log("not implemented");
+                    endFlag = true;
+                }
+
+                if (!endFlag && GUILayout.Button("remove"))
+                {
+                    endFlag = true;
+                    arr.RemoveAt(i);
+                }
+
+                GUILayout.EndHorizontal();
+
+                if (endFlag)
+                    goto End;
+            }
+
 
             if (GUILayout.Button("Add Upgrade Tier"))
             {
@@ -98,7 +143,7 @@ namespace Game.Garage
 
 
 
-            bool add = GUILayout.Button("Add");
+            bool add = GUILayout.Button("OK");
             bool cancel = GUILayout.Button("Cancel");
 
             if (add || cancel)

@@ -1,3 +1,4 @@
+using Externals.Utils.Extentions;
 using Externals.Utils.SaveManager;
 using Externals.Utils.StatsSystem;
 using Game.Core.Car;
@@ -49,22 +50,22 @@ namespace Game.Core
                 UnityEngine.Debug.LogError(ex);
             }
 
-            
+
             SaveManager.OnSave += SaveManager_OnSave;
             SaveManager.OnLoad += SaveManager_OnLoad;
         }
 
         private void SaveManager_OnSave(System.IO.BinaryWriter bw)
         {
-            //_statsHolder
+            bw.WriteSavable(_garageData);
         }
 
         private void SaveManager_OnLoad(System.IO.BinaryReader br)
         {
-            throw new System.NotImplementedException();
+            _garageData = br.ReadSavable<GarageData>();
         }
 
-        
+
 
         public void Kill()
         {

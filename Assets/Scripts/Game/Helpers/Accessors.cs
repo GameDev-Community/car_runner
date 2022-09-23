@@ -1,6 +1,7 @@
 ﻿using Externals.Utils.StatsSystem;
 using Game.Core;
 using Game.Garage;
+using System;
 using UnityEngine;
 
 namespace Game.Helpers
@@ -66,15 +67,16 @@ namespace Game.Helpers
 
         public bool TrySpend(int v)
         {
-            if (!CanSpend(v))
+            if (!CanSpend(v, out var result))
                 return false;
 
+            _sd.Set(result);
             return true;
         }
 
-        public bool CanSpend(int v)
+        public bool CanSpend(int v, out int result)
         {
-            return _sd.CanRemoveExact(v);
+            return _sd.CanRemoveExact(v, out result);
         }
     }
 }

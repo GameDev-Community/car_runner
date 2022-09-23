@@ -230,25 +230,6 @@ namespace Externals.Utils.StatsSystem
         }
         #endregion
 
-        #region clamped amount manipulatable
-        public bool CanAddExact(int delta)
-        {
-            if (delta < 0)
-                return false;
-
-            long desired = (long)_value + delta;
-            return desired <= _max && desired >= _min;
-        }
-
-        public bool CanRemoveExact(int delta)
-        {
-            if (delta < 0)
-                return false;
-
-            long desired = (long)_value - delta;
-            return desired <= _max && desired >= _min;
-        }
-        #endregion
 
         protected void SetValue(int value, long longDirtyDelta, long longSafeDelta, bool reachedMin, bool reachedMax)
         {
@@ -281,17 +262,54 @@ namespace Externals.Utils.StatsSystem
         }
 
 
-        public bool CanChangeExact(int delta)
+        public bool CanAddExact(int delta, out int result)
+        {
+            if (delta < 0)
+            {
+                result = default;
+                return false;
+            }
+
+            long rawRes = (long)_value - delta;
+
+            if (rawRes < int.MinValue)
+            {
+                result = default;
+                return false;
+            }
+
+            result = (int)rawRes;
+
+            return result <= _max;
+        }
+
+        public bool CanRemoveExact(int delta, out int result)
+        {
+            if (delta < 0)
+            {
+                result = default;
+                return false;
+            }
+
+            result = (int)((long)_value - delta);
+            return result >= _min;
+        }
+
+        public bool CanChangeExact(int delta, out int result)
         {
             if (delta > 0)
-                return CanAddExact(delta);
+                return CanAddExact(delta, out result);
 
             if (delta < 0)
-                return CanRemoveExact(-delta);
+                return CanRemoveExact(-delta, out result);
 
             if (delta == 0)
+            {
+                result = _value;
                 return true;
+            }
 
+            result = default;
             return false;
         }
 
@@ -342,6 +360,21 @@ namespace Externals.Utils.StatsSystem
             var v = System.Math.Clamp(value, _min, _max);
             Set(v);
             return v;
+        }
+
+        public bool CanChangeExact(int delta, out int result, bool inverse)
+        {
+            if (inverse)
+                delta = -delta;
+
+            return CanChange(delta, out result);
+        }
+
+        public bool CanSetExact(int value, out int result)
+        {
+            result = value;
+
+            return value >= _min && value <= _max;
         }
     }
 }

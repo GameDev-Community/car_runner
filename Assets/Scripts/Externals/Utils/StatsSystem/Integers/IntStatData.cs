@@ -26,7 +26,7 @@ namespace Externals.Utils.StatsSystem
 
         #region IOperatiable
 
-        public void Change(int delta, bool inverse = false)
+        public void Change(int delta, bool inverse)
         {
             if (inverse)
                 delta = -delta;
@@ -41,8 +41,11 @@ namespace Externals.Utils.StatsSystem
             }
         }
 
-        public bool CanChange(int delta, out int result)
+        public bool CanChange(int delta, out int result, bool inverse)
         {
+            if (inverse)
+                delta = -delta;
+
             if (delta > 0)
             {
                 return CanAdd(delta, out result);
@@ -58,10 +61,7 @@ namespace Externals.Utils.StatsSystem
 
         public bool TryChange(int delta, bool inverse = false)
         {
-            if (inverse)
-                delta = -delta;
-
-            if (CanChange(delta, out var result))
+            if (CanChange(delta, out var result, inverse))
             {
                 _value = result;
                 OnValueChanged?.Invoke(this, delta);
@@ -116,8 +116,9 @@ Fail:
             return false;
         }
 
-        public bool CanSet(int value)
+        public bool CanSet(int value, out int result)
         {
+            result = value;
             return true;
         }
 
@@ -164,10 +165,10 @@ Fail:
 
         public bool TrySet(int value)
         {
-            if (CanSet(value))
+            if (CanSet(value, out var result))
             {
-                int delta = value - _value;
-                _value = value;
+                int delta = result - _value;
+                _value = result;
                 OnValueChanged?.Invoke(this, delta);
                 return true;
             }

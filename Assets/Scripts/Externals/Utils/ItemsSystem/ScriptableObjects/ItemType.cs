@@ -1,7 +1,7 @@
 using Externals.Utils;
 using UnityEngine;
 
-namespace Utils.Items
+namespace Externals.Utils.Items
 {
     [CreateAssetMenu(menuName = "Items/Item Type Object")]
     public class ItemType : DevourDev.Unity.ScriptableObjects.GameDatabaseElement

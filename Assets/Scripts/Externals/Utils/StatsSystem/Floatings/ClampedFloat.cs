@@ -1,5 +1,7 @@
 ﻿using Externals.Utils.Runtime;
 using Externals.Utils.Valuables;
+using GluonGui.Dialog;
+using System.Runtime.Remoting.Messaging;
 using UnityEngine;
 using Utils;
 
@@ -280,37 +282,50 @@ namespace Externals.Utils.StatsSystem
         #endregion
 
         #region clamped amount manipulatable
-        public bool CanAddExact(float delta)
+
+
+
+        public bool CanAddExact(float delta, out float result)
         {
             if (float.IsNegative(delta) || float.IsNaN(delta))
+            {
+                result = default;
                 return false;
+            }
 
-            float desired = _value + delta;
+            result = _value + delta;
 
-            return desired <= _max && desired >= _min;
+            return result <= _max && result >= _min;
         }
 
-        public bool CanRemoveExact(float delta)
+        public bool CanRemoveExact(float delta, out float result)
         {
             if (float.IsNegative(delta) || float.IsNaN(delta))
+            {
+                result = default;
                 return false;
+            }
 
-            float desired = _value - delta;
+            result = _value - delta;
 
-            return desired <= _max && desired >= _min;
+            return result <= _max && result >= _min;
         }
 
-        public bool CanChangeExact(float delta)
+        public bool CanChangeExact(float delta, out float result)
         {
             if (delta > 0)
-                return CanAddExact(delta);
+                return CanAddExact(delta, out result);
 
             if (delta < 0)
-                return CanRemoveExact(-delta);
+                return CanRemoveExact(-delta, out result);
 
             if (delta == 0)
+            {
+                result = _value;
                 return true;
+            }
 
+            result = default;
             return false;
         }
 
@@ -393,7 +408,18 @@ namespace Externals.Utils.StatsSystem
             _value = v;
         }
 
+        public bool CanChangeExact(float delta, out float result, bool inverse)
+        {
+            if (inverse)
+                delta = -delta;
 
+            return CanChangeExact(delta, out result);
+        }
 
+        public bool CanSetExact(float value, out float result)
+        {
+            result = value;
+            return CanSet(value) && value >= _min && value <= _max;
+        }
     }
 }

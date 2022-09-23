@@ -38,7 +38,7 @@ namespace Externals.Utils.StatsSystem
             OnValueChanged?.Invoke(this, delta);
         }
 
-        public bool CanChange(float delta, out float result)
+        public bool CanChange(float delta, out float result, bool inverse)
         {
             if (!float.IsNegative(delta))
                 return CanAdd(delta, out result);
@@ -50,13 +50,11 @@ namespace Externals.Utils.StatsSystem
             return false;
         }
 
-        public bool TryChange(float delta, bool inverse = false)
+        public bool TryChange(float delta, bool inverse)
         {
-            if (inverse)
-                delta = -delta;
-
-            if (CanChange(delta, out var result))
+            if (CanChange(delta, out var result, inverse))
             {
+                delta = result - _value;
                 _value = result;
                 OnValueChanged?.Invoke(this, delta);
                 return true;
@@ -98,8 +96,9 @@ namespace Externals.Utils.StatsSystem
             return float.IsFinite(result);
         }
 
-        public bool CanSet(float value)
+        public bool CanSet(float value, out float result)
         {
+            result = value;
             return value == 0 || float.IsNormal(value);
         }
 
@@ -149,16 +148,17 @@ namespace Externals.Utils.StatsSystem
 
         public bool TrySet(float value)
         {
-            if (CanSet(value))
+            if (CanSet(value, out var result))
             {
-                float delta = value - _value;
-                _value = value;
+                float delta = result - _value;
+                _value = result;
                 OnValueChanged?.Invoke(this, delta);
                 return true;
             }
 
             return false;
         }
+
         #endregion
     }
 }

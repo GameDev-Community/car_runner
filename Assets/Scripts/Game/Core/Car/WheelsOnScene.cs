@@ -1,6 +1,6 @@
-﻿using UnityEngine;
-using Utils.Items;
-using Utils.Items.Customizables;
+﻿using Externals.Utils.Items;
+using UnityEngine;
+using Externals.Utils.Items.Customizables;
 
 namespace Game.Core.Car
 {
@@ -39,7 +39,7 @@ namespace Game.Core.Car
                 var itemScale = oldItemTr.localScale;
 
                 GameObject.Destroy(item.gameObject);
-                               
+
                 var newItemInst = GameObject.Instantiate(newItem, itemParent, false);
                 var newItemTr = newItemInst.transform;
                 newItemTr.localPosition = itemPos;

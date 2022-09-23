@@ -1,6 +1,6 @@
-﻿using UnityEngine;
-using Utils.Items;
-using Utils.Items.Customizables;
+﻿using Externals.Utils.Items;
+using Externals.Utils.Items.Customizables;
+using UnityEngine;
 
 namespace Game.Core.Car
 {

@@ -25,7 +25,7 @@ namespace Game.Garage
         public class UpgrageTier
         {
             [SerializeField] private MetaInfo _metaInfo;
-            [SerializeField] private Utils.Items.DefualtItemBehaviour _visual;
+            [SerializeField] private Externals.Utils.Items.DefualtItemBehaviour _visual;
             [SerializeField, NonReorderable] private StatModifierCreator[] _improves;
 
             [Tooltip("этот апгрейд не перезаписывает," +
@@ -71,12 +71,12 @@ namespace Game.Garage
 
             public void ApplyVisuals(CustomizableCar customizableCar)
             {
-                if(customizableCar == null)
+                if (customizableCar == null)
                 {
                     DevourRuntimeHelpers.ThrowMessageModal("Null Reference Exception: customizableCar", true);
                 }
 
-                if(_visual == null)
+                if (_visual == null)
                 {
                     DevourRuntimeHelpers.ThrowMessageModal("Null Reference Exception: " + customizableCar.name, false);
                     return;

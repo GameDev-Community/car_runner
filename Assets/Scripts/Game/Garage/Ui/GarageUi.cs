@@ -5,9 +5,61 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Game.Garage.Ui
 {
+    public abstract class CarInGarageUiBase : MonoBehaviour
+    {
+        private GarageUi _parent;
+
+
+        protected GarageUi Garage => _parent;
+
+
+        public void Init(GarageUi parent, CarObject carObject)
+        {
+            _parent = parent;
+        
+            InitInherited(carObject);
+        }
+
+
+        protected abstract void InitInherited(CarObject carObject);
+    }
+    public class AcquiredCarInGarageUi : CarInGarageUiBase
+    {
+
+        protected override void InitInherited(CarObject carObject)
+        {
+
+        }
+    }
+
+    public class UnacquiredCarInGarageUi : CarInGarageUiBase
+    {
+        [SerializeField] private Sprite _unacquiredSprite;
+        [SerializeField] private TMPro.TextMeshProUGUI _priceText;
+
+
+        protected override void InitInherited(CarObject carObject)
+        {
+            _priceText.text = "not implemented";
+        }
+    }
+
+    public class LockedCarInGarageUi : CarInGarageUiBase
+    {
+        [SerializeField] private Sprite _lockedSprite;
+
+        [SerializeField] private TMPro.TextMeshProUGUI _unlockConditions;
+
+
+        protected override void InitInherited(CarObject carObject)
+        {
+            throw new NotImplementedException();
+        }
+    }
     public class GarageUi : MonoBehaviour
     {
         [SerializeField] private CarSlotUi _carSlotPrefab;
@@ -17,6 +69,8 @@ namespace Game.Garage.Ui
         [SerializeField] private float _showingTime = 0.5f;
         [SerializeField] private float _hidingToShowingDelay = 0.3f;
         [SerializeField] private Transform _podiumPoint;
+
+        [SerializeField] private AcquiredCarInGarageUi _acqCarUi;
 
         //DEBUG
         [SerializeField] private CarObject[] _carsInShop;
@@ -28,9 +82,8 @@ namespace Game.Garage.Ui
         private GameObject _highlightedCarGO;
 
 
-        private async void OnEnable()
+        private void OnEnable()
         {
-            await Task.Delay(1000);
             BuildCarSlots(_carsInShop);
 
             //DEUBBUBBUFDSUSDIFSDFI
@@ -45,8 +98,34 @@ namespace Game.Garage.Ui
         }
 
 
+        internal void HandleCarSlotClick(CarSlotUi slot)
+        {
+            var carObj = slot.CarObject;
 
+            if (carObj == _highlightedCarObj)
+            {
+                return;
+            }
 
+            SelectActiveCar(carObj, carObj.CreateVisualsActive());
+
+            DrawSelectedCarUi();
+
+        }
+
+        private void DrawSelectedCarUi()
+        {
+            var carObj = _highlightedCarObj;
+
+            if (_garageData.AcquiredCars.Contains(carObj))
+            {
+
+            }
+            else
+            {
+                UnityEngine.Debug.Log("not contains");
+            }
+        }
 
         private void SelectActiveCar(CarObject carObject, GameObject visualCarInst)
         {
@@ -80,7 +159,7 @@ namespace Game.Garage.Ui
 
         private void SelectPlayerActiveCar()
         {
-            
+
         }
 
         private void DestroyCarSlots()
@@ -103,26 +182,5 @@ namespace Game.Garage.Ui
             _highlightedCarObj = null;
         }
 
-
-        internal void HandleCarSlotClick(CarSlotUi slot)
-        {
-            var carObj = slot.CarObject;
-
-            if (carObj == _highlightedCarObj)
-            {
-                return;
-            }
-
-            if (_garageData.AcquiredCars.Contains(carObj))
-            {
-                SelectActiveCar(carObj, carObj.CreateVisualsActive());
-            }
-            else
-            {
-                SelectActiveCar(carObj, carObj.CreateVisualsTop());
-            }
-
-
-        }
     }
 }

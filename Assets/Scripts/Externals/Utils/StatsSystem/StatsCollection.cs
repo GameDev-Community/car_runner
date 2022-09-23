@@ -97,6 +97,21 @@ namespace Externals.Utils.StatsSystem
             return false;
         }
 
+        public bool TryGetStatDataTAny<T>(StatObject stat, out T data)
+        {
+            if (TryGetStatData(stat, out var rawData))
+            {
+                if (rawData is T targetData)
+                {
+                    data = targetData;
+                    return true;
+                }
+            }
+
+            data = default;
+            return false;
+        }
+
 
 
 

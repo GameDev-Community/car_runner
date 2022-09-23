@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Utils.Items
+namespace Externals.Utils.Items
 {
     public class DefualtItemBehaviour : MonoBehaviour, IItem
     {

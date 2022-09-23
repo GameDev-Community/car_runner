@@ -1,10 +1,8 @@
 ﻿#if UNITY_EDITOR
-using UnityEngine;
-using Utils.Items;
-using UnityEditor;
 using DevourDev.Base.Reflections;
-using System.Reflection;
-using System.Collections.Generic;
+using Externals.Utils.Items;
+using UnityEditor;
+using UnityEngine;
 
 namespace Game.Core.Car
 {
@@ -59,7 +57,7 @@ namespace Game.Core.Car
                 }
 
                 wheelBeh.SetField("_wheelCollider", wcs[i]);
-                wheelBeh.SetInheritedField(typeof(DefualtItemBehaviour), "_itemType", itemsType); 
+                wheelBeh.SetInheritedField(typeof(DefualtItemBehaviour), "_itemType", itemsType);
                 wheelBehs[i] = wheelBeh;
 
                 EditorUtility.SetDirty(wheelBeh.gameObject);

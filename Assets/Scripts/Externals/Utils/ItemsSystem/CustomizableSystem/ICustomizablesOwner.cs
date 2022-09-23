@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Utils.Items.Customizables
+namespace Externals.Utils.Items.Customizables
 {
     /// <summary>
     /// объект, хранящий изменяемые штуковины

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Utils.Items.Customizables
+namespace Externals.Utils.Items.Customizables
 {
     [System.Serializable]
     public class ItemsOnScene<TItem> where TItem : DefualtItemBehaviour

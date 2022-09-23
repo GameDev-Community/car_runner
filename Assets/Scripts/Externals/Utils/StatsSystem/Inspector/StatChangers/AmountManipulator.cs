@@ -72,7 +72,7 @@ namespace Externals.Utils.StatsSystem
                             break;
                         case AmountManipulation.Change:
                             if (_try)
-                                sd.TryChange(_value);
+                                sd.TryChange(_value, false);
                             else
                                 sd.Change(_value);
                             break;

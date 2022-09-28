@@ -1,19 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7905772111337655653
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5471540ae3363b459a76bc21c603014, type: 3}
-  m_Name: TestRendererFeature
-  m_EditorClassIdentifier: 
-  m_Active: 0
-  _mat: {fileID: 2100000, guid: 9a324db819b0b9640bd5d8a67b0a74f5, type: 2}
 --- !u!114 &-1878332245247344467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f62c9c65cf3354c93be831c8bc075510, type: 3}
   m_Name: SSAO
   m_EditorClassIdentifier: 
-  m_Active: 1
+  m_Active: 0
   m_Shader: {fileID: 4800000, guid: 0849e84e3d62649e8882e9d6f056a017, type: 3}
   m_Settings:
     Downsample: 0
@@ -54,8 +40,9 @@ MonoBehaviour:
       type: 3}
   m_RendererFeatures:
   - {fileID: -1878332245247344467}
-  - {fileID: -7905772111337655653}
-  m_RendererFeatureMap: adc0de57c6d2eee59b7287bc260e4992
+  - {fileID: 6431187059107584344}
+  - {fileID: 7825805061558370903}
+  m_RendererFeatureMap: adc0de57c6d2eee55859326e8e2a40595702a4973dd89a6c
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -95,3 +82,49 @@ MonoBehaviour:
   m_ClusteredRendering: 0
   m_TileSize: 32
   m_IntermediateTextureMode: 1
+--- !u!114 &1038516348970929631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 177b21d1ddc7c174db58be47fde6a62e, type: 3}
+  m_Name: CircleWipeFeature
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  _mat: {fileID: 2100000, guid: 570bb96fc6df2c24e9eb0ec5828aad0e, type: 2}
+  _renderPassEvent: 500
+--- !u!114 &6431187059107584344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5471540ae3363b459a76bc21c603014, type: 3}
+  m_Name: ScreenBoxBlurFeature
+  m_EditorClassIdentifier: 
+  m_Active: 0
+  _renderPassEvent: 500
+  _mat: {fileID: 2100000, guid: c59d37a9ab88ffc418d3693f120cd1d2, type: 2}
+  _blurAmount: 20
+--- !u!114 &7825805061558370903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66a0ba9461c4d2f40a5d19017441496b, type: 3}
+  m_Name: CircleWipeRendererFeature
+  m_EditorClassIdentifier: 
+  m_Active: 0
+  _renderPassEvent: 500
+  _mat: {fileID: 2100000, guid: 8a22eadc15fe5354ba595afdadd268ce, type: 2}

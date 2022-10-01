@@ -8,6 +8,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/PomogiteNahui.unity
+    guid: 06fe38e60e4c51d47a252aadb2f381bb
+  - enabled: 1
+    path: Assets/Scenes/MainMenuScene.unity
+    guid: 2cdccc58fa9012c4c8ca8209f5829da1
+  - enabled: 1
+    path: Assets/Scenes/OutlineTestScene.unity
+    guid: 266e26e49e47c8546812de2bccee709c
+  - enabled: 1
+    path: Assets/Scenes/StatsTestScene.unity
+    guid: 95acf38007988c2488c259ee963517d8
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: c08825ca5085de8469cee9f68abf89d2,
       type: 2}

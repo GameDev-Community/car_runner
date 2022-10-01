@@ -7,7 +7,7 @@ Shader "Hidden/CircleWipe"
         //_Radius ("Radius", Range(0.0, 1.0)) = 1
         //_Smooth ("Smooth", Range(0.0, 1.0)) = 1
         //_Center ("Center", Vector) = (0.5, 0.5, 0, 0)
-        _Settings ("Settings (radius, smooth, centerX, centerY)", Vector) = (0.5, 0.5, 0.5, 0.5)
+        _Settings ("Settings (radius, smooth, centerX, centerY)", Vector) = (0, 0, 0.5, 0.5)
     }
     SubShader
     {

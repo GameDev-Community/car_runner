@@ -38,7 +38,7 @@ namespace Externals.Utils.Shaders
 
         protected void ExecutePasses(int passesCount, ref ScriptableRenderContext context)
         {
-            var cmd = CommandBufferPool.Get();
+            CommandBuffer cmd = CommandBufferPool.Get();
 
             //assuming passesCount > 0
 

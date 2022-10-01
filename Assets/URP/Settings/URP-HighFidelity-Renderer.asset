@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Name: ScreenBoxBlurFeature
   m_EditorClassIdentifier: 
   m_Active: 0
-  _renderPassEvent: 500
+  _renderPassEvent: 550
   _mat: {fileID: 2100000, guid: c59d37a9ab88ffc418d3693f120cd1d2, type: 2}
   _blurAmount: 20
 --- !u!114 &7825805061558370903
